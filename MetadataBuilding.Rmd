@@ -1,0 +1,377 @@
+Title
+========================================================
+```{r}
+oldPath <- "/home/CFIA-ACIA/tremblaye/2016-07-04_Rstudio_data/"
+projectPath <- "/home/CFIA-ACIA/tremblaye/"
+# projectName <- "2016-07-04_Rstudio_data/"
+projectName <- "NGS_for_Fungi_Detection/"
+sharedPath  <- paste(projectPath, projectName, sep = "")
+dir.create(paste(projectPath, projectName, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+dataNGS <- "Raw_tables/"
+sharedPathData <- paste(sharedPath, dataNGS, sep = "")
+dir.create(paste(sharedPath, dataNGS, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+```
+
+
+
+```{r}
+
+
+
+
+```
+
+
+```{r}
+install.packages("openxlsx")
+library(data.table)
+table <- list.files(path = oldPath, pattern = glob2rx(".*_table_b"), full.names=TRUE)
+
+i = 1
+for(i in 1:nrow(metadataMaster)){
+  temp <-  read.table(paste(pathDataAn, metadataMaster$table[1], sep = ""),
+                      sep = "\t", 
+                      header = TRUE, dec = ".",
+                      comment.char = "", quote = "", 
+                      stringsAsFactors=FALSE
+                      #as.is = TRUE,
+                      )
+
+taxFillDir <- "taxFillTables/"
+dir.create(paste(pathDataAn, taxFillDir, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+i <- 2
+
+for(i in 1:nrow(metadataMaster)){
+  x <- read.table(paste(pathDataAn, metadataMaster$table[i], sep = ""),
+                  sep = "\t", 
+                  header = TRUE, 
+                  dec = ",", 
+                  quote = "", 
+                  as.is = TRUE, 
+                  fileEncoding="UCS-2LE"
+                  )
+  }
+  #f <- x
+  f <- tax.fill(data=x, downstream=TRUE)
+,
+  write.table(data.frame=f, file = file.path(pathDataAn, taxFillDir, metadataMaster$ShortName[i], ".taxFill.tsv", sep = ""),
+              append    = FALSE,
+              quote     = FALSE,
+              sep       = "\t",
+              row.names = FALSE)
+}
+
+#####
+i <- 2
+
+for(i in 1:nrow(metadataMaster)){
+  x <- read.table(paste(pathDataAn, metadataMaster$table[i], sep = ""),
+                  sep = "\t", 
+                  header = TRUE, 
+                  dec = ",", 
+                  quote = "", 
+                  as.is = TRUE, 
+                  fileEncoding="UCS-2LE",
+                  colClasses=c("taxonomy"="character", "row.names"="character"))
+                 
+}
+
+i <- 3
+
+#dfList <- as.list(paste(pathDataAn, metadataMaster$table, sep = "")) 
+
+dfList <- paste(pathDataAn, metadataMaster$table, sep = "")
+
+for(i in 1:length(dfList)){
+
+x <- data.frame()
+for(i in 1:length(dfList)){
+  x <- read.table (file = dfList[8],
+                  sep = "\t", 
+                  header = TRUE, 
+                  dec = ".", 
+                  quote = "", 
+                  #as.is = TRUE, 
+                  #fileEncoding="UCS-2LE",
+                  #stringsAsFactors = TRUE,
+                  #na.strings = 0,
+                  colClasses=c("taxonomy"="character", "row.names"="character", "^(?!taxonomy$|row.names)"="numeric"))
+ # f <- tax.fill(data=x, downstream=TRUE) 
+  
+                 
+}
+
+i <- 1
+test <- list()
+for(i in 1:length(countsListTopHat)){
+test[[i]]
+
+is.numeric(x)
+```
+
+```{r}
+dfList <- paste(pathDataAn, metadataMaster$table, sep = "")
+
+test2 <- lapply(dfList, function(i) {
+  x <- read.table (i,
+                  sep = "\t", 
+                  header = TRUE, 
+                  dec = ".", 
+                  quote = "", 
+                  as.is = TRUE, 
+                  fileEncoding="UCS-2LE",
+                  stringsAsFactors = TRUE,
+                  colClasses=c("taxonomy"="character"))
+})
+
+
+dfList <- paste(pathDataAn, metadataMaster$table, sep = "")
+test2 <- lapply(dfList, function(i) {
+  x <- read.table (file = dfList[i],
+                  sep = "\t", 
+                  header = TRUE, 
+                  dec = ".", 
+                  quote = "", 
+                  as.is = TRUE, 
+                  fileEncoding="UCS-2LE",
+                  stringsAsFactors = TRUE,
+                  colClasses=c("taxonomy"="character"))
+})
+
+```
+
+
+
+########
+
+# Error from this:
+# Error in valid.OTU(data) : OTU data other than taxonomic information is not numeric in otu1. Please fix the data and try again.
+summary(x$taxonomy)
+summary(x$EM13S03)
+is.character(x$taxonomy) #true
+is.character(x$EM13S03) #false
+
+i <- 2
+x <- read.table(paste(pathDataAn, metadataMaster$meta[i],  sep = ""),
+                header       = TRUE)
+
+data(x)
+#\code{filter.OTU} returns a list
+otu <- filter.OTU(data=list(ITS1=ITS1), percent=0.001)[[1]]
+tax.fill(otu)  
+
+
+# Stopped here
+######################################
+#2016-08-29
+f <- tax.fill(data=metadataMaster$table, downstream=TRUE) 
+
+
+
+i = 1
+for(i in 1:length(table)){
+  df<- tax.fill(data=get(table[i]), downstream=TRUE)   
+  write.table(df, file = paste(table[i], "_b.tsv", sep = ""), sep="\t")
+}
+
+i = 1
+for(i in 1:length(meta)){  
+  write.table(get(meta[i]), file = paste(meta[i], "_b.tsv", sep = ""), sep="\t")
+}
+
+```
+
+
+```{r}
+library("reshape2")
+blist1 <- list.files(path = sharedPathData, pattern = glob2rx("^metadata*"), full.names=TRUE)
+blist2 <- list.files(path = sharedPathData, pattern = glob2rx("*_table_*"), full.names=TRUE)
+
+metadata1 <- data.frame(blist1)
+metadata2 <- data.frame(blist2)
+
+colnames(metadata1)[1] <- "FilePath"
+colnames(metadata2)[1] <- "FilePath"
+
+#FileName fixing for metadata files:
+metadata1$FileName     <- basename(blist1)
+metadata1$ShortName    <- sub("metadata-", "meta_", metadata1$FileName, ignore.case = FALSE)
+metadata1$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata1$ShortName, ignore.case = FALSE)
+metadata1$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata1$ShortName, ignore.case = FALSE)
+metadata1$ShortName    <- sub("-", "_", metadata1$ShortName, ignore.case = FALSE)
+parsedCol1             <- data.frame(matrix(unlist(strsplit(as.character(metadata1$ShortName), "_")),
+                                            nrow  = length(metadata1$ShortName), 
+                                            byrow = TRUE), stringsAsFactors = FALSE)
+colnames(parsedCol1)   <- c("DataType", "RunNum", "Primer")
+metadata1$ShortName    <- paste(parsedCol1$Primer, parsedCol1$RunNum, parsedCol1$DataType, sep = ".")
+metadata1$ShortName    <- tolower(metadata1$ShortName)
+
+#FileName fixing for table files:
+metadata2$FileName     <- basename(blist2)
+metadata2$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata2$FileName, ignore.case = FALSE)
+metadata2$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata2$ShortName, ignore.case = FALSE)
+metadata2$ShortName    <- sub("*.otu_table_taxo$|*.otu_table_taxoV2$", "", metadata2$ShortName, ignore.case = FALSE)
+metadata2$ShortName    <- sub("^", "table_", metadata2$ShortName, ignore.case = FALSE)
+parsedCol2             <- data.frame(matrix(unlist(strsplit(as.character(metadata2$ShortName), "_")),
+                                            nrow  = length(metadata2$ShortName), 
+                                            byrow = TRUE), stringsAsFactors = FALSE)
+colnames(parsedCol2)   <- c("DataType", "Primer", "RunNum")
+metadata2$ShortName    <- paste(parsedCol2$Primer, parsedCol2$RunNum, parsedCol2$DataType, sep = ".")
+metadata2$ShortName    <- tolower(metadata2$ShortName)
+
+# Combine metadata1 and metadata2:
+metadataRaw <- rbind(metadata1, metadata2)
+parsedCol   <- data.frame(matrix(unlist(strsplit(as.character(metadataRaw$ShortName), "\\.")), 
+                                 nrow  = length(metadataRaw$ShortName), 
+                                 byrow = TRUE), stringsAsFactors = FALSE)
+colnames(parsedCol) <- c("Primer", "RunNum", "DataType")
+metadata            <- cbind(parsedCol[,c(1:3)], metadataRaw)
+metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
+metadata$DirPath    <- paste(sharedPathData)
+
+
+# Copy the raw data files to an analysis directory, rename by shortname
+dir.create(paste(sharedPath, "dataAn/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+pathDataAn <- paste(sharedPath, "dataAn/", sep = "")
+
+for(k in 1:nrow(metadata)){
+cmd <- paste("cp ",
+             metadata$FilePath[k],
+             " ",
+             pathDataAn, 
+             metadata$ShortName[k], ".", metadata$DataType[k], ".tsv",
+             sep = "")
+system(cmd)
+}
+
+metadata$DataAnFilePath <- pathDataAn
+metadata$DataAnFileName <- paste(metadata$ShortName, ".", metadata$DataType, ".tsv", sep = "")
+
+metadataMaster <- dcast(data = metadata,
+                        Primer + RunNum + DataAnFilePath + ShortName
+                        ~ DataType,
+                        value.var = "DataAnFileName",
+                        FUN       = c)
+
+write.table(metadataMaster, 
+            file      = paste(sharedPath, "My_MetadataTable2.tsv", sep = ""), 
+            append    = FALSE,
+            quote     = FALSE,
+            sep       = "\t", 
+            row.names = FALSE)
+
+# list2 <- (list.files(pattern="meta.div*.", full.names=TRUE))
+
+```
+
+Ecrire ta table de meta (tracabilité man!)
+```{r}
+i = 1
+for(i in 1:length(meta)){
+  df<- read.meta(file=(blist2[i]), sep="\t")  
+  write.table(df, file = paste(meta[i], "_b", sep = ""), sep="\t")
+}
+
+blist2 <- basename(list.files(pattern="_meta_b", full.names=TRUE))
+
+i = 1
+for(i in 1:length(meta)){
+  #df<- tax.fill(data=get(table[i]), downstream=TRUE)   
+  write.table(get(meta[i]), file = paste(meta[i], "_b", sep = ""), sep="\t")
+  #return(df)
+}
+```
+
+
+Next:
+```{r}
+i = 1
+for(i in 1:length(clist)){
+  temp <- list(clist[i])  
+  write.table(temp, file = file.path(paste(workingPath, clist[i], "_df", sep = "")))
+}
+
+```
+
+
+
+```{r}
+dfList <- lapply(clist, function(i) {
+  df <- list(data=clist)
+
+})
+
+df <- ldply(clist, data.frame)
+
+dfList <- lapply(clist, function(i) {
+  df <- list(i) 
+  })
+
+clist <- (list.files(path=workingPath, pattern="_table_b_c", full.names=TRUE))
+```
+
+```{r}
+data1f=list(data=ITS1F_run1_table)
+meta.diversity.run1.its1f<-OTU.diversity(data=data1f, meta=ITS1F_run1_meta)
+
+for (i in 1:length(clist)) assign(clist[i], read.table(clist[i], sep="\t"))
+
+i = 1
+for(i in 1:length(blist)){
+  temp <- list(data=get(blist[i]))   
+ #temp <- setNames(temp, clist)#file = file.path(paste(workingPath, table2[i], ".tsv", sep = "")),
+              #append = FALSE, sep = "\t", col.names = NA, quote = FALSE)
+  #print(cmd)
+}
+
+temp <- setNames(temp, clist)
+
+clist = basename(grep("_table_b_c", grep("run", value=TRUE, ls(all.names=TRUE)), value=TRUE))
+
+clist <- list.files(path = workingPath, pattern = glob2rx("_"), full.names=TRUE)
+
+files <- list.files(path = workingPath, pattern = glob2rx("_table_b"), full.names=TRUE)
+```
+
+
+```{r}
+tblecList <- list.files(pattern="*table_b_c")
+
+i = 1
+for(i in 1:length(tblecList)){
+  df2<- read.OTU(tblecList[i], sep="\t")   
+  #dfList <- list(file = paste(tblecList[i], "_df", sep = ""))
+  #return(df)
+}
+
+salut <- list(salut='ITS1F_run12_table_b_c')
+
+temp = list.files(pattern="*_table.tsv")
+for (i in 1:length(list)) assign(list[i], read.table(list[i], sep="\t", quote="", header=TRUE, as.is=FALSE, row.names=NULL))
+
+```
+#List your datasets for diversity index. This adds a column in a new diversity metadata file
+```{r}
+
+
+
+i = 1
+for(i in 1:length(blist)){
+  df<- read.OTU(file=get(blist[i]), sep="\t")   
+  write.table(df, file = paste(blist[i], "_c", sep = ""), sep="\t")
+  return(df)
+}
+
+data1f=list(data=ITS1F_run1_table)
+meta.diversity.run1.its1f<-OTU.diversity(data=data1f, meta=ITS1F_run1_meta)
+
+```
