@@ -19,9 +19,7 @@ dir.create(paste(sharedPath, dataNGS, sep = ""),
 
 
 ```{r}
-
-
-
+install.packages("RAM")
 
 ```
 
