@@ -1,6 +1,6 @@
 Emilie's script for metagenomics _mod_EMT
 ========================================================
-
+#Bilodeau mod
 ```{r}
 install.packages("openxlsx")
 library(data.table)
@@ -41,7 +41,7 @@ sharedPathDataEm <- paste(sharedPathEm, dataNGS, sep = "")
 pathDataAnEm <- paste(sharedPathEm, "dataAn/", sep = "")
 ```
 
-
+*
 Setting up the metadata tables - this is to be customized for your data, don't re-run blindly.
 ```{r}
 library("reshape2")
