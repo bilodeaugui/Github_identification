@@ -1,4 +1,4 @@
-Emilie's script for metagenomics
+Emilie's script for metagenomics _mod_EMT
 ========================================================
 
 ```{r}
