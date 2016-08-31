@@ -1,6 +1,6 @@
 Emilie's script for metagenomics
 ========================================================
-
+#Bilodeau mod
 ```{r}
 install.packages("openxlsx")
 library(data.table)
