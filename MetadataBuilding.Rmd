@@ -1,4 +1,4 @@
-Title hello
+Emilie's script for metagenomics
 ========================================================
 
 ```{r}
