@@ -3,23 +3,31 @@ Title hello
 ```{r}
 oldPath <- "/home/CFIA-ACIA/tremblaye/2016-07-04_Rstudio_data/"
 projectPath <- "/home/CFIA-ACIA/tremblaye/"
+
 # projectName <- "2016-07-04_Rstudio_data/"
 projectName <- "NGS_for_Fungi_Detection/"
 sharedPath  <- paste(projectPath, projectName, sep = "")
 dir.create(paste(projectPath, projectName, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
+
 dataNGS <- "Raw_tables/"
 sharedPathData <- paste(sharedPath, dataNGS, sep = "")
 dir.create(paste(sharedPath, dataNGS, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
+
+projectPathEm <- "/home/AAFC-AAC/girouxem/"
+sharedPathEm  <- paste(projectPathEm, projectName, sep = "")
+sharedPathDataEm <- paste(sharedPathEm, dataNGS, sep = "")
+pathDataAnEm <- paste(sharedPathEm, "dataAn/", sep = "")
 ```
 
 
 
 ```{r}
-install.packages("RAM")
+
+
 
 ```
 
@@ -27,23 +35,48 @@ install.packages("RAM")
 ```{r}
 install.packages("openxlsx")
 library(data.table)
-table <- list.files(path = oldPath, pattern = glob2rx(".*_table_b"), full.names=TRUE)
 
-i = 1
-for(i in 1:nrow(metadataMaster)){
-  temp <-  read.table(paste(pathDataAn, metadataMaster$table[1], sep = ""),
-                      sep = "\t", 
-                      header = TRUE, dec = ".",
-                      comment.char = "", quote = "", 
-                      stringsAsFactors=FALSE
-                      #as.is = TRUE,
-                      )
+# Note, even after Iyad added the dependencies, while it worked in my CFIA-ACIA seesion, 
+# coming back to AAFC it required me to get the following packages, so the dependencies 
+# installed cluster-wide in the last RedMine were not sufficient, add the following too.
+# Should see why there is such issues happening now as well.
+install.packages("RAM")
+install.packages("caTools")
+install.packages("RJSONIO")
+install.packages("proto")
+install.packages("nnls")
+install.packages("quadprog")
 
+library("RAM")
 taxFillDir <- "taxFillTables/"
 dir.create(paste(pathDataAn, taxFillDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
+taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
 
+
+## Almost have it - tax.fill  works! now just need to loop through metadataMaster list!
+i <- 1
+for(i in 1:nrow(metadataMaster)){
+  temp <-  read.table(paste(pathDataAn, metadataMaster$table[i], sep = ""),
+                      sep = "\t", 
+                      header = TRUE, dec = ".",
+                      comment.char = "", quote = "", 
+                      stringsAsFactors = TRUE,
+                      as.is = TRUE,
+                      colClasses=c("taxonomy"="character"))
+  temp2 <- temp
+  temp2$row.names <- NULL
+  temp2 <- tax.fill(temp2, downstream=TRUE)
+  temp$taxonomy <- temp2$taxonomy
+  write.table(temp, file = file.path(paste(pathDataAn, "taxFillTables/", sep = ""), 
+              metadataMaster$ShortName, ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              col.names = NA)
+  }
+
+  
 i <- 2
 
 for(i in 1:nrow(metadataMaster)){
@@ -58,7 +91,7 @@ for(i in 1:nrow(metadataMaster)){
   }
   #f <- x
   f <- tax.fill(data=x, downstream=TRUE)
-,
+
   write.table(data.frame=f, file = file.path(pathDataAn, taxFillDir, metadataMaster$ShortName[i], ".taxFill.tsv", sep = ""),
               append    = FALSE,
               quote     = FALSE,
@@ -189,8 +222,8 @@ for(i in 1:length(meta)){
 
 ```{r}
 library("reshape2")
-blist1 <- list.files(path = sharedPathData, pattern = glob2rx("^metadata*"), full.names=TRUE)
-blist2 <- list.files(path = sharedPathData, pattern = glob2rx("*_table_*"), full.names=TRUE)
+blist1 <- list.files(path = sharedPathDataEm, pattern = glob2rx("*meta*"), full.names=TRUE)
+blist2 <- list.files(path = sharedPathDataEm, pattern = glob2rx("*table*"), full.names=TRUE)
 
 metadata1 <- data.frame(blist1)
 metadata2 <- data.frame(blist2)
@@ -240,6 +273,7 @@ dir.create(paste(sharedPath, "dataAn/", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 pathDataAn <- paste(sharedPath, "dataAn/", sep = "")
+
 
 for(k in 1:nrow(metadata)){
 cmd <- paste("cp ",
