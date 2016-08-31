@@ -155,8 +155,66 @@ for(i in 1:nrow(metadataMaster)){
 }  
  
 ```
+add a column to the metadata file with the tax.fill tables
+
+```{r}
+library("reshape2")
+
+taxList <- list.files(path = taxFillPath, pattern = glob2rx("*taxFill.tsv*"), full.names=TRUE)
+
+metaTax <- data.frame(taxList)
+
+colnames(metaTax)[1] <- "taxPath"
+
+metaTax$taxName     <- basename(taxList)
 
 
+
+# Combine meta_change and metadataRaw:
+
+meta_change         <- cbind(parsedCol[,c(1)], metadataRaw2)
+metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
+metadata$DirPath    <- paste(sharedPathData)
+
+
+parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(meta_change$taxFill), "\\//")), 
+                                 nrow  = length(meta_change$TaxFill), 
+                                 byrow = TRUE), stringsAsFactors = FALSE)
+
+# Copy the raw data files to an analysis directory, rename by shortname
+dir.create(paste(sharedPath, "dataAn/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+pathDataAn <- paste(sharedPath, "dataAn/", sep = "")
+
+
+for(k in 1:nrow(metadata)){
+cmd <- paste("cp ",
+             metadata$FilePath[k],
+             " ",
+             pathDataAn, 
+             metadata$ShortName[k], ".", metadata$DataType[k], ".tsv",
+             sep = "")
+system(cmd)
+}
+
+metadata$DataAnFilePath <- pathDataAn
+metadata$DataAnFileName <- paste(metadata$ShortName, ".", metadata$DataType, ".tsv", sep = "")
+
+metadataMaster <- dcast(data = metadata,
+                        Primer + RunNum + DataAnFilePath + ShortName
+                        ~ DataType,
+                        value.var = "DataAnFileName",
+                        FUN       = c)
+
+write.table(metadataMaster, 
+            file      = paste(sharedPath, "My_MetadataTable2.tsv", sep = ""), 
+            append    = FALSE,
+            quote     = FALSE,
+            sep       = "\t", 
+            row.names = FALSE)
+
+```
 
 Ecrire ta table de meta (tracabilité man!)
 ```{r}
