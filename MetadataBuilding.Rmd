@@ -156,18 +156,6 @@ for(i in 1:nrow(metadataMaster)){
   
 ```
 
-```{r}
-
-
-```
-
-
-
-  
-
-
-
-
 
 
 Ecrire ta table de meta (tracabilité man!)
