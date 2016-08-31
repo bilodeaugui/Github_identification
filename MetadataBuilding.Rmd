@@ -125,7 +125,7 @@ write.table(metadataMaster,
             row.names = FALSE)
 
 ```
-
+tax.fill to remove uncertae sedis, unclassified...
 
 ```{r}
 library("RAM")
@@ -161,14 +161,25 @@ add a column to the metadata file with the tax.fill tables
 library("reshape2")
 
 taxList <- list.files(path = taxFillPath, pattern = glob2rx("*taxFill.tsv*"), full.names=TRUE)
-
 metaTax <- data.frame(taxList)
-
 colnames(metaTax)[1] <- "taxPath"
-
 metaTax$taxName     <- basename(taxList)
 
 
+#metaTax$taxPath    <- sub("\\taxFillTables/.*","", metaTax$taxPath, ignore.case = FALSE)
+                      sub("\\taxFillTables/.*","\\taxFillTables/",my.data$LANDING)            
+
+
+#parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(metadataRaw2$taxPath), sub("taxFillTables/\\S*", "", string))), 
+                                 nrow  = length(metadataRaw2$taxPath), 
+                                 byrow = TRUE), stringsAsFactors = FALSE)
+colnames(parsedCol) <- c("Primer", "RunNum", "DataType")
+metadata            <- cbind(parsedCol[,c(1:3)], metadataRaw)
+metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
+metadata$DirPath    <- paste(sharedPathData)
+
+
+# Copy the raw data files to an analysis directory, rename by shortname
 
 # Combine meta_change and metadataRaw:
 
