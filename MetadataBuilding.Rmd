@@ -192,7 +192,15 @@ Add-up your two new columns (taxPath and taxName) to the end of the metadata fil
 metadataMaster2$taxPath     <- metaTax$taxPath
 metadataMaster2$taxName     <- metaTax$taxName
 ```
-
+write the precious table you just made 
+```{r}
+write.table(metadataMasterTax, 
+            file      = paste(sharedPath, "metadataMasterTax.tsv", sep = ""), 
+            append    = FALSE,
+            quote     = FALSE,
+            sep       = "\t", 
+            row.names = FALSE)
+```
 
 #parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(metadataRaw2$taxPath), sub("taxFillTables/\\S*", "", string))), 
                                  nrow  = length(metadataRaw2$taxPath), 
