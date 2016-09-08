@@ -234,7 +234,12 @@ for(i in 1:nrow(metadataMasterTax)){
   #transList <- setNames(transList, trans2)
   data=list(data=trans2[i])
   
-  temp2 <- OTU.diversity(trans2, temp2)
+  temp2[i] <- OTU.diversity(data=trans2[i], meta=temp2[i])
+  
+ # Error in OTU.diversity(trans2, temp2) : 
+ # please provide otu tables as list; see ?RAM.input.formatting
+ # is.list(trans2)
+ # [1] TRUE
   
   temp$taxonomy <- temp2$taxonomy
   
@@ -244,16 +249,5 @@ for(i in 1:nrow(metadataMasterTax)){
               row.names = FALSE)
 }
 
-
-#old
-i = 1
-for(i in 1:length(blist)){
-  df<- read.OTU(file=get(blist[i]), sep="\t")   
-  write.table(df, file = paste(blist[i], "_c", sep = ""), sep="\t")
-  return(df)
-}
-
-data1f=list(data=ITS1F_run1_table)
-meta.diversity.run1.its1f<-OTU.diversity(data=data1f, meta=ITS1F_run1_meta)
 
 ```
