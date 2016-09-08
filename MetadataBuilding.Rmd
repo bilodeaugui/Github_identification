@@ -227,12 +227,14 @@ for(i in 1:nrow(metadataMasterTax)){
   
   trans <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE)
   trans2 <- trans
   trans2$row.names <- NULL #to unactivate numbers generated in the margin
-  transList=list(data=trans2)
+  #transList <-list(trans2, check.names = FALSE)
+  #transList <- setNames(transList, trans2)
+  data=list(data=trans2[i])
   
-  temp2 <- OTU.diversity(data=trans2, meta=temp2)
+  temp2 <- OTU.diversity(trans2, temp2)
   
   temp$taxonomy <- temp2$taxonomy
   
