@@ -155,19 +155,43 @@ for(i in 1:nrow(metadataMaster)){
 }  
  
 ```
-add a column to the metadata file with the tax.fill tables
+Add a column to the metadata file with the tax.fill tables (steps 1-6)
+1-make a list of the filenames
 
 ```{r}
 library("reshape2")
-
 taxList <- list.files(path = taxFillPath, pattern = glob2rx("*taxFill.tsv*"), full.names=TRUE)
+```
+2-Tell R it is a dataframe
+
+```{r}
 metaTax <- data.frame(taxList)
+```
+3-Give header name to the column being built
+
+```{r}
 colnames(metaTax)[1] <- "taxPath"
+```
+4-Build a 2nd colum with file name only 
+
+```{r}
 metaTax$taxName     <- basename(taxList)
+```
+5-Cut basename from the path name
 
-
-#metaTax$taxPath    <- sub("\\taxFillTables/.*","", metaTax$taxPath, ignore.case = FALSE)
-                      sub("\\taxFillTables/.*","\\taxFillTables/",my.data$LANDING)            
+```{r}
+metaTax$taxPath <- sub('([^//]+\\//).*', '\\1', metaTax$taxPath)
+#Here, we match all characters that are not ? ([^?]+) followed by ? (\\?) and use parentheses to capture as a group (([^?]+\\?)), and we leave the rest of characters not in the group (./*).
+```
+6-Remove last /
+```{r}
+metaTax$taxPath <- substr(metaTax$taxPath, 1, nchar(metaTax$taxPath)-1) 
+```
+Add-up your two new columns (taxPath and taxName) to the end of the metadata file
+```{r}
+metadataMaster2$taxPath     <- metaTax$taxPath
+metadataMaster2$taxName     <- metaTax$taxName
+```
 
 
 #parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(metadataRaw2$taxPath), sub("taxFillTables/\\S*", "", string))), 
@@ -188,9 +212,7 @@ metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
 metadata$DirPath    <- paste(sharedPathData)
 
 
-parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(meta_change$taxFill), "\\//")), 
-                                 nrow  = length(meta_change$TaxFill), 
-                                 byrow = TRUE), stringsAsFactors = FALSE)
+colnames(parsedColtax)  <- c(taxPath, taxName)
 
 # Copy the raw data files to an analysis directory, rename by shortname
 dir.create(paste(sharedPath, "dataAn/", sep = ""),
