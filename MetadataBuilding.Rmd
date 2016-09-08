@@ -130,7 +130,6 @@ tax.fill to remove uncertae sedis, unclassified...
 ```{r}
 library("RAM")
 
-
 taxFillDir <- "taxFillTables/"
 dir.create(paste(pathDataAn, taxFillDir, sep = ""),
            showWarnings = TRUE,
@@ -155,7 +154,7 @@ for(i in 1:nrow(metadataMaster)){
 }  
  
 ```
-Add a column to the metadata file with the tax.fill tables (steps 1-6)
+Add 2 columns to the metadata file with the tax.fill tables names and paths (steps 1-6)
 1-make a list of the filenames
 
 ```{r}
@@ -181,7 +180,7 @@ metaTax$taxName     <- basename(taxList)
 
 ```{r}
 metaTax$taxPath <- sub('([^//]+\\//).*', '\\1', metaTax$taxPath)
-#Here, we match all characters that are not ? ([^?]+) followed by ? (\\?) and use parentheses to capture as a group (([^?]+\\?)), and we leave the rest of characters not in the group (./*).
+#Here, we match all characters that are not ? ([^?]+) followed by ? (\\?) and use parentheses to capture as a group (([^?]+\\?)), and we leave the rest of characters not in the group (./*). (http://stackoverflow.com/questions/10150579/adding-a-column-to-a-data-frame)
 ```
 6-Remove last /
 ```{r}
@@ -202,152 +201,49 @@ write.table(metadataMasterTax,
             row.names = FALSE)
 ```
 
-#parsedColtax   <- data.frame(matrix(unlist(strsplit(as.character(metadataRaw2$taxPath), sub("taxFillTables/\\S*", "", string))), 
-                                 nrow  = length(metadataRaw2$taxPath), 
-                                 byrow = TRUE), stringsAsFactors = FALSE)
-colnames(parsedCol) <- c("Primer", "RunNum", "DataType")
-metadata            <- cbind(parsedCol[,c(1:3)], metadataRaw)
-metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
-metadata$DirPath    <- paste(sharedPathData)
-
-
-# Copy the raw data files to an analysis directory, rename by shortname
-
-# Combine meta_change and metadataRaw:
-
-meta_change         <- cbind(parsedCol[,c(1)], metadataRaw2)
-metadata$ShortName  <- paste(metadata$Primer, metadata$RunNum, sep = ".")
-metadata$DirPath    <- paste(sharedPathData)
-
-
-colnames(parsedColtax)  <- c(taxPath, taxName)
-
-# Copy the raw data files to an analysis directory, rename by shortname
-dir.create(paste(sharedPath, "dataAn/", sep = ""),
+Create diversity directory and path. List your datasets for diversity index. This adds a column in a new diversity metadata file.
+```{r}
+diversityDir <- "diversityDir/"
+dir.create(paste(pathDataAn, diversityDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-pathDataAn <- paste(sharedPath, "dataAn/", sep = "")
+diversityPath <- paste(pathDataAn, diversityDir, sep = "")
 
 
-for(k in 1:nrow(metadata)){
-cmd <- paste("cp ",
-             metadata$FilePath[k],
-             " ",
-             pathDataAn, 
-             metadata$ShortName[k], ".", metadata$DataType[k], ".tsv",
-             sep = "")
-system(cmd)
-}
+#initial
 
-metadata$DataAnFilePath <- pathDataAn
-metadata$DataAnFileName <- paste(metadata$ShortName, ".", metadata$DataType, ".tsv", sep = "")
-
-metadataMaster <- dcast(data = metadata,
-                        Primer + RunNum + DataAnFilePath + ShortName
-                        ~ DataType,
-                        value.var = "DataAnFileName",
-                        FUN       = c)
-
-write.table(metadataMaster, 
-            file      = paste(sharedPath, "My_MetadataTable2.tsv", sep = ""), 
-            append    = FALSE,
-            quote     = FALSE,
-            sep       = "\t", 
-            row.names = FALSE)
-
-```
-
-Ecrire ta table de meta (tracabilité man!)
-```{r}
-i = 1
-for(i in 1:length(meta)){
-  df<- read.meta(file=(blist2[i]), sep="\t")  
-  write.table(df, file = paste(meta[i], "_b", sep = ""), sep="\t")
-}
-
-blist2 <- basename(list.files(pattern="_meta_b", full.names=TRUE))
-
-i = 1
-for(i in 1:length(meta)){
-  #df<- tax.fill(data=get(table[i]), downstream=TRUE)   
-  write.table(get(meta[i]), file = paste(meta[i], "_b", sep = ""), sep="\t")
-  #return(df)
-}
-```
-
-
-Next:
-```{r}
-i = 1
-for(i in 1:length(clist)){
-  temp <- list(clist[i])  
-  write.table(temp, file = file.path(paste(workingPath, clist[i], "_df", sep = "")))
-}
-
-```
-
-
-
-```{r}
-dfList <- lapply(clist, function(i) {
-  df <- list(data=clist)
-
-})
-
-df <- ldply(clist, data.frame)
-
-dfList <- lapply(clist, function(i) {
-  df <- list(i) 
-  })
-
-clist <- (list.files(path=workingPath, pattern="_table_b_c", full.names=TRUE))
-```
-
-```{r}
-data1f=list(data=ITS1F_run1_table)
+data1f=list(data=ITS1F_run1_table)# needed..
 meta.diversity.run1.its1f<-OTU.diversity(data=data1f, meta=ITS1F_run1_meta)
+#base from previous function
 
-for (i in 1:length(clist)) assign(clist[i], read.table(clist[i], sep="\t"))
+i <- 1
 
-i = 1
-for(i in 1:length(blist)){
-  temp <- list(data=get(blist[i]))   
- #temp <- setNames(temp, clist)#file = file.path(paste(workingPath, table2[i], ".tsv", sep = "")),
-              #append = FALSE, sep = "\t", col.names = NA, quote = FALSE)
-  #print(cmd)
+for(i in 1:nrow(metadataMasterTax)){
+  temp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+  temp2 <- temp
+  temp2$row.names <- NULL #to unactivate numbers generated in the margin
+  
+  trans <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+  trans2 <- trans
+  trans2$row.names <- NULL #to unactivate numbers generated in the margin
+  transList=list(data=trans2)
+  
+  temp2 <- OTU.diversity(data=trans2, meta=temp2)
+  
+  temp$taxonomy <- temp2$taxonomy
+  
+  write.table(temp, file=paste(pathDataAn, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE)
 }
 
-temp <- setNames(temp, clist)
 
-clist = basename(grep("_table_b_c", grep("run", value=TRUE, ls(all.names=TRUE)), value=TRUE))
-
-clist <- list.files(path = workingPath, pattern = glob2rx("_"), full.names=TRUE)
-
-files <- list.files(path = workingPath, pattern = glob2rx("_table_b"), full.names=TRUE)
-```
-
-
-```{r}
-tblecList <- list.files(pattern="*table_b_c")
-
-i = 1
-for(i in 1:length(tblecList)){
-  df2<- read.OTU(tblecList[i], sep="\t")   
-  #dfList <- list(file = paste(tblecList[i], "_df", sep = ""))
-  #return(df)
-}
-
-salut <- list(salut='ITS1F_run12_table_b_c')
-
-temp = list.files(pattern="*_table.tsv")
-for (i in 1:length(list)) assign(list[i], read.table(list[i], sep="\t", quote="", header=TRUE, as.is=FALSE, row.names=NULL))
-
-```
-#List your datasets for diversity index. This adds a column in a new diversity metadata file
-```{r}
-
-
-
+#old
 i = 1
 for(i in 1:length(blist)){
   df<- read.OTU(file=get(blist[i]), sep="\t")   
