@@ -203,6 +203,8 @@ write.table(metadataMasterTax,
 ```
 
 Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
+Indices obtained (in this specific order) are: Spec Number,  Simpson data,	Inv simpson data,	Shannon data,	Simpson eveness,	Shannon eveness,	Simpson true diversity,	shannon true diversity,	chao,	ACE.
+
 ```{r}
 diversityDir <- "diversityDir/"
 dir.create(paste(pathDataAn, diversityDir, sep = ""),
