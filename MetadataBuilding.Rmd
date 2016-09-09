@@ -202,7 +202,7 @@ write.table(metadataMasterTax,
             row.names = FALSE)
 ```
 
-Create diversity directory and path. List your datasets for diversity index. This adds a bunch of columns in a new diversity metadata file.
+Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
 ```{r}
 diversityDir <- "diversityDir/"
 dir.create(paste(pathDataAn, diversityDir, sep = ""),
@@ -231,7 +231,14 @@ for(i in 1:nrow(metadataMasterTax)) {
   write.table(temp2, file=paste(pathDataAn, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
-              row.names = FALSE)
+              row.names = FALSE,
+              quote=FALSE)
   }
+
+```
+
+
+```{r}
+
 
 ```
