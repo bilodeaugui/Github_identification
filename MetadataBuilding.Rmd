@@ -202,7 +202,7 @@ write.table(metadataMasterTax,
             row.names = FALSE)
 ```
 
-Create diversity directory and path. List your datasets for diversity index. This adds a column in a new diversity metadata file.
+Create diversity directory and path. List your datasets for diversity index. This adds a bunch of columns in a new diversity metadata file.
 ```{r}
 diversityDir <- "diversityDir/"
 dir.create(paste(pathDataAn, diversityDir, sep = ""),
@@ -211,54 +211,6 @@ dir.create(paste(pathDataAn, diversityDir, sep = ""),
 diversityPath <- paste(pathDataAn, diversityDir, sep = "")
 
 
-#initial
-
-data1f=list(data=ITS1F_run1_table)# needed..
-meta.diversity.run1.its1f<-OTU.diversity(data=data1f, meta=ITS1F_run1_meta)
-#base from previous function
-
-i <- 1
-
-for(i in 1:nrow(metadataMasterTax)){
-  temp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE)
-  temp2 <- temp
-  temp2$row.names <- NULL #to unactivate numbers generated in the margin
-  
-  trans <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
-  
-  trans2 <- trans
-  trans2$row.names <- NULL #to unactivate numbers generated in the margin
-  data=list(trans2, all.names=TRUE)
-  temp2 <- OTU.diversity(data=trans2, meta=temp2)
-  }
-  
-  
-  }
- # list_df = lapply(trans2, get)
-  #transList <-list(trans2, check.names = FALSE)
-  #transList <- setNames(transList, trans2)
- # data=list(data=trans2)
-  #data=list(data=trans2[i])
- # temp2[i] <- OTU.diversity(data=trans2[i], meta=temp2[i])
-  
- # Error in OTU.diversity(trans2, temp2) : 
- # please provide otu tables as list; see ?RAM.input.formatting
- # is.list(trans2)
- # [1] TRUE
-  
-  temp$diversity <- temp2$diversity
-  
-  write.table(temp, file=paste(pathDataAn, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
-              append    = FALSE,
-              sep       = "\t",
-              row.names = FALSE)
-}
-
-#test from WONG
 i <- 1
 for(i in 1:nrow(metadataMasterTax)) {
   temp <- read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
@@ -266,7 +218,6 @@ for(i in 1:nrow(metadataMasterTax)) {
                       as.is = TRUE)
  
   temp$row.names <- NULL
-  i <- 1
 
   trans <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -275,14 +226,12 @@ for(i in 1:nrow(metadataMasterTax)) {
   trans$row.names <- NULL
   
   rownames(temp) <- colnames(trans)[-ncol(trans)]
-   }
-  
+   
   temp2 <- OTU.diversity(data = list(data = trans), meta = temp)
   write.table(temp2, file=paste(pathDataAn, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE)
   }
-
 
 ```
