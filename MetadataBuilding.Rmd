@@ -238,9 +238,38 @@ for(i in 1:nrow(metadataMasterTax)) {
   }
 
 ```
-
+Create summary barplot about your OTU 
 
 ```{r}
+ranks <- c("k","p","c","o","f","g","s")
+#old
 
+      tiff(filename = paste(param, ".tif", sep = ""), width = 800, height = 600, units = "px")
+      OTU.recap(data=get(param), ranks=ranks, brewer.pal="Set3")
+      dev.off()
+#base
+otuRecapDir <- "otuRecap/"
+dir.create(paste(pathDataAn, otuRecapDir, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "")
+
+i <- 1
+
+for(i in 1:nrow(metadataMasterTax)){
+  temp <-  read.table(paste(metadataMasterTax$taxPath[8], metadataMasterTax$taxName[8], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+  #temp$row.names <- NULL
+  
+ 
+  png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[8], ".otuRecap.png", sep = ""), 
+       width = 800, height = 600, units = "px")
+  
+ OTU.recap(data = list(data = temp), ranks=ranks, brewer.pal="colors")
+              dev.off()
+
+}  
 
 ```
