@@ -139,7 +139,9 @@ i <- 1
 #for(i in 1:nrow(metadataMaster)){
 for(i in 1:nrow(metadataMaster)){
   temp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMaster$table[i], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, colClasses=c("taxonomy"="character"))
   temp2 <- temp
   temp2$row.names <- NULL #to unactivate numbers generated in the margin
@@ -150,7 +152,7 @@ for(i in 1:nrow(metadataMaster)){
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
-              quote=FALSE)
+              quote = FALSE)
 }  
  
 ```
@@ -256,18 +258,21 @@ otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "")
 i <- 1
 
 for(i in 1:nrow(metadataMasterTax)){
-  temp <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
+  temp <-  read.table(paste(metadataMasterTax$taxPath[1], metadataMasterTax$taxName[1], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
 temp$row.names <- NULL  
 #rownames(temp, do.NULL=FALSE) #<- colnames(trans)[-ncol(trans)]
-png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""), 
-      width = 800, height = 600, units = "px")
+png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[1], ".otuRecap.png", sep = ""), 
+      width = 800, height = 500, units = "px")
   
-OTU.recap(data = list(data = temp), ranks=c("k__", "p__", "c__", "o__", "f__", "g__", "s__"), brewer.pal="Greens")
+OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
 dev.off()  
 }
-########
+dim(temp)
+summary(temp)
+
+
 i <- 1
 
 for(i in 1:nrow(metadataMasterTax)){
@@ -282,51 +287,6 @@ dev.off()
   #                                  sep       = "\t",
   #                                  row.names = FALSE,
   #                                  quote=FALSE))
- 
-
-for (iter1 in c(1,2,6,7,8,9,11,12)) {
-  for (iter2 in c(1:5)) {
-    param=paste("datar", iter1, "p", iter2, sep = "")
-    if (param == "datar1p4" || #No blast hit for all samples
-        param == "datar2p3" || #No blast hit for all samples
-        param == "datar2p4" || #No blast hit for all samples
-        param == "datar2p5" || #No blast hit for all samples
-        param == "datar7p5" || #No blast hit for all samples
-        param == "datar11p5" || #No blast hit for all samples
-        param == "datar12p5" || #No blast hit for all samples
-        param == "datar1p5" ||
-        param == "datar2p2" ||
-        param == "datar4p3" ||
-        param == "datar4p5" ||
-        param == "datar6p2" ||
-        param == "datar6p3" ||
-        param == "datar6p4" ||
-        param == "datar6p5" ||
-        param == "datar7p3" ||
-        param == "datar7p4" ||
-        param == "datar8p3" ||
-        param == "datar8p4" ||
-        param == "datar8p5" ||
-        param == "datar9p5") { #because they dont exist... Come on Emilie!!!!
-      next
-    } else {
-      print(paste("Processing", param))
-      tiff(filename = paste(param, ".tif", sep = ""), width = 800, height = 600, units = "px")
-      OTU.recap(data=get(param), ranks=ranks, brewer.pal="Set3")
-      dev.off()
-    }
-  }
-}
+ ```
 
 
-
-
-
-
-
-
-#create color palette
-mycols <- colors()[c(8, 5, 30, 53, 118, 72)]
-mycols <- colors()[c(1:150)]
-
-```
