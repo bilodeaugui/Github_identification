@@ -238,6 +238,7 @@ for(i in 1:nrow(metadataMasterTax)) {
               quote=FALSE)
   }
 
+
 ```
 Create summary barplot about your OTU 
 
@@ -258,20 +259,38 @@ otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "").
 i <- 1
 
 for(i in 1:nrow(metadataMasterTax)){
-  temp <-  read.table(paste(metadataMasterTax$taxPath[1], metadataMasterTax$taxName[1], sep = ""),
+  temp <-  read.table(paste(metadataMasterTax$taxPath[7], metadataMasterTax$taxName[7], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
 temp$row.names <- NULL  
-#rownames(temp, do.NULL=FALSE) #<- colnames(trans)[-ncol(trans)]
-png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[1], ".otuRecap.png", sep = ""), 
+
+png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[7], ".otuRecap.png", sep = ""), 
       width = 800, height = 500, units = "px")
   
-OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
+OTU.recap(data = list(data = temp), ranks=c("k__", "p__", "c__", "o__", "f__", "g__", "s__"), brewer.pal="Greens")
 dev.off()  
 }
+
+
+############################################################################################################################
+
+temp <-  read.table("/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/taxFillTables/its1f.run7.table.taxFill.tsv",
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+temp$row.names <- NULL  
+
+png(filename=paste(pathDataAn, "otuRecap/", "its1f.run7.otuRecap.png", sep = ""), 
+      width = 800, height = 500, units = "px")
+  
+OTU.recap(data = list(data = temp), ranks=c("k__", "p__", "c__", "o__", "f__", "g__", "s__"), brewer.pal="Greens")
+dev.off()
+############################################################################################################################
+
+library("RAM")
 dim(temp)
 summary(temp)
 
+listCheck <- temp$taxonomy[1]
 
 i <- 1
 
