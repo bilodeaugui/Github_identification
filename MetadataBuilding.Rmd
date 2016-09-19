@@ -253,7 +253,7 @@ otuRecapDir <- "otuRecap/"
 dir.create(paste(pathDataAn, otuRecapDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "")
+otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "").
 
 i <- 1
 
