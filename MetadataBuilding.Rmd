@@ -94,20 +94,22 @@ metadata$DirPath    <- paste(sharedPathData)
 dir.create(paste(sharedPath, "dataAn/", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-pathDataAn <- paste(sharedPath, "dataAn/", sep = "")
+# capture path to new directory:
+dataAnPath  <- paste(sharedPath, "dataAn/", sep = "")
+
 
 
 for(k in 1:nrow(metadata)){
 cmd <- paste("cp ",
              metadata$FilePath[k],
              " ",
-             pathDataAn, 
+             dataAnPath, 
              metadata$ShortName[k], ".", metadata$DataType[k], ".tsv",
              sep = "")
 system(cmd)
 }
 
-metadata$DataAnFilePath <- pathDataAn
+metadata$DataAnFilePath <- dataAnPath
 metadata$DataAnFileName <- paste(metadata$ShortName, ".", metadata$DataType, ".tsv", sep = "")
 
 metadataMaster <- dcast(data = metadata,
@@ -130,10 +132,10 @@ tax.fill to remove uncertae sedis, unclassified...
 library("RAM")
 
 taxFillDir <- "taxFillTables/"
-dir.create(paste(pathDataAn, taxFillDir, sep = ""),
+dir.create(paste(dataAnPath, taxFillDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
+taxFillPath <- paste(dataAnPath, taxFillDir, sep = "")
 
 i <- 1
 #for(i in 1:nrow(metadataMaster)){
@@ -148,7 +150,7 @@ for(i in 1:nrow(metadataMaster)){
   temp2 <- tax.fill(temp2, downstream=TRUE)
   temp$taxonomy <- temp2$taxonomy
   
-  write.table(temp, file=paste(pathDataAn, "taxFillTables/", metadataMaster$ShortName[i], ".table.taxFill.tsv", sep = ""),
+  write.table(temp, file=paste(dataAnPath, "taxFillTables/", metadataMaster$ShortName[i], ".table.taxFill.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -208,10 +210,10 @@ Indices obtained (in this specific order) are: Spec Number,  Simpson data,	Inv s
 
 ```{r}
 diversityDir <- "diversityDir/"
-dir.create(paste(pathDataAn, diversityDir, sep = ""),
+dir.create(paste(dataAnPath, diversityDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-diversityPath <- paste(pathDataAn, diversityDir, sep = "")
+diversityPath <- paste(dataAnPath, diversityDir, sep = "")
 
 
 i <- 1
@@ -231,7 +233,7 @@ for(i in 1:nrow(metadataMasterTax)) {
   rownames(temp) <- colnames(trans)[-ncol(trans)]
    
   temp2 <- OTU.diversity(data = list(data = trans), meta = temp)
-  write.table(temp2, file=paste(pathDataAn, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -243,69 +245,59 @@ for(i in 1:nrow(metadataMasterTax)) {
 Create summary barplot about your OTU 
 
 ```{r}
-
-#old
-
-      tiff(filename = paste(param, ".tif", sep = ""), width = 800, height = 600, units = "px")
-      OTU.recap(data=get(param), ranks=ranks, brewer.pal="Set3")
-      dev.off()
-#base
-otuRecapDir <- "otuRecap/"
-dir.create(paste(pathDataAn, otuRecapDir, sep = ""),
+library("RAM")
+# make new directory:
+dir.create(paste(dataAnPath, "otuRecap/", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-otuRecapPath <- paste(pathDataAn, otuRecapDir, sep = "").
+# Capture the path of the new directory:
+otuDataPath <- paste(sharedPath, dataAnDir, "otuRecap/", sep = "")
 
-i <- 1
+# Create a new directory in otuRecap for plots:
+dir.create(paste(otuDataPath, "Plots/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
 
-for(i in 1:nrow(metadataMasterTax)){
-  temp <-  read.table(paste(metadataMasterTax$taxPath[7], metadataMasterTax$taxName[7], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-temp$row.names <- NULL  
+# Capture path to new directory:
+plotPath <- paste(otuDataPath, "Plots/", sep = "")
 
-png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[7], ".otuRecap.png", sep = ""), 
-      width = 800, height = 500, units = "px")
-  
-OTU.recap(data = list(data = temp), ranks=c("k__", "p__", "c__", "o__", "f__", "g__", "s__"), brewer.pal="Greens")
-dev.off()  
-}
+# Create a new directory in otuRecap for tables:
+dir.create(paste(otuDataPath, "StatTables/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 
-
-############################################################################################################################
-
-temp <-  read.table("/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/taxFillTables/its1f.run7.table.taxFill.tsv",
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-temp$row.names <- NULL  
-
-png(filename=paste(pathDataAn, "otuRecap/", "its1f.run7.otuRecap.png", sep = ""), 
-      width = 800, height = 500, units = "px")
-  
-OTU.recap(data = list(data = temp), ranks=c("k__", "p__", "c__", "o__", "f__", "g__", "s__"), brewer.pal="Greens")
-dev.off()
-############################################################################################################################
-
-library("RAM")
-dim(temp)
-summary(temp)
-
-listCheck <- temp$taxonomy[1]
-
-i <- 1
 
 for(i in 1:nrow(metadataMasterTax)){
-  
-png(filename=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[1], ".otuRecap.png", sep = ""), 
-      width = 800, height = 600, units = "px")
-OTU.recap(data = list(data = metadataMasterTax$taxName[1]), ranks=ranks, brewer.pal="Greens")
-dev.off()
+  temp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
+
+# Close the png graph file handle:
+  dev.off()
+
+# Capture the data also in a dataframe:
+  df <- OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
+
+# Write out the dataframe:
+  write.table(df, file=paste(statOTURecapPath, metadataMasterTax$ShortName[i], ".otuRecap.tsv", sep = ""),
+                               # "otuRecap/its1f.run7.otuRecap.tsv", sep = ""),
+                               # metadataMasterTax$ShortName[9], ".otuRecap.tsv", sep = "",
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
 }
-#write.table(temp, file=paste(pathDataAn, "otuRecap/", metadataMasterTax$ShortName[9], ".otuRecap.tsv", sep = "",
-  #                                  append    = FALSE,
-  #                                  sep       = "\t",
-  #                                  row.names = FALSE,
-  #                                  quote=FALSE))
- ```
+
+```
 
 
