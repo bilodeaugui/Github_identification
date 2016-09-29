@@ -34,10 +34,6 @@ dir.create(paste(sharedPath, dataNGS, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 
-projectPathEm <- "/home/AAFC-AAC/girouxem/"
-sharedPathEm  <- paste(projectPathEm, projectName, sep = "")
-sharedPathDataEm <- paste(sharedPathEm, dataNGS, sep = "")
-pathDataAnEm <- paste(sharedPathEm, "dataAn/", sep = "")
 ```
 
 *
@@ -242,7 +238,7 @@ for(i in 1:nrow(metadataMasterTax)) {
 
 
 ```
-Create summary barplot about your OTU 
+Create summary barplot and stats table about your OTU. Never use the taxFilled tables as it does not work.
 
 ```{r}
 library("RAM")
@@ -268,7 +264,7 @@ dir.create(paste(otuDataPath, "StatTables/", sep = ""),
 # Capture path to new directory:
 statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 
-
+i <- 1
 for(i in 1:nrow(metadataMasterTax)){
   temp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -276,11 +272,11 @@ for(i in 1:nrow(metadataMasterTax)){
   temp$row.names <- NULL 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(plotPath, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
+  png(filename=paste(dataAnPath/otuRecap/Plots, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
       width = 800, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
-  OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
+  OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
 
 # Close the png graph file handle:
   dev.off()
@@ -299,5 +295,47 @@ for(i in 1:nrow(metadataMasterTax)){
 }
 
 ```
+Group.Taxa.bar
+```{r}
+## top taxa at each rank (all ranks)
+  ### Needs more than one site in the OTU table to work properly.
+  ## top taxa at each rank (all ranks). In number or percent. Moustache plot.
+  ### Needs more than one site in the OTU table to work properly.
+  ## default top 10%
 
 
+library("RAM")
+# make new directory:
+dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
+
+i <- 1
+for(i in 1:nrow(metadataMasterTax)){
+  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[5], metadataMasterTax$table[5], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  tabletemp$row.names <- NULL 
+  
+   metatemp <-  read.table(paste(metadataMaster2$DataAnFilePath[5], metadataMasterTax$meta[5], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+  
+  rownames(temp) <- colnames(trans)[-ncol(trans)]
+     
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, metadataMasterTax$ShortName[1], ".groupTaxBar_species.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  group.Taxa.bar(data = list(data = trans), is.OTU = TRUE, func = "sum", rank="k", meta = temp, meta.factor = "TrapType", col.pal = "fullcolors")
+
+# Close the png graph file handle:
+  dev.off()
+
+}
+
+
+```
