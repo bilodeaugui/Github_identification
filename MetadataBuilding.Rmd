@@ -317,30 +317,110 @@ groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
 
 i <- 1
 for(i in 1:nrow(metadataMasterTax)){
-  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[5], metadataMasterTax$table[5], sep = ""),
+  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   tabletemp$row.names <- NULL 
   
-   metatemp <-  read.table(paste(metadataMaster2$DataAnFilePath[5], metadataMasterTax$meta[5], sep = ""),
+   metatemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
   
-  rownames(temp) <- colnames(trans)[-ncol(trans)]
+#   rownames(temp) <- colnames(trans)[-ncol(trans)]
+# In the following, the column names in the metadata table are put in as the row names
+# for the taxa table. Recall, in the metadata table, the species infor
+  #rownames(tabletemp) <- colnames(metatemp)[-ncol(metatemp)]
      
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(groupTaxaPath, metadataMasterTax$ShortName[1], ".groupTaxBar_species.png", sep = ""),
+  png(filename=paste(groupTaxaPath, metadataMasterTax$ShortName[i], ".groupTaxBar_species.png", sep = ""),
       width = 800, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
-  group.Taxa.bar(data = list(data = trans), is.OTU = TRUE, func = "sum", rank="k", meta = temp, meta.factor = "TrapType", col.pal = "fullcolors")
+#   group.Taxa.bar(data = list(data = trans), is.OTU = TRUE, func = "sum", rank="k", meta = temp, meta.factor = "TrapType", col.pal = "fullcolors")
+group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank="k", meta = metatemp, meta.factor = "TrapType", col.pal = "Set3")
 
 # Close the png graph file handle:
   dev.off()
 
 }
+```
 
 
+# 1. generate the list of taxa desired:
+```{r}
+taxa <- core.Taxa(data = list(data = tabletemp),
+                  is.OTU = TRUE,
+                  rank = "g",    # Pay attention to the rank you want to work on
+                  drop.unclassified = TRUE,
+                  meta = metatemp,
+                  meta.factor = "TrapType",
+                  percent = 0.7) # Pay attention to the percent, you 
+                                 # will retrieve those taxa that are present 
+                                 # in that fraction at that rank.
+taxaInsect <- taxa$data$Insect$taxa
+taxaSoil   <- taxa$data$Soil$taxa
+taxaSpore  <- taxa$data$Spore$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore))
+```
+
+```{r}
+i <- 1
+for(i in 1:nrow(metadataMaster)){
+  tabletemp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMaster$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+  tabletemp$row.names <- NULL 
+  
+  metatemp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMaster$meta[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+  metatemp$row.names <- NULL 
+  
+# In the following, the column names for samples in the otu table become the rownames in the metadata table, which
+# should already be the case (but then the row names get removed in metatemp$row.names <- NULL )
+  rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, metadataMaster$ShortName[i], ".groupTaxBar_species_Trap.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# The following is for the function group.taxa.bar. This function doesn't work for us.
+# As an alternative to this function, Wen's pdf offers group.abun.Taxa, immediately following
+# this code.
+# group.Taxa.bar(#data = tabletemp,
+#                data = list(data = tabletemp), 
+#                is.OTU = TRUE, 
+#                func = "sum", 
+#                rank="g__", 
+#                #taxa = tabletemp,
+#                taxa = taxaAll,
+#                meta = metatemp, 
+#                meta.factor = "TrapType", 
+#                col.pal = "Set3")
+
+# The following is an alternative to group.taxa.bar:
+
+group.abund.Taxa(data = list(data = tabletemp), 
+                 is.OTU = TRUE,
+                 # taxa = tabletemp,
+                 taxa = taxaAll,
+                 drop.unclassified = TRUE,
+                 bar.width = NULL,
+                 meta = metatemp,
+                 meta.factor = "TrapType",
+                 RAM.theme = NULL,
+                 col.pal = NULL,
+                 main = "",
+                 file = NULL,
+                 ext = NULL,
+                 height = 50,
+                 width = 16)
+
+# Close the png graph file handle:
+  dev.off()
+
+}
 ```
 
 
