@@ -295,18 +295,14 @@ for(i in 1:nrow(metadataMasterTax)){
 }
 
 ```
-Group.Taxa.bar
-# Over here!!! Chunk below doesn't work, need to revise. The issues are:
-+ The OTU is not reading as data.frame
-+ Next issues depend on fixing the above
+
+### group.abund.Taxa
+#### top taxa at each rank (all ranks)
+  + Needs more than one site in the OTU table to work properly.
+  + top taxa at each rank (all ranks). In number or percent. Moustache plot.
+  + Needs more than one site in the OTU table to work properly.
+  + default top 10%
 ```{r}
-## top taxa at each rank (all ranks)
-  ### Needs more than one site in the OTU table to work properly.
-  ## top taxa at each rank (all ranks). In number or percent. Moustache plot.
-  ### Needs more than one site in the OTU table to work properly.
-  ## default top 10%
-
-
 library("RAM")
 # make new directory:
 dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
@@ -345,12 +341,48 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 }
 ```
 
+# The good one!
+### group.abund.Taxa
+#### top taxa at each rank (all ranks)
+  + Needs more than one site in the OTU table to work properly.
+  + top taxa at each rank (all ranks). In number or percent. Moustache plot.
+  + Needs more than one site in the OTU table to work properly.
+  + default top 10%
 
 # 1. generate the list of taxa desired:
 ```{r}
+library("RAM")
+
+
+# make new directory:
+dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
+
+
+i <- 1
+for(i in 1:nrow(metadataMasterTax)){
+  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+  tabletemp$row.names <- NULL 
+  
+  metatemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+  metatemp$row.names <- NULL 
+  
+# In the following, the column names for samples in the otu table become the rownames in the metadata table, which
+# should already be the case (but then the row names get removed in metatemp$row.names <- NULL )
+  rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+
+
 taxa <- core.Taxa(data = list(data = tabletemp),
                   is.OTU = TRUE,
-                  rank = "g",    # Pay attention to the rank you want to work on
+                  rank = "f",    # Pay attention to the rank you want to work on
                   drop.unclassified = TRUE,
                   meta = metatemp,
                   meta.factor = "TrapType",
@@ -358,21 +390,23 @@ taxa <- core.Taxa(data = list(data = tabletemp),
                                  # will retrieve those taxa that are present 
                                  # in that fraction at that rank.
 taxaInsect <- taxa$data$Insect$taxa
+#taxaInsect <- taxa$data$Insect$summary
 taxaSoil   <- taxa$data$Soil$taxa
 taxaSpore  <- taxa$data$Spore$taxa
 taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore))
 ```
 
 ```{r}
+
 i <- 1
-for(i in 1:nrow(metadataMaster)){
-  tabletemp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMaster$table[i], sep = ""),
+for(i in 1:nrow(metadataMasterTax)){
+  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   
   tabletemp$row.names <- NULL 
   
-  metatemp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMaster$meta[i], sep = ""),
+  metatemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
   metatemp$row.names <- NULL 
@@ -524,6 +558,125 @@ dev.off()
 #dev.off()
 ```
 
+```{r}
+
+combine runs of sequencing by organism
+
+comColNames <- c("Primer", "ShortName", "DataAnFilePath", "meta", "table", "taxPath", "taxName")
+
+combinedTableITS <- subset(metadataMasterTax, 
+                           metadataMasterTax$Primer == "its1f" | metadataMasterTax$Primer == "its2", 
+                           select = c(comColNames))
+row.names(combinedTableITS) <- NULL
+combinedTableITS$tablePath  <- paste(combinedTableITS$DataAnFilePath, combinedTableITS$table, sep = "")
+combinedTableITS$metaPath   <- paste(combinedTableITS$DataAnFilePath, combinedTableITS$meta, sep = "")
+combinedTableITS$taxFillPath  <- paste(combinedTableITS$taxPath, combinedTableITS$taxName, sep = "")
+
+combinedTableOm <- subset(metadataMasterTax, 
+                          metadataMasterTax$Primer == "omlo" | metadataMasterTax$Primer == "omup", 
+                          select = c(comColNames))
+row.names(combinedTableOm) <- NULL
+combinedTableOm$tablePath  <- paste(combinedTableOm$DataAnFilePath, combinedTableOm$table, sep = "")
+combinedTableOm$metaPath   <- paste(combinedTableOm$DataAnFilePath, combinedTableOm$meta, sep = "")
+combinedTableOm$taxFillPath  <- paste(combinedTableOm$taxPath, combinedTableOm$taxName, sep = "")
 
 
+combinedTablePhy <- subset(metadataMasterTax, 
+                           metadataMasterTax$Primer == "phy", 
+                           select = c(comColNames))
+row.names(combinedTablePhy) <- NULL
+combinedTablePhy$tablePath  <- paste(combinedTablePhy$DataAnFilePath, combinedTablePhy$table, sep = "")
+combinedTablePhy$metaPath   <- paste(combinedTablePhy$DataAnFilePath, combinedTablePhy$meta, sep = "")
+combinedTablePhy$taxFillPath  <- paste(combinedTablePhy$taxPath, combinedTablePhy$taxName, sep = "")
 
+combine.OTU(data=list(data=combinedTableITS$tablePath), meta=list(data=combinedTableITS$metaPath))
+
+
+i <- 1
+
+for(i in 1:nrow(combinedTableITS)){
+  tabletemp <-  read.table(combinedTableITS$tablePath[i],
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+  
+  metatemp <-  read.table(combinedTableITS$metaPath[i],
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+
+  tabletemp$row.names <- NULL
+  
+  test<- combine.OTU(data=list(tabletemp), meta=metatemp)
+  is.data.frame(test)
+  }
+  
+  #write.table(test, file=paste(dataAnPath, "taxFillTables/", metadataMaster$ShortName[i], ".table.taxFill.tsv", sep = ""),
+              #append    = FALSE,
+              #sep       = "\t",
+#               row.names = FALSE,
+#               quote = FALSE)
+}  
+ 
+
+```
+
+```{r}
+
+filenames=list.files(path=myPath, 
+                   pattern = "^its1f.*meta.tsv$|^its2.*meta.tsv$",
+                   recursive = FALSE,
+                   full.names=TRUE)
+for (file in filenames){
+  # if the merged dataset doesn't exist, create it
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=TRUE, sep="\t")
+  }
+  # if the merged dataset does exist, append to it
+  if (exists("dataset")){
+    temp_dataset <-read.table(file, header=TRUE, sep="\t")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+}
+
+metacolumns <- c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure", 
+  "CollectionDate", "Province", "City", "Description" )
+
+k <- 1
+for(k in names(filenames)){
+  if (!exists("tempMeta")){
+  tempMeta <- read.table(filenames[k], 
+                         header = TRUE, 
+                         sep = "\t",
+                         dec = ".", 
+                         comment.char = "", 
+                         quote = "", 
+                         stringsAsFactors = TRUE,
+                         as.is = TRUE, 
+                         check.names = FALSE)
+  tempMeta <- tempMeta[,c(metacolumns)]
+  }
+  # if the merged dataset does exist, append to it
+  if (exists("tempMeta")){
+  temp_tempMeta <-read.table(filenames[k], 
+                        header = TRUE, 
+                        sep = "\t",
+                        dec = ".", 
+                        comment.char = "", 
+                        quote = "", 
+                        stringsAsFactors = TRUE,
+                        as.is = TRUE, 
+                        check.names = FALSE)
+  temp_tempMeta <- temp_tempMeta[,c(metacolumns)]
+  
+  tempMeta <-rbind(tempMeta, temp_tempMeta)
+  rm(temp_tempMeta)
+} 
+}
+
+
+```
