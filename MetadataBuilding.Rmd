@@ -339,3 +339,108 @@ for(i in 1:nrow(metadataMasterTax)){
 
 
 ```
+
+
+# Produce the rarefaction curve for each sample (copied from Wen)
+
+# First transpose the otu table, because the rarecurve take each row as one sample
+
+```{r}
+TransposedOTUTables <- "transposed_OTU_tables/"
+dataAnPath <- "/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/"
+dir.create(paste(dataAnPath, TransposedOTUTables, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+TransposedOTUTables <- paste(dataAnPath, TransposedOTUTables, sep = "")
+
+in linux: cp *.table.tsv transposed_OTU_tables/
+
+
+i <- 1
+for(i in 1:nrow(metadataMasterTax)){
+  temp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character"))
+  temp$row.names <- NULL 
+  temp <- as.data.frame(temp)
+  
+  # Capture the data also in a dataframe:
+  temp <- transpose.OTU(data = list(temp))
+  temp <- transpose.OTU(metadataMasterTax$table[i])
+  # Write out the dataframe:
+  write.table(temp, file=paste(TransposedOTUTables, metadataMasterTax$ShortName[i], ".transposed.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+}
+
+
+# Open file-handle to get ready to make the raref curve:
+  png(filename=paste(dataAnPath/trans, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+
+
+
+```
+
+```{r}
+ITS1.t<-t(ITS1[, -dim(ITS1)[2]])
+head(ITS1.t)[,1:5]
+ITS2.t<-t(ITS2[, -dim(ITS2)[2]])
+head(ITS2.t)[,1:5]
+
+##from forum##
+library(reshape2)
+dcast.data.table(melt(mydata, id.vars = "col0"), variable ~ col0)
+###
+ab<-table(unlist(ITS1.t))
+ab
+x11(width = 12, height = 4)
+# do a barplot of frequency of abundance ranks
+barplot(log(ab), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(ab))+2))
+
+# Total count/proportion of absences
+sum(ITS1.t == 0)
+sum(ITS2.t == 0)
+sum(ITS1.t == 0)/(nrow(ITS1.t)*ncol(ITS1.t))
+sum(ITS2.t == 0)/(nrow(ITS2.t)*ncol(ITS2.t))
+
+```
+
+# plot rarecurve for each sample
+
+```{r}
+library("vegan")
+#tiff(compression="lzw", file=paste(basename, sep="", "ITS.rarecurve.tiff"), res=1000, units="in", width=16, height=8)
+
+x11(width=8, height=4)
+par(mfrow=c(1,2))
+rarecurve(ITS1.t,step=20, sample=min(rowSums(ITS1.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS1")
+rarecurve(ITS2.t,step=20, sample=min(rowSums(ITS2.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS2")
+dev.off()
+
+#calculate species accumulation curves for subsets of the community and environmental data sets
+library(BiodiversityR)
+
+x11(width=8, height=4)
+par(mfrow=c(1,2))
+accumcomp(ITS1.t, y=meta, factor='Crop', method="rarefaction",cex=0.5, ylab="OTU number", xlab="Samples") # need to place the lengend by click on the plot before moving to next plot
+accumcomp(ITS1.t, y=meta, factor='City', method="rarefaction",cex=0.5, ylab="OTU number", xlab="Samples")
+dev.off()
+
+#dev.copy(png, file="ITS1.otu.rarecurve.eachsample.png")
+
+#dev.off()
+```
+
+
+
+
