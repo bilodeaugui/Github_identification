@@ -40,8 +40,8 @@ dir.create(paste(sharedPath, dataNGS, sep = ""),
 Setting up the metadata tables - this is to be customized for your data, don't re-run blindly.
 ```{r}
 library("reshape2")
-blist1 <- list.files(path = sharedPathDataEm, pattern = glob2rx("*meta*"), full.names=TRUE)
-blist2 <- list.files(path = sharedPathDataEm, pattern = glob2rx("*table*"), full.names=TRUE)
+blist1 <- list.files(path = pathDataAn, pattern = glob2rx("*meta*"), full.names=TRUE)
+blist2 <- list.files(path = pathDataAn, pattern = glob2rx("*table*"), full.names=TRUE)
 
 metadata1 <- data.frame(blist1)
 metadata2 <- data.frame(blist2)
@@ -49,16 +49,22 @@ metadata2 <- data.frame(blist2)
 colnames(metadata1)[1] <- "FilePath"
 colnames(metadata2)[1] <- "FilePath"
 
+View(metadata1)
+View(metadata2)
+
 #FileName fixing for metadata files:
 metadata1$FileName     <- basename(blist1)
 metadata1$ShortName    <- sub("metadata-", "meta_", metadata1$FileName, ignore.case = FALSE)
 metadata1$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata1$ShortName, ignore.case = FALSE)
 metadata1$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata1$ShortName, ignore.case = FALSE)
 metadata1$ShortName    <- sub("-", "_", metadata1$ShortName, ignore.case = FALSE)
+
+metadata1$ShortName    <- sub("*.tsv$", "", metadata1$FileName, ignore.case = FALSE) #ran later with new seq runs (13-15)
+
 parsedCol1             <- data.frame(matrix(unlist(strsplit(as.character(metadata1$ShortName), "_")),
                                             nrow  = length(metadata1$ShortName), 
                                             byrow = TRUE), stringsAsFactors = FALSE)
-colnames(parsedCol1)   <- c("DataType", "RunNum", "Primer")
+colnames(metadata1)   <- c("DataType", "RunNum", "Primer")
 metadata1$ShortName    <- paste(parsedCol1$Primer, parsedCol1$RunNum, parsedCol1$DataType, sep = ".")
 metadata1$ShortName    <- tolower(metadata1$ShortName) #put everything in lower cases
 
@@ -68,6 +74,9 @@ metadata2$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$"
 metadata2$ShortName    <- sub("*.tsv$|*.tab.txt$|*.tsv.txt$|*.tab$|*.tabv2.txt$", "", metadata2$ShortName, ignore.case = FALSE)
 metadata2$ShortName    <- sub("*.otu_table_taxo$|*.otu_table_taxoV2$", "", metadata2$ShortName, ignore.case = FALSE)
 metadata2$ShortName    <- sub("^", "table_", metadata2$ShortName, ignore.case = FALSE)
+
+metadata2$ShortName    <- sub("*.tsv$", "", metadata2$FileName, ignore.case = FALSE) #ran later with new seq runs (13-15)
+
 parsedCol2             <- data.frame(matrix(unlist(strsplit(as.character(metadata2$ShortName), "_")),
                                             nrow  = length(metadata2$ShortName), 
                                             byrow = TRUE), stringsAsFactors = FALSE)
