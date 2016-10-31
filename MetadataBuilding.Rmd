@@ -268,31 +268,31 @@ Create diversity directory and path. List your datasets for diversity indexes. A
 Indices obtained (in this specific order) are: Spec Number,  Simpson data,	Inv simpson data,	Shannon data,	Simpson eveness,	Shannon eveness,	Simpson true diversity,	shannon true diversity,	chao,	ACE.
 
 ```{r}
-diversityDir <- "diversityDir/"
-dir.create(paste(dataAnPath, diversityDir, sep = ""),
+diversityDir <- paste(pathDataAn, "diversityDir/", sep ="")
+dir.create(paste(pathDataAn, diversityDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-diversityPath <- paste(dataAnPath, diversityDir, sep = "")
+diversityPath <- paste(pathDataAn, diversityDir, sep = "")
 
 
-i <- 1
+i <- 16
 for(i in 1:nrow(metadataMasterNew)) {
-  temp <- read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$meta[i], sep = ""),
+  metatemp <- read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$meta[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
  
-  temp$row.names <- NULL
+  metatemp$row.names <- NULL
 
-  trans <-  read.table(paste(metadataMasterNew$taxPath[i], metadataMasterNew$taxName[i], sep = ""),
+  tabletemp <-  read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$table[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
   
-  trans$row.names <- NULL
+  tabletemp$row.names <- NULL
   
-  rownames(temp) <- colnames(trans)[-ncol(trans)]
+  rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
    
-  temp2 <- OTU.diversity(data = list(data = trans), meta = temp)
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", metadataMasterTax$ShortName[i], ".meta.div.tsv", sep = ""),
+  temp2 <- OTU.diversity(data = list(data = tabletemp), meta = metatemp)
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", metadataMasterNew$ShortName[i], ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
