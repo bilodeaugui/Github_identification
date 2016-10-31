@@ -625,34 +625,55 @@ dev.off()
 
 combine runs of sequencing by organism
 
-comColNames <- c("Primer", "ShortName", "DataAnFilePath", "meta", "table", "taxPath", "taxName")
+comColNames <- c("Primer", "ShortName", "FilePath", "meta", "table", "taxPath", "taxName")
 
-combinedTableITS <- subset(metadataMasterTax, 
-                           metadataMasterTax$Primer == "its1f" | metadataMasterTax$Primer == "its2", 
+combinedTableITS <- subset(metadataMasterNew, 
+                           metadataMasterNew$Primer == "its1f" | metadataMasterNew$Primer == "its2", 
                            select = c(comColNames))
 row.names(combinedTableITS) <- NULL
-combinedTableITS$tablePath  <- paste(combinedTableITS$DataAnFilePath, combinedTableITS$table, sep = "")
-combinedTableITS$metaPath   <- paste(combinedTableITS$DataAnFilePath, combinedTableITS$meta, sep = "")
+combinedTableITS$tablePath  <- paste(combinedTableITS$FilePath, combinedTableITS$table, sep = "")
+combinedTableITS$metaPath   <- paste(combinedTableITS$FilePath, combinedTableITS$meta, sep = "")
 combinedTableITS$taxFillPath  <- paste(combinedTableITS$taxPath, combinedTableITS$taxName, sep = "")
 
-combinedTableOm <- subset(metadataMasterTax, 
-                          metadataMasterTax$Primer == "omlo" | metadataMasterTax$Primer == "omup", 
+combinedTableOm <- subset(metadataMasterNew, 
+                          metadataMasterNew$Primer == "omlo" | metadataMasterNew$Primer == "omup", 
                           select = c(comColNames))
 row.names(combinedTableOm) <- NULL
-combinedTableOm$tablePath  <- paste(combinedTableOm$DataAnFilePath, combinedTableOm$table, sep = "")
-combinedTableOm$metaPath   <- paste(combinedTableOm$DataAnFilePath, combinedTableOm$meta, sep = "")
+combinedTableOm$tablePath  <- paste(combinedTableOm$FilePath, combinedTableOm$table, sep = "")
+combinedTableOm$metaPath   <- paste(combinedTableOm$FilePath, combinedTableOm$meta, sep = "")
 combinedTableOm$taxFillPath  <- paste(combinedTableOm$taxPath, combinedTableOm$taxName, sep = "")
 
 
-combinedTablePhy <- subset(metadataMasterTax, 
-                           metadataMasterTax$Primer == "phy", 
+combinedTablePhy <- subset(metadataMasterNew, 
+                           metadataMasterNew$Primer == "phy", 
                            select = c(comColNames))
 row.names(combinedTablePhy) <- NULL
-combinedTablePhy$tablePath  <- paste(combinedTablePhy$DataAnFilePath, combinedTablePhy$table, sep = "")
-combinedTablePhy$metaPath   <- paste(combinedTablePhy$DataAnFilePath, combinedTablePhy$meta, sep = "")
+combinedTablePhy$tablePath  <- paste(combinedTablePhy$FilePath, combinedTablePhy$table, sep = "")
+combinedTablePhy$metaPath   <- paste(combinedTablePhy$FilePath, combinedTablePhy$meta, sep = "")
 combinedTablePhy$taxFillPath  <- paste(combinedTablePhy$taxPath, combinedTablePhy$taxName, sep = "")
 
+library(data.table)
+
+i <- 1
+
+for(i in 1:nrow(combinedTableITS)){
+   meta_ITS_merged_temp <- fread(combinedTableITS$metaPath[i],
+                      select = c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure",
+                                 "CollectionDa  te", "Province", "City", "Description" ))
+   
+   write.table(meta_ITS_merged_temp, file=paste(pathDataAn, "meta_ITS_merged", ".tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+              
+    }
+
+meta_ITS_merged <- fread("combinedTableITS", select = c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure", "CollectionDate", "Province", "City", "Description" ))
+ 
 combine.OTU(data=list(data=combinedTableITS$tablePath), meta=list(data=combinedTableITS$metaPath))
+
+
 
 
 i <- 1
