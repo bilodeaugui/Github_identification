@@ -66,11 +66,12 @@ metadata3$ShortName    <- sub("*.meta.tsv$ | *.meta.tsv$", "", metadata3$meta, i
 metadata3$Primer   <- gsub("\\..*","", metadata3$ShortName)
 View(metadata3)
 metadata3$RunNum   <- gsub("^.*\\.","", metadata3$ShortName)
+#add a / to your FilePath
+
+metadata3$FilePath <- sub("$", "/", metadata3$FilePath )
 
 
-
-
-
+older by EmGi
 
 
 
@@ -148,8 +149,13 @@ metadataMaster <- dcast(data = metadata,
                         value.var = "DataAnFileName",
                         FUN       = c)
 
-write.table(metadataMaster, 
-            file      = paste(sharedPath, "My_MetadataTable2.tsv", sep = ""), 
+
+fungi_detection <- "/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection//"
+
+
+
+write.table(metadata3, 
+            file      = paste(fungi_detection, "metadataMaster_allruns.tsv", sep = ""), 
             append    = FALSE,
             quote     = FALSE,
             sep       = "\t", 
@@ -162,10 +168,10 @@ tax.fill to remove uncertae sedis, unclassified...
 library("RAM")
 
 taxFillDir <- "taxFillTables/"
-dir.create(paste(dataAnPath, taxFillDir, sep = ""),
+dir.create(paste(pathDataAn, taxFillDir, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
-taxFillPath <- paste(dataAnPath, taxFillDir, sep = "")
+taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
 
 i <- 1
 #for(i in 1:nrow(metadataMaster)){
@@ -186,7 +192,28 @@ for(i in 1:nrow(metadataMaster)){
               row.names = FALSE,
               quote = FALSE)
 }  
+ #this is rerunning the whole runs including 13-15
+i <- 1
+
+for(i in 1:nrow(metadata3)){
+  temp <-  read.table(paste(metadata3$FilePath[i], metadata3$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+  temp2 <- temp
+  temp2$row.names <- NULL #to unactivate numbers generated in the margin
+  temp2 <- tax.fill(temp2, downstream=TRUE)
+  temp$taxonomy <- temp2$taxonomy
+  
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", metadata3$ShortName[i], ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+}  
  
+
 ```
 Add 2 columns to the metadata file with the tax.fill tables names and paths (steps 1-6)
 1-make a list of the filenames
@@ -198,41 +225,43 @@ taxList <- list.files(path = taxFillPath, pattern = glob2rx("*taxFill.tsv*"), fu
 2-Tell R it is a dataframe
 
 ```{r}
-metaTax <- data.frame(taxList)
+metaTax2 <- data.frame(taxList)
 ```
 3-Give header name to the column being built
 
 ```{r}
-colnames(metaTax)[1] <- "taxPath"
+colnames(metaTax2)[1] <- "taxPath"
 ```
 4-Build a 2nd colum with file name only 
 
 ```{r}
-metaTax$taxName     <- basename(taxList)
+metaTax2$taxName     <- basename(taxList)
 ```
 5-Cut basename from the path name
 
 ```{r}
-metaTax$taxPath <- sub('([^//]+\\//).*', '\\1', metaTax$taxPath)
+metaTax2$taxPath <- sub('([^//]+\\//).*', '\\1', metaTax2$taxPath)
 #Here, we match all characters that are not ? ([^?]+) followed by ? (\\?) and use parentheses to capture as a group (([^?]+\\?)), and we leave the rest of characters not in the group (./*). (http://stackoverflow.com/questions/10150579/adding-a-column-to-a-data-frame)
 ```
 6-Remove last /
 ```{r}
-metaTax$taxPath <- substr(metaTax$taxPath, 1, nchar(metaTax$taxPath)-1) 
+metaTax2$taxPath <- substr(metaTax2$taxPath, 1, nchar(metaTax2$taxPath)-1) 
 ```
 Add-up your two new columns (taxPath and taxName) to the end of the metadata file
 ```{r}
-metadataMaster2$taxPath     <- metaTax$taxPath
-metadataMaster2$taxName     <- metaTax$taxName
+metadata3$taxPath     <- metaTax2$taxPath
+metadata3$taxName     <- metaTax2$taxName
 ```
 write the precious table you just made 
 ```{r}
-write.table(metadataMasterTax, 
-            file      = paste(sharedPath, "metadataMasterTax.tsv", sep = ""), 
+write.table(metadata3, 
+            file      = paste(fungi_detection, "metadataMasterTax2.tsv", sep = ""), 
             append    = FALSE,
             quote     = FALSE,
             sep       = "\t", 
             row.names = FALSE)
+
+metadataMasterNew <- metadata3
 ```
 
 Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
@@ -247,14 +276,14 @@ diversityPath <- paste(dataAnPath, diversityDir, sep = "")
 
 
 i <- 1
-for(i in 1:nrow(metadataMasterTax)) {
-  temp <- read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
+for(i in 1:nrow(metadataMasterNew)) {
+  temp <- read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$meta[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
  
   temp$row.names <- NULL
 
-  trans <-  read.table(paste(metadataMasterTax$taxPath[i], metadataMasterTax$taxName[i], sep = ""),
+  trans <-  read.table(paste(metadataMasterNew$taxPath[i], metadataMasterNew$taxName[i], sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
   
