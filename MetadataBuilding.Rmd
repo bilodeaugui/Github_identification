@@ -183,6 +183,7 @@ for(i in 1:nrow(metadataMaster)){
                       as.is = TRUE, colClasses=c("taxonomy"="character"))
   temp2 <- temp
   temp2$row.names <- NULL #to unactivate numbers generated in the margin
+  # or... row.names(combinedTableOm) <- NULL, becuase we checked the above and it's not what we want - it's not reliable, and the numbers in the margins in previous tables were not removed - HOWEVER, I think the numbers in this section are more pronounced and different - so we need to check before changing this line.
   temp2 <- tax.fill(temp2, downstream=TRUE)
   temp$taxonomy <- temp2$taxonomy
   
@@ -621,9 +622,14 @@ dev.off()
 #dev.off()
 ```
 
-```{r}
+Setting the data up so that we generate metadata tables specific to primer set.
+The metadata table, metadataMasterNew, has all the information for the tables and metatables
+for all sequencing runs.
+1. We will use metadataMasterNew to make subsest tables for each primer set.
+2. We will 
 
-combine runs of sequencing by organism
+Combine metatables by primer set:
+```{r}
 
 comColNames <- c("Primer", "ShortName", "FilePath", "meta", "table", "taxPath", "taxName")
 
@@ -651,7 +657,25 @@ row.names(combinedTablePhy) <- NULL
 combinedTablePhy$tablePath  <- paste(combinedTablePhy$FilePath, combinedTablePhy$table, sep = "")
 combinedTablePhy$metaPath   <- paste(combinedTablePhy$FilePath, combinedTablePhy$meta, sep = "")
 combinedTablePhy$taxFillPath  <- paste(combinedTablePhy$taxPath, combinedTablePhy$taxName, sep = "")
+```
 
+
+Read in each meta table from a list, and rbind the list while calling specific columns by name.
+```{r}
+library(data.table)
+
+metaToAppend <- combinedTableITS$metaPath
+metaColToKeep <- c("row.names", "BarcodeSequence", "LinkerPrimerSequence", 
+                   "InputFileName", "TrapType", "Lure",
+                   "CollectionDa  te", "Province", "City", "Description" )
+
+metaTemp <- rbindlist(lapply(metaToAppend, fread,
+                            header = "auto",
+                            select = metaColToKeep))
+
+```
+
+```{r}
 library(data.table)
 
 i <- 1
@@ -693,6 +717,7 @@ for(i in 1:nrow(combinedTableITS)){
 
 
   tabletemp$row.names <- NULL
+  # row.names(combinedTableOm) <- NULL
   
   test<- combine.OTU(data=list(tabletemp), meta=metatemp)
   is.data.frame(test)
