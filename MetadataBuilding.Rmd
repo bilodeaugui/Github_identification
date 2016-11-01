@@ -664,38 +664,55 @@ Read in each meta table from a list, and rbind the list while calling specific c
 ```{r}
 library(data.table)
 
-metaToAppend <- combinedTableITS$metaPath
 metaColToKeep <- c("row.names", "BarcodeSequence", "LinkerPrimerSequence", 
                    "InputFileName", "TrapType", "Lure",
-                   "CollectionDa  te", "Province", "City", "Description" )
+                   "CollectionDate", "Province", "City", "Description" )
+# For the ITS set:
+metaToAppend <- combinedTableITS$metaPath
+metaTemp <- rbindlist(lapply(metaToAppend, fread, header = "auto", select = metaColToKeep,
+                             showProgress = TRUE))
+metaSuperITS <- metaTemp
+write.table(metaTemp, file = paste(pathDataAn, "metaSuper.ITS.tsv", sep = ""),
+            append = FALSE, sep = "\t", row.names = FALSE, quote = FALSE)
 
-metaTemp <- rbindlist(lapply(metaToAppend, fread,
-                            header = "auto",
-                            select = metaColToKeep))
+# For the Om set:
+metaToAppend <- combinedTableOm$metaPath
+metaTemp <- rbindlist(lapply(metaToAppend, fread, header = "auto", select = metaColToKeep,
+                             showProgress = TRUE))
+metaSuperOm <- metaTemp
+write.table(metaTemp, file = paste(pathDataAn, "metaSuper.Om.tsv", sep = ""),
+            append = FALSE, sep = "\t", row.names = FALSE, quote = FALSE)
 
+# For the Phy set:
+metaToAppend <- combinedTablePhy$metaPath
+metaTemp <- rbindlist(lapply(metaToAppend, fread, header = "auto", select = metaColToKeep,
+                             showProgress = TRUE))
+metaSuperPhy <- metaTemp
+write.table(metaTemp, file = paste(pathDataAn, "metaSuper.Phy.tsv", sep = ""),
+            append = FALSE, sep = "\t", row.names = FALSE, quote = FALSE)
+rm(metaTemp)
 ```
+
 
 ```{r}
 library(data.table)
+library("RAM")
 
-i <- 1
+tablesList <- combinedTableITS$tablePath
+tablesDF <- lapply(tablesList, fread.OTU)
 
-for(i in 1:nrow(combinedTableITS)){
-   meta_ITS_merged_temp <- fread(combinedTableITS$metaPath[i],
-                      select = c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure",
-                                 "CollectionDa  te", "Province", "City", "Description" ))
-   
-   write.table(meta_ITS_merged_temp, file=paste(pathDataAn, "meta_ITS_merged", ".tsv", sep = ""),
-              append    = FALSE,
-              sep       = "\t",
-              row.names = FALSE,
-              quote = FALSE)
-              
-    }
+View(tablesDF[[1]])
+summary(tablesDF)
+is.data.frame(tablesDF[[1]])
+valid.OTU(tablesDF[[1]])
 
-meta_ITS_merged <- fread("combinedTableITS", select = c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure", "CollectionDate", "Province", "City", "Description" ))
- 
-combine.OTU(data=list(data=combinedTableITS$tablePath), meta=list(data=combinedTableITS$metaPath))
+# The following line doesn't work - none of the samples are the same across tables.
+# Emilie will try to combine the tables using chime
+# chimePath <- "/opt/bio/chime"
+# cmd <- 
+#   
+# $ chimepath /opt/bio/chime
+# combineDF <- combine.OTU(tablesDF, meta=metaSuperITS)
 
 
 
