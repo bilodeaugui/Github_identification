@@ -263,42 +263,86 @@ write.table(metadata3,
             row.names = FALSE)
 
 metadataMasterNew <- metadata3
+
+
+###########
+############
+#this is rerunning the runs by organism and including runs 13-15 -woot woot
+
+temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "ITS", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+
+ 
+temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Om", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+
+temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Phy", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+
 ```
 
 Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
 Indices obtained (in this specific order) are: Spec Number,  Simpson data,	Inv simpson data,	Shannon data,	Simpson eveness,	Shannon eveness,	Simpson true diversity,	shannon true diversity,	chao,	ACE.
 
 ```{r}
-diversityDir <- paste(pathDataAn, "diversityDir/", sep ="")
-dir.create(paste(pathDataAn, diversityDir, sep = ""),
+diversityDir <- paste(dataAnPath, "diversityDir/", sep ="")
+dir.create(diversityDir,
            showWarnings = TRUE,
            recursive    = FALSE)
-diversityPath <- paste(pathDataAn, diversityDir, sep = "")
 
 
-i <- 16
-for(i in 1:nrow(metadataMasterNew)) {
-  metatemp <- read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$meta[i], sep = ""),
+  metatemp <- read.table(paste(dataAnPath, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
  
-  metatemp$row.names <- NULL
-
-  tabletemp <-  read.table(paste(metadataMasterNew$FilePath[i], metadataMasterNew$table[i], sep = ""),
+  tabletemp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
   
   tabletemp$row.names <- NULL
   
-  rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+  #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
    
-  temp2 <- OTU.diversity(data = list(data = tabletemp), meta = metatemp)
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", metadataMasterNew$ShortName[i], ".meta.div.tsv", sep = ""),
+  temp2 <- OTU.diversity(data = tabletemp, meta = metatemp)
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
               quote=FALSE)
-  }
+
 
 
 ```
@@ -708,12 +752,7 @@ valid.OTU(tablesDF[[1]])
 
 # The following line doesn't work - none of the samples are the same across tables.
 # Emilie will try to combine the tables using chime
-# chimePath <- "/opt/bio/chime"
 # cmd <- 
-#   
-# $ chimepath /opt/bio/chime
-# combineDF <- combine.OTU(tablesDF, meta=metaSuperITS)
-
 #/bin/bash
 
 ###################################################
