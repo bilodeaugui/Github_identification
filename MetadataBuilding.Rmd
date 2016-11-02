@@ -714,7 +714,212 @@ valid.OTU(tablesDF[[1]])
 # $ chimepath /opt/bio/chime
 # combineDF <- combine.OTU(tablesDF, meta=metaSuperITS)
 
+#/bin/bash
 
+###################################################
+#                                                 #
+#         Set directories and variables           #
+#                                                 #
+###################################################
+
+analysisFolder="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU"
+original_its="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/its"
+original_om="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/om"
+original_phy="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/phy"
+out_biom_ITS="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/its"
+out_biom_Om="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/om"
+out_biom_Phy="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/phy"
+ITS_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/ITS_merged/biom"
+Om_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Om_merged/biom"
+Phy_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Phy_merged/biom"
+ITS_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/ITS_merged/tsv"
+Om_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Om_merged/tsv"
+Phy_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Phy_merged/tsv"
+qiimePath="/isilon/biodiversity/pipelines/qiime-1.7.0/qiime-1.7.0-release/bin"
+qiimePathbiomformat="/isilon/biodiversity/pipelines/qiime-1.7.0/biom-format-1.1.2-release/bin/"
+
+#"activate" qiime 
+source /isilon/biodiversity/pipelines/qiime-1.7.0/activate.sh
+
+
+###################################################
+#                                                 #
+#       Convert .tsv tables in biom tables        #
+#                                                 #
+###################################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+
+for i in ${original_its}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_ITS}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+
+for i in ${original_om}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_Om}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+for i in ${original_phy}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_Phy}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+
+######################################
+#                                    #
+#              Merge OTU             #
+#                                    #
+######################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_ITS" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${ITS_merged_biom}"/ITS_merged.biom
+
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_Om" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${Om_merged_biom}"/Om2_merged.biom
+
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_Phy" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${Phy_merged_biom}"/Phy_merged.biom
+
+
+###################################################
+#                                                 #
+#       Convert biom tables in tsv tables         #
+#                                                 #
+###################################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${ITS_merged_biom}"/ITS_merged.biom \
+      -o "$ITS_merged_tsv"/ITS_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+  python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${Om_merged_biom}"/Om_merged.biom \
+      -o "${Om_merged_tsv}"/Om_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+  python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${Phy_merged_biom}"/Phy_merged.biom \
+      -o "${Phy_merged_tsv}"/Phy_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+#end of cmd mode back to Rstudio
 
 
 i <- 1
