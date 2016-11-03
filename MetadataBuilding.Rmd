@@ -323,26 +323,25 @@ dir.create(diversityDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
-
-  metatemp <- read.table(paste(dataAnPath, "ITS.meta.tsv", sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE)
- 
-  tabletemp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+DOES NOT WORK
+  tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
+ 
+  metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
   
   tabletemp$row.names <- NULL
-  
-  #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
-   
-  temp2 <- OTU.diversity(data = tabletemp, meta = metatemp)
+ 
+  temp2 <- OTU.diversity(tabletemp, metatemp)
   write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
               quote=FALSE)
 
+#
 
 
 ```
@@ -351,11 +350,11 @@ Create summary barplot and stats table about your OTU. Never use the taxFilled t
 ```{r}
 library("RAM")
 # make new directory:
-dir.create(paste(dataAnPath, "otuRecap/", sep = ""),
+dir.create(paste(pathDataAn, "otuRecap/", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 # Capture the path of the new directory:
-otuDataPath <- paste(sharedPath, dataAnDir, "otuRecap/", sep = "")
+otuDataPath <- paste(pathDataAn, "otuRecap/", sep = "")
 
 # Create a new directory in otuRecap for plots:
 dir.create(paste(otuDataPath, "Plots/", sep = ""),
@@ -401,6 +400,42 @@ for(i in 1:nrow(metadataMasterTax)){
                                row.names = FALSE,
                                quote=FALSE)
 }
+
+#######
+merged tables
+##########
+
+
+  temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(temp, ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+# Capture the data also in a dataframe:
+  df <- OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
+
+# Write out the dataframe:
+  write.table(df, file=paste(statOTURecapPath, metadataMasterTax$ShortName[i], ".otuRecap.tsv", sep = ""),
+                               # "otuRecap/its1f.run7.otuRecap.tsv", sep = ""),
+                               # metadataMasterTax$ShortName[9], ".otuRecap.tsv", sep = "",
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+}
+
+
+
 
 ```
 
@@ -749,17 +784,17 @@ View(tablesDF[[1]])
 summary(tablesDF)
 is.data.frame(tablesDF[[1]])
 valid.OTU(tablesDF[[1]])
+```
 
-# The following line doesn't work - none of the samples are the same across tables.
-# Emilie will try to combine the tables using chime
-# cmd <- 
-#/bin/bash
+The following line doesn't work - none of the samples are the same across tables.
+Emilie will try to combine the tables using chime
 
-###################################################
-#                                                 #
-#         Set directories and variables           #
-#                                                 #
-###################################################
+
+
+
+For the python package Qiime:
+Set directories and variables:
+```{r}
 
 analysisFolder="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU"
 original_its="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/its"
@@ -774,11 +809,18 @@ Phy_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_
 ITS_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/ITS_merged/tsv"
 Om_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Om_merged/tsv"
 Phy_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Phy_merged/tsv"
-qiimePath="/isilon/biodiversity/pipelines/qiime-1.7.0/qiime-1.7.0-release/bin"
 qiimePathbiomformat="/isilon/biodiversity/pipelines/qiime-1.7.0/biom-format-1.1.2-release/bin/"
+activateQiime <- "/isilon/biodiversity/pipelines/qiime-1.7.0/activate.sh"
+qiimePath <- "/isilon/biodiversity/pipelines/qiime-1.7.0/qiime-1.7.0-release/bin"
 
-#"activate" qiime 
-source /isilon/biodiversity/pipelines/qiime-1.7.0/activate.sh
+sourceWaitQiime <- paste(" source ", activateQiime, " && ", sep = "")
+assignTaxQiime <- paste(qiimePath, "/assign_taxonomy.py", sep = "")
+
+
+cmd <- paste(sourceWaitQiime, assignTaxQiime, " -h ", sep = "")
+system(cmd)
+
+
 
 
 ###################################################
@@ -959,8 +1001,10 @@ python "${qiimePathbiomformat}"/convert_biom.py \
       --header_key="taxonomy"
 
 #end of cmd mode back to Rstudio
+```
 
 
+```{r}
 i <- 1
 
 for(i in 1:nrow(combinedTableITS)){
