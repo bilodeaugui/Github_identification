@@ -326,15 +326,17 @@ dir.create(diversityDir,
 DOES NOT WORK
   tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+ tabletemp$row.names <- NULL
  
   metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
-  
-  tabletemp$row.names <- NULL
+colnames(metatemp)[1] <- "Sample"
+
  
   temp2 <- OTU.diversity(tabletemp, metatemp)
+temp2 <- OTU.diversity(list(data=tabletemp), meta=metatemp)
   write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
@@ -405,6 +407,7 @@ for(i in 1:nrow(metadataMasterTax)){
 merged tables
 ##########
 
+#ITS WORKS 
 
   temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -413,28 +416,73 @@ merged tables
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
-      width = 800, height = 500, units = "px")
+      width = 800, height = 1000, units = "px")
 
 # Put this data into the png graph for the open filehandle:
-  OTU.recap(temp, ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
 
 # Close the png graph file handle:
   dev.off()
 
-# Capture the data also in a dataframe:
-  df <- OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greens")
-
+df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
 # Write out the dataframe:
-  write.table(df, file=paste(statOTURecapPath, metadataMasterTax$ShortName[i], ".otuRecap.tsv", sep = ""),
-                               # "otuRecap/its1f.run7.otuRecap.tsv", sep = ""),
-                               # metadataMasterTax$ShortName[9], ".otuRecap.tsv", sep = "",
+  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
-}
 
 
+#Oomycetes works
+
+  temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "Om", ".otuRecap.png", sep = ""),
+      width = 800, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set2")
+
+# Close the png graph file handle:
+  dev.off()
+
+df2 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set2")
+
+# Write out the dataframe:
+  write.table(df2, file=paste(statOTURecapPath, "Om.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+#Phytophthora works
+
+temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "Phy", ".otuRecap.png", sep = ""),
+      width = 800, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set1")
+
+# Close the png graph file handle:
+  dev.off()
+
+df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set1")
+
+# Write out the dataframe:
+  write.table(df3, file=paste(statOTURecapPath, "Phy.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
 
 
 ```
