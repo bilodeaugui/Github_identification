@@ -328,23 +328,19 @@ DOES NOT WORK
 
 #from wen chen: meta_new <- meta[match(colnames(otu)[-ncol(otu)], rownames(meta)), ] does not work or help
 
-
-
-
-  tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+  tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
  tabletemp$row.names <- NULL
  
-  metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+  metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
-metatempnew <- metatemp[match(colnames(tabletemp)[-ncol(tabletemp)], rownames(metatemp)), ]
-View(metatempnew)
+#metatempnew <- metatemp[match(colnames(tabletemp)[-ncol(tabletemp)], rownames(metatemp)), ]
+#View(metatempnew)
  
-  temp2 <- OTU.diversity(tabletemp, metatemp)
 temp2 <- OTU.diversity(list(data=tabletemp), meta=metatemp)
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -551,7 +547,7 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
 
 ```
 
-### group.abund.Taxa
+### group.abund.Taxa the bad one
 #### top taxa at each rank (all ranks)
   + Needs more than one site in the OTU table to work properly.
   + top taxa at each rank (all ranks). In number or percent. Moustache plot.
@@ -608,7 +604,6 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 ```{r}
 library("RAM")
 
-
 # make new directory:
 dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
            showWarnings = TRUE,
@@ -617,22 +612,36 @@ dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
 groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
 
 
-i <- 1
-for(i in 1:nrow(metadataMasterTax)){
-  tabletemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
+#
+# temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+#                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+#   temp$row.names <- NULL 
+# 
+# rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# # Write out the dataframe:
+#   write.table(rrf, file=paste(rarefyPath, "Phy.rarefy.tsv", sep = ""),
+#                                append    = FALSE,
+#                                sep       = "\t",
+#                                row.names = FALSE,
+#                                quote=FALSE)
+
+#
+
+tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   
   tabletemp$row.names <- NULL 
   
-  metatemp <-  read.table(paste(metadataMasterTax$DataAnFilePath[i], metadataMasterTax$meta[i], sep = ""),
+  metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
-  metatemp$row.names <- NULL 
+  #metatemp$row.names <- NULL 
   
 # In the following, the column names for samples in the otu table become the rownames in the metadata table, which
 # should already be the case (but then the row names get removed in metatemp$row.names <- NULL )
-  rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+ # rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
 
 
 taxa <- core.Taxa(data = list(data = tabletemp),
