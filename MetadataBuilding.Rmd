@@ -324,6 +324,13 @@ dir.create(diversityDir,
            recursive    = FALSE)
 
 DOES NOT WORK
+
+
+#from wen chen: meta_new <- meta[match(colnames(otu)[-ncol(otu)], rownames(meta)), ] does not work or help
+
+
+
+
   tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
@@ -332,8 +339,8 @@ DOES NOT WORK
   metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
-colnames(metatemp)[1] <- "Sample"
-
+metatempnew <- metatemp[match(colnames(tabletemp)[-ncol(tabletemp)], rownames(metatemp)), ]
+View(metatempnew)
  
   temp2 <- OTU.diversity(tabletemp, metatemp)
 temp2 <- OTU.diversity(list(data=tabletemp), meta=metatemp)
@@ -483,6 +490,63 @@ df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
+
+
+```
+
+```{r}
+
+dir.create(paste(pathDataAn, "rarefy_R/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+rarefyPath <- paste(pathDataAn, "rarefy_R/", sep = "")
+
+#ITS works
+
+temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "ITS.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#Oomycetes works
+
+temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "Om.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#Phytophthora works
+
+temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "Phy.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
 
 
 ```
