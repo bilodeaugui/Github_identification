@@ -331,15 +331,14 @@ DOES NOT WORK
 tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
- tabletemp$row.names <- NULL
+tabletemp$row.names <- NULL
  
-  metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
-#metatempnew <- metatemp[match(colnames(tabletemp)[-ncol(tabletemp)], rownames(metatemp)), ]
-#View(metatempnew)
- 
-temp2 <- OTU.diversity(list(data=tabletemp), meta=metatemp)
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
   write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
