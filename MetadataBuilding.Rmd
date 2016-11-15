@@ -328,7 +328,7 @@ DOES NOT WORK
 
 #from wen chen: meta_new <- meta[match(colnames(otu)[-ncol(otu)], rownames(meta)), ] does not work or help
 
-  tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
  tabletemp$row.names <- NULL
