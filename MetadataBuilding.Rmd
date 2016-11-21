@@ -325,10 +325,10 @@ dir.create(diversityDir,
 
 DOES WORK FOR ITS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-tabletemp$row.names <- NULL
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -348,10 +348,10 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 
 #Omycetes
 
-tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-tabletemp$row.names <- NULL
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -372,16 +372,16 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 
 ##Phytophthora
 
-tabletemp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-tabletemp$row.names <- NULL
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL f not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
-#metatemp$row.names <- NULL
+#metatemp$row.names <- NULL 
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
@@ -1257,36 +1257,6 @@ for(k in names(filenames)){
   rm(temp_tempMeta)
 } 
 }
-
-#############
-
-metatemp[,"row.names", drop=FALSE]
-tabletemp["row.names",, drop=FALSE]
-
-
-i <- 1
-
-for(i in 1:nrow(tabletemp)){
-  temp <-  read.table(paste(metadata3$FilePath[i], metadata3$table[i], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", 
-                      comment.char = "", 
-                      quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, colClasses=c("taxonomy"="character"))
-  temp2 <- temp
-  temp2$row.names <- NULL #to unactivate numbers generated in the margin
-  temp2 <- tax.fill(temp2, downstream=TRUE)
-  temp$taxonomy <- temp2$taxonomy
-  
-  write.table(temp, file=paste(pathDataAn, "taxFillTables/", metadata3$ShortName[i], ".table.taxFill.tsv", sep = ""),
-              append    = FALSE,
-              sep       = "\t",
-              row.names = FALSE,
-              quote = FALSE)
-}  
- 
-
-
-
 
 
 
