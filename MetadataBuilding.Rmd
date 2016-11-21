@@ -323,10 +323,7 @@ dir.create(diversityDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
-DOES NOT WORK
-
-
-#from wen chen: meta_new <- meta[match(colnames(otu)[-ncol(otu)], rownames(meta)), ] does not work or help
+DOES WORK FOR ITS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 tabletemp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -337,7 +334,7 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
-metatemp$row.names <- NULL
+#metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
@@ -348,6 +345,7 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               sep       = "\t",
               row.names = FALSE,
               quote=FALSE)
+
 
 #
 
