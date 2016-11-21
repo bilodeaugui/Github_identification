@@ -347,6 +347,39 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               row.names = FALSE,
               quote=FALSE)
 
+###
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+#define the indices to be used
+
+evenness <- c("sim_even", "shan_even")
+trueDiv <- c("sim_trudiv", "shan_trudiv")
+Divandspecnb <- c("sim", "invsim", "shan", "spec")
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(diversityPath, "ITS", ".group.diversity.png", sep = ""),
+      width = 2000, height = 3000, units = "px")
+
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = "evenness", diversity.info=TRUE, facet=TRUE, x.axis="TrapType", compare="Lure", facet=NULL, )
+
+
+
+
+# Close the png graph file handle:
+  dev.off()
+
+
+
 #Omycetes
 
 tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
@@ -636,6 +669,37 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
   dev.off()
 
 }
+###merged tables test
+
+
+  tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, #colClasses=c("row.names"="character", "taxonomy"="character"
+                      ))
+  tabletemp$row.names <- NULL 
+  
+   metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+metatemp$row.names <- NULL
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+
+     
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_kingdom.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+#   group.Taxa.bar(data = list(data = trans), is.OTU = TRUE, func = "sum", rank="k", meta = temp, meta.factor = "TrapType", col.pal = "fullcolors")
+group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank="k", meta = metatemp, meta.factor = "TrapType", col.pal = "Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+}
+
+
+
 ```
 
 # The good one!
@@ -658,52 +722,45 @@ dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
 groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
 
 
-#
-# temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
-#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-#                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
-#   temp$row.names <- NULL 
-# 
-# rrf <- OTU.rarefy(list(data=temp), sample=NULL)
-# # Write out the dataframe:
-#   write.table(rrf, file=paste(rarefyPath, "Phy.rarefy.tsv", sep = ""),
-#                                append    = FALSE,
-#                                sep       = "\t",
-#                                row.names = FALSE,
-#                                quote=FALSE)
-
-#
-
 tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   
-  tabletemp$row.names <- NULL 
+tabletemp$row.names <- NULL 
   
-  metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
-  #metatemp$row.names <- NULL 
-  
-# In the following, the column names for samples in the otu table become the rownames in the metadata table, which
-# should already be the case (but then the row names get removed in metatemp$row.names <- NULL )
- # rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
 
 
-taxa <- core.Taxa(data = list(data = tabletemp),
-                  is.OTU = TRUE,
-                  rank = "f",    # Pay attention to the rank you want to work on
-                  drop.unclassified = TRUE,
-                  meta = metatemp,
-                  meta.factor = "TrapType",
-                  percent = 0.7) # Pay attention to the percent, you 
-                                 # will retrieve those taxa that are present 
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_kingdom.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+taxa <- group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "k",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect)
+                    #percent = 0.7) # Pay attention to the percent, you 
+                                   # will retrieve those taxa that are present 
                                  # in that fraction at that rank.
+
 taxaInsect <- taxa$data$Insect$taxa
 #taxaInsect <- taxa$data$Insect$summary
 taxaSoil   <- taxa$data$Soil$taxa
 taxaSpore  <- taxa$data$Spore$taxa
 taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore))
+
+# Close the png graph file handle:
+  dev.off()
+
+
 ```
 
 ```{r}
