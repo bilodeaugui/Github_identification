@@ -346,8 +346,52 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               row.names = FALSE,
               quote=FALSE)
 
+#Omycetes
 
-#
+tabletemp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+tabletemp$row.names <- NULL
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)
+
+
+##Phytophthora
+
+tabletemp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+tabletemp$row.names <- NULL
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Phy", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)
 
 
 ```
