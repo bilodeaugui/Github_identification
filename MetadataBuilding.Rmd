@@ -283,7 +283,7 @@ temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
               row.names = FALSE,
               quote = FALSE)
 
- 
+#OM 
 temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
@@ -297,6 +297,7 @@ temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
               sep       = "\t",
               row.names = FALSE,
               quote = FALSE)
+#PHY
 
 temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
