@@ -1188,11 +1188,11 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 
 # Open file-handle to get ready to make the raref curve:
-  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.png", sep = ""),
-      width = 3000, height = 500, units = "px")
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.png", sep = ""),
+      width = 10000, height = 500, units = "px")
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 10, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the Kingdom level", meta = metatemp)
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 10, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the Kingdom level", meta = metatemp, meta.factor = c("TrapType", "Lure"))
 
 # Close the png graph file handle:
   dev.off()
