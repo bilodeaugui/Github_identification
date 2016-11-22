@@ -1063,8 +1063,8 @@ library("vegan")
 
 x11(width=8, height=4)
 par(mfrow=c(1,2))
-rarecurve(ITS1.t,step=20, sample=min(rowSums(ITS1.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS1")
-rarecurve(ITS2.t,step=20, sample=min(rowSums(ITS2.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS2")
+rarecurve((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")),step=20, sample=min(rowSums((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")))), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS")
+
 dev.off()
 
 #calculate species accumulation curves for subsets of the community and environmental data sets
@@ -1113,10 +1113,6 @@ for(i in 1:nrow(metadataMasterTax)){
 # Close the png graph file handle:
   dev.off()
 
-
-
-
-```
 
 ```{r}
 ITS1.t<-t(ITS1[, -dim(ITS1)[2]])
@@ -1168,95 +1164,39 @@ dev.off()
 #dev.off()
 ```
 
-
-```{r}
-i <- 1
-
-for(i in 1:nrow(combinedTableITS)){
-  tabletemp <-  read.table(combinedTableITS$tablePath[i],
-                      sep = "\t", header = TRUE, dec = ".", 
-                      comment.char = "", 
-                      quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, colClasses=c("taxonomy"="character"))
-  
-  metatemp <-  read.table(combinedTableITS$metaPath[i],
-                      sep = "\t", header = TRUE, dec = ".", 
-                      comment.char = "", 
-                      quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE)
-
-
-  tabletemp$row.names <- NULL
-  # row.names(combinedTableOm) <- NULL
-  
-  test<- combine.OTU(data=list(tabletemp), meta=metatemp)
-  is.data.frame(test)
-  }
-  
-  #write.table(test, file=paste(dataAnPath, "taxFillTables/", metadataMaster$ShortName[i], ".table.taxFill.tsv", sep = ""),
-              #append    = FALSE,
-              #sep       = "\t",
-#               row.names = FALSE,
-#               quote = FALSE)
-}  
- 
-
 ```
-
+Get Rank
 ```{r}
+dir.create(paste(dataAnPath, "Ranks", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+RanksPath <- paste(dataAnPath, "Ranks", sep = "")
 
-filenames=list.files(path=myPath, 
-                   pattern = "^its1f.*meta.tsv$|^its2.*meta.tsv$",
-                   recursive = FALSE,
-                   full.names=TRUE)
-for (file in filenames){
-  # if the merged dataset doesn't exist, create it
-  if (!exists("dataset")){
-    dataset <- read.table(file, header=TRUE, sep="\t")
-  }
-  # if the merged dataset does exist, append to it
-  if (exists("dataset")){
-    temp_dataset <-read.table(file, header=TRUE, sep="\t")
-    dataset<-rbind(dataset, temp_dataset)
-    rm(temp_dataset)
-  }
-}
+ temp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+  temp$row.names <- NULL 
 
-metacolumns <- c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure", 
-  "CollectionDate", "Province", "City", "Description" )
+# Open file-handle to get ready to make the png graph:
+#  png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
+#      width = 800, height = 1000, units = "px")
 
-k <- 1
-for(k in names(filenames)){
-  if (!exists("tempMeta")){
-  tempMeta <- read.table(filenames[k], 
-                         header = TRUE, 
-                         sep = "\t",
-                         dec = ".", 
-                         comment.char = "", 
-                         quote = "", 
-                         stringsAsFactors = TRUE,
-                         as.is = TRUE, 
-                         check.names = FALSE)
-  tempMeta <- tempMeta[,c(metacolumns)]
-  }
-  # if the merged dataset does exist, append to it
-  if (exists("tempMeta")){
-  temp_tempMeta <-read.table(filenames[k], 
-                        header = TRUE, 
-                        sep = "\t",
-                        dec = ".", 
-                        comment.char = "", 
-                        quote = "", 
-                        stringsAsFactors = TRUE,
-                        as.is = TRUE, 
-                        check.names = FALSE)
-  temp_tempMeta <- temp_tempMeta[,c(metacolumns)]
-  
-  tempMeta <-rbind(tempMeta, temp_tempMeta)
-  rm(temp_tempMeta)
-} 
-}
+# Put this data into the png graph for the open filehandle:
+  rankITS <- get.rank(temp, rank="k")
+
+# Close the png graph file handle:
+#  dev.off()
+
+#df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+# Write out the dataframe:
+  write.table(rankITS, file=paste(RanksPath, "ITS.ranks.kingdom.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
 
 
 
 ```
+
