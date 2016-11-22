@@ -370,7 +370,7 @@ Divandspecnb <- c("sim", "invsim", "shan", "spec")
   png(filename=paste(diversityPath, "ITS", ".group.diversity.png", sep = ""),
       width = 2000, height = 3000, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = "evenness", diversity.info=TRUE, facet=TRUE, x.axis="TrapType", compare="Lure", facet=NULL, )
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even", "shan_even"), diversity.info=TRUE, facet=TRUE, x.axis="TrapType", compare="Lure")
 
 
 

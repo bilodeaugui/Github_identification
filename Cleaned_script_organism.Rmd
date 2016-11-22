@@ -1,0 +1,874 @@
+Emilie's script for metagenomics by organism
+========================================================
+For the python package Qiime:
+Set directories and variables:
+```{r}
+
+analysisFolder="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU"
+original_its="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/its"
+original_om="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/om"
+original_phy="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/tsv_tables_original/phy"
+out_biom_ITS="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/its"
+out_biom_Om="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/om"
+out_biom_Phy="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/BIOM/phy"
+ITS_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/ITS_merged/biom"
+Om_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Om_merged/biom"
+Phy_merged_biom="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Phy_merged/biom"
+ITS_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/ITS_merged/tsv"
+Om_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Om_merged/tsv"
+Phy_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_OTU/Phy_merged/tsv"
+qiimePathbiomformat="/isilon/biodiversity/pipelines/qiime-1.7.0/biom-format-1.1.2-release/bin/"
+activateQiime <- "/isilon/biodiversity/pipelines/qiime-1.7.0/activate.sh"
+qiimePath <- "/isilon/biodiversity/pipelines/qiime-1.7.0/qiime-1.7.0-release/bin"
+
+sourceWaitQiime <- paste(" source ", activateQiime, " && ", sep = "")
+assignTaxQiime <- paste(qiimePath, "/assign_taxonomy.py", sep = "")
+
+
+cmd <- paste(sourceWaitQiime, assignTaxQiime, " -h ", sep = "")
+system(cmd)
+
+
+
+
+###################################################
+#                                                 #
+#       Convert .tsv tables in biom tables        #
+#                                                 #
+###################################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+
+for i in ${original_its}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_ITS}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+
+for i in ${original_om}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_Om}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+for i in ${original_phy}/*.tsv; do 
+    name="$(basename "$i")"
+    nameNoExt="${name%.*}"
+    outName="${out_biom_Phy}"/${nameNoExt}".biom"
+
+    python "${qiimePathbiomformat}"/convert_biom.py \
+         -i "$i" \
+         -o "$outName" \
+         --biom_table_type="otu table" \
+         --process_obs_metadata taxonomy
+done
+
+
+######################################
+#                                    #
+#              Merge OTU             #
+#                                    #
+######################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_ITS" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${ITS_merged_biom}"/ITS_merged.biom
+
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_Om" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${Om_merged_biom}"/Om2_merged.biom
+
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+fileList=()
+for i in $(find "$out_biom_Phy" -maxdepth 1 -type f -name "*biom"); do
+    # echo "$i"
+    fileList+=("$i")
+done
+#echo "${fileList[@]}"
+
+
+allBiom=$(echo "${fileList[@]}" | tr " " ",")
+#echo "$allBiom"
+
+python "${qiimePath}"/merge_otu_tables.py \
+         -i "$allBiom" \
+         -o "${Phy_merged_biom}"/Phy_merged.biom
+
+
+###################################################
+#                                                 #
+#       Convert biom tables in tsv tables         #
+#                                                 #
+###################################################
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${ITS_merged_biom}"/ITS_merged.biom \
+      -o "$ITS_merged_tsv"/ITS_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+##############
+#            #
+#    Oom     #
+#            #
+##############
+
+  python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${Om_merged_biom}"/Om_merged.biom \
+      -o "${Om_merged_tsv}"/Om_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+##############
+#            #
+#    Phy     #
+#            #
+##############
+
+  python "${qiimePathbiomformat}"/convert_biom.py \
+      -i "${Phy_merged_biom}"/Phy_merged.biom \
+      -o "${Phy_merged_tsv}"/Phy_merged.tsv \
+      -b \
+      --header_key="taxonomy"
+
+#end of cmd mode back to Rstudio
+```
+Create summary barplot and stats table about your OTU. Never use the taxFilled tables as it does not work.
+
+```{r}
+library("RAM")
+# make new directory:
+dir.create(paste(pathDataAn, "otuRecap/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture the path of the new directory:
+otuDataPath <- paste(pathDataAn, "otuRecap/", sep = "")
+
+# Create a new directory in otuRecap for plots:
+dir.create(paste(otuDataPath, "Plots/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+# Capture path to new directory:
+plotPath <- paste(otuDataPath, "Plots/", sep = "")
+
+# Create a new directory in otuRecap for tables:
+dir.create(paste(otuDataPath, "StatTables/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
+
+
+#ITS WORKS 
+
+  temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
+      width = 800, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Close the png graph file handle:
+  dev.off()
+
+df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+# Write out the dataframe:
+  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+
+#Oomycetes works
+
+  temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "Om", ".otuRecap.png", sep = ""),
+      width = 800, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Close the png graph file handle:
+  dev.off()
+
+df2 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Write out the dataframe:
+  write.table(df2, file=paste(statOTURecapPath, "Om.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+#Phytophthora works
+
+temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "Phy", ".otuRecap.png", sep = ""),
+      width = 800, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Close the png graph file handle:
+  dev.off()
+
+df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Write out the dataframe:
+  write.table(df3, file=paste(statOTURecapPath, "Phy.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+```
+tax.fill to remove uncertae sedis, unclassified...
+
+```{r}
+library("RAM")
+
+taxFillDir <- "taxFillTables/"
+dir.create(paste(pathDataAn, taxFillDir, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
+
+#Runs by organism 
+
+temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "ITS", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+
+#OM 
+temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Om", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+#PHY
+
+temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Phy", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+
+```
+
+Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
+Indices obtained (in this specific order) are: Spec Number,  Simpson data,  Inv simpson data,	Shannon data,	Simpson eveness,	Shannon eveness,	Simpson true diversity,	shannon true diversity,	chao,	ACE.
+
+```{r}
+diversityDir <- paste(dataAnPath, "diversityDir/", sep ="")
+dir.create(diversityDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)
+
+#Omycetes
+
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)
+
+
+##Phytophthora
+
+tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL f not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL 
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Phy", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)
+
+
+```
+
+Whiskers plots (diversity)
+```{r}
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+#define the indices to be used
+
+evenness <- c("sim_even", "shan_even")
+trueDiv <- c("sim_trudiv", "shan_trudiv")
+Divandspecnb <- c("sim", "invsim", "shan", "spec")
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(diversityPath, "ITS", ".group.diversity.png", sep = ""),
+      width = 2000, height = 3000, units = "px")
+
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even", "shan_even"), diversity.info=TRUE, facet=TRUE, x.axis="TrapType", compare="Lure")
+
+# Close the png graph file handle:
+  dev.off()
+
+
+```
+
+Rarefy your tables
+```{r}
+
+dir.create(paste(pathDataAn, "rarefy_R/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+rarefyPath <- paste(pathDataAn, "rarefy_R/", sep = "")
+
+#ITS works
+
+temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "ITS.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#Oomycetes works
+
+temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "Om.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#Phytophthora works
+
+temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "Phy.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+
+
+```
+
+### group.abund.Taxa the bad one
+#### top taxa at each rank (all ranks)
+  + Needs more than one site in the OTU table to work properly.
+  + top taxa at each rank (all ranks). In number or percent. Moustache plot.
+  + Needs more than one site in the OTU table to work properly.
+  + default top 10%
+```{r}
+library("RAM")
+# make new directory:
+dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
+
+
+###merged tables test
+
+
+  tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, #colClasses=c("row.names"="character", "taxonomy"="character"
+                      ))
+  tabletemp$row.names <- NULL 
+  
+   metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+metatemp$row.names <- NULL
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+
+     
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_kingdom.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+#   group.Taxa.bar(data = list(data = trans), is.OTU = TRUE, func = "sum", rank="k", meta = temp, meta.factor = "TrapType", col.pal = "fullcolors")
+group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank="k", meta = metatemp, meta.factor = "TrapType", col.pal = "Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+}
+
+
+
+```
+
+# The good one!
+### group.abund.Taxa
+#### top taxa at each rank (all ranks)
+  + Needs more than one site in the OTU table to work properly.
+  + top taxa at each rank (all ranks). In number or percent. Moustache plot.
+  + Needs more than one site in the OTU table to work properly.
+  + default top 10%
+
+# 1. generate the list of taxa desired:
+```{r}
+library("RAM")
+
+# make new directory:
+dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+# Capture path to new directory:
+groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
+
+
+tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_kingdom.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+taxa <- group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "k",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect)
+                    #percent = 0.7) # Pay attention to the percent, you 
+                                   # will retrieve those taxa that are present 
+                                 # in that fraction at that rank.
+
+taxaInsect <- taxa$data$Insect$taxa
+#taxaInsect <- taxa$data$Insect$summary
+taxaSoil   <- taxa$data$Soil$taxa
+taxaSpore  <- taxa$data$Spore$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore))
+
+# Close the png graph file handle:
+  dev.off()
+
+
+```
+Group taxa bar
+```{r}
+
+
+# The following is an alternative to group.taxa.bar:
+
+group.abund.Taxa(data = list(data = tabletemp), 
+                 is.OTU = TRUE,
+                 # taxa = tabletemp,
+                 taxa = taxaAll,
+                 drop.unclassified = TRUE,
+                 bar.width = NULL,
+                 meta = metatemp,
+                 meta.factor = "TrapType",
+                 RAM.theme = NULL,
+                 col.pal = NULL,
+                 main = "",
+                 file = NULL,
+                 ext = NULL,
+                 height = 50,
+                 width = 16)
+
+# Close the png graph file handle:
+  dev.off()
+
+}
+```
+
+# Produce the rarefaction curve for each sample (copied from Wen)
+
+# First transpose the otu table, because the rarecurve take each row as one sample
+
+```{r}
+TransposedOTUTables <- "transposed_OTU_tables/"
+dataAnPath <- "/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/"
+dir.create(paste(dataAnPath, TransposedOTUTables, sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+TransposedOTUTables <- paste(dataAnPath, TransposedOTUTables, sep = "")
+
+in linux: cp *.table.tsv transposed_OTU_tables/
+
+
+i <- 1
+for(i in 1:nrow(metadataMasterTax)){
+  temp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character"))
+  temp$row.names <- NULL 
+  temp <- as.data.frame(temp)
+  
+  # Capture the data also in a dataframe:
+  temp <- transpose.OTU(data = list(temp))
+  temp <- transpose.OTU(metadataMasterTax$table[i])
+  # Write out the dataframe:
+  write.table(temp, file=paste(TransposedOTUTables, metadataMasterTax$ShortName[i], ".transposed.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+}
+
+
+# Open file-handle to get ready to make the raref curve:
+  png(filename=paste(dataAnPath/trans, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
+      width = 800, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(data = list(data = temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+
+
+
+```
+
+```{r}
+ITS1.t<-t(ITS1[, -dim(ITS1)[2]])
+head(ITS1.t)[,1:5]
+ITS2.t<-t(ITS2[, -dim(ITS2)[2]])
+head(ITS2.t)[,1:5]
+
+##from forum##
+library(reshape2)
+dcast.data.table(melt(mydata, id.vars = "col0"), variable ~ col0)
+###
+ab<-table(unlist(ITS1.t))
+ab
+x11(width = 12, height = 4)
+# do a barplot of frequency of abundance ranks
+barplot(log(ab), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(ab))+2))
+
+# Total count/proportion of absences
+sum(ITS1.t == 0)
+sum(ITS2.t == 0)
+sum(ITS1.t == 0)/(nrow(ITS1.t)*ncol(ITS1.t))
+sum(ITS2.t == 0)/(nrow(ITS2.t)*ncol(ITS2.t))
+
+```
+
+# plot rarecurve for each sample
+
+```{r}
+library("vegan")
+#tiff(compression="lzw", file=paste(basename, sep="", "ITS.rarecurve.tiff"), res=1000, units="in", width=16, height=8)
+
+x11(width=8, height=4)
+par(mfrow=c(1,2))
+rarecurve(ITS1.t,step=20, sample=min(rowSums(ITS1.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS1")
+rarecurve(ITS2.t,step=20, sample=min(rowSums(ITS2.t)), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS2")
+dev.off()
+
+#calculate species accumulation curves for subsets of the community and environmental data sets
+library(BiodiversityR)
+
+x11(width=8, height=4)
+par(mfrow=c(1,2))
+accumcomp(ITS1.t, y=meta, factor='Crop', method="rarefaction",cex=0.5, ylab="OTU number", xlab="Samples") # need to place the lengend by click on the plot before moving to next plot
+accumcomp(ITS1.t, y=meta, factor='City', method="rarefaction",cex=0.5, ylab="OTU number", xlab="Samples")
+dev.off()
+
+#dev.copy(png, file="ITS1.otu.rarecurve.eachsample.png")
+
+#dev.off()
+```
+
+
+```{r}
+i <- 1
+
+for(i in 1:nrow(combinedTableITS)){
+  tabletemp <-  read.table(combinedTableITS$tablePath[i],
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+  
+  metatemp <-  read.table(combinedTableITS$metaPath[i],
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+
+  tabletemp$row.names <- NULL
+  # row.names(combinedTableOm) <- NULL
+  
+  test<- combine.OTU(data=list(tabletemp), meta=metatemp)
+  is.data.frame(test)
+  }
+  
+  #write.table(test, file=paste(dataAnPath, "taxFillTables/", metadataMaster$ShortName[i], ".table.taxFill.tsv", sep = ""),
+              #append    = FALSE,
+              #sep       = "\t",
+#               row.names = FALSE,
+#               quote = FALSE)
+}  
+ 
+
+```
+
+```{r}
+
+filenames=list.files(path=myPath, 
+                   pattern = "^its1f.*meta.tsv$|^its2.*meta.tsv$",
+                   recursive = FALSE,
+                   full.names=TRUE)
+for (file in filenames){
+  # if the merged dataset doesn't exist, create it
+  if (!exists("dataset")){
+    dataset <- read.table(file, header=TRUE, sep="\t")
+  }
+  # if the merged dataset does exist, append to it
+  if (exists("dataset")){
+    temp_dataset <-read.table(file, header=TRUE, sep="\t")
+    dataset<-rbind(dataset, temp_dataset)
+    rm(temp_dataset)
+  }
+}
+
+metacolumns <- c("row.names", "BarcodeSequence", "LinkerPrimerSequence", "InputFileName", "TrapType", "Lure", 
+  "CollectionDate", "Province", "City", "Description" )
+
+k <- 1
+for(k in names(filenames)){
+  if (!exists("tempMeta")){
+  tempMeta <- read.table(filenames[k], 
+                         header = TRUE, 
+                         sep = "\t",
+                         dec = ".", 
+                         comment.char = "", 
+                         quote = "", 
+                         stringsAsFactors = TRUE,
+                         as.is = TRUE, 
+                         check.names = FALSE)
+  tempMeta <- tempMeta[,c(metacolumns)]
+  }
+  # if the merged dataset does exist, append to it
+  if (exists("tempMeta")){
+  temp_tempMeta <-read.table(filenames[k], 
+                        header = TRUE, 
+                        sep = "\t",
+                        dec = ".", 
+                        comment.char = "", 
+                        quote = "", 
+                        stringsAsFactors = TRUE,
+                        as.is = TRUE, 
+                        check.names = FALSE)
+  temp_tempMeta <- temp_tempMeta[,c(metacolumns)]
+  
+  tempMeta <-rbind(tempMeta, temp_tempMeta)
+  rm(temp_tempMeta)
+} 
+}
+
+
+
+```
