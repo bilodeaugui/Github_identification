@@ -1172,31 +1172,30 @@ dir.create(paste(dataAnPath, "Ranks", sep = ""),
            recursive    = FALSE)
 RanksPath <- paste(dataAnPath, "Ranks", sep = "")
 
- temp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+ tabletemp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
-  temp$row.names <- NULL 
+  tabletemp$row.names <- NULL 
 
-# Open file-handle to get ready to make the png graph:
-#  png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
-#      width = 800, height = 1000, units = "px")
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
 
-# Put this data into the png graph for the open filehandle:
-  rankITS <- get.rank(temp, rank="k")
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+
+# Open file-handle to get ready to make the raref curve:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.png", sep = ""),
+      width = 3000, height = 500, units = "px")
+
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 10, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the Kingdom level", meta = metatemp)
 
 # Close the png graph file handle:
-#  dev.off()
-
-#df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
-# Write out the dataframe:
-  write.table(rankITS, file=paste(RanksPath, "ITS.ranks.kingdom.tsv", sep = ""),
-                               append    = FALSE,
-                               sep       = "\t",
-                               row.names = FALSE,
-                               quote=FALSE)
-
-
-
+  dev.off()
 
 ```
 
