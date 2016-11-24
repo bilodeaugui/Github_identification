@@ -1458,7 +1458,60 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
+```
+GPS stuff
 
+```{r}
+
+geoDir <- paste(dataAnPath, "geographics", sep ="")
+dir.create(geoDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+geoDirsamsize <- paste(dataAnPath, "geographics/samplingsize/", sep ="")
+dir.create(geoDirsamsize,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+
+#ITS
+
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(dataAnPath, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+
+#Sample geographics
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "Om", ".geo.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+sample.locations(tabletemp, otu2 = NULL, meta = metatemp, zoom=3, source = "google", lat.col = "Latitude", long.col = "Longitude", labels = "Description")
+
+# Close the png graph file handle:
+  dev.off()
+###
+
+#Sample geographics
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".geo.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+sample.sites(meta = metatemp, siteID = "City",  zoom=3, lat = "Latitude", lon = "Longitude")
+
+# Close the png graph file handle:
+  dev.off()
 
 
 ```
