@@ -246,7 +246,7 @@ statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
-      width = 800, height = 1000, units = "px")
+      width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
   OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
@@ -272,7 +272,7 @@ df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(plotPath, "Om", ".otuRecap.png", sep = ""),
-      width = 800, height = 1000, units = "px")
+      width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
   OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
@@ -297,7 +297,7 @@ temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(plotPath, "Phy", ".otuRecap.png", sep = ""),
-      width = 800, height = 1000, units = "px")
+      width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
   OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
@@ -1036,11 +1036,49 @@ write.table(tmp2, file=paste(TransposedOTUTables, "Phy.trans.table.tsv", sep = "
                                row.names = FALSE,
                                quote=FALSE)
 
-#########
+#########nope
 
+#do a barplot of frequency of abundance ranks
+
+# Open file-handle to get ready to make the barplot:
+  png(filename=paste(rarefyPath, "ITS", ".freq_barplot.png", sep = ""),
+      width = 1200, height = 1000)
+
+barplot(log(abITS), las=1, xlab = "Abundance in Matrix", ylab = "log (frequency)", ylim = c(0, max(log(abITS))+2))
+
+# Close the png graph file handle:
+  dev.off() 
+  
+  ###
+
+abITS
+x11(width = 12, height = 4)
+# do a barplot of frequency of abundance ranks
+barplot(log(abITS), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(abITS))+2))
+
+  
+######
+  
+  
 abITS<-table(unlist(paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")))
 abOm<-table(unlist(paste(TransposedOTUTables, "Om.trans.table.tsv", sep = "")))
 abPhy<-table(unlist(paste(TransposedOTUTables, "Phy.trans.table.tsv", sep = "")))
+
+# do a barplot of frequency of abundance ranks
+barplot(log(ab), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(ab))+2))
+
+# Total count/proportion of absences
+sum(ITS1.t == 0)
+sum(ITS2.t == 0)
+sum(ITS1.t == 0)/(nrow(ITS1.t)*ncol(ITS1.t))
+sum(ITS2.t == 0)/(nrow(ITS2.t)*ncol(ITS2.t))
+
+
+
+
+
+
+
 
 abITS
 X11(width = 12, height = 4)
@@ -1066,7 +1104,23 @@ par(mfrow=c(1,2))
 rarecurve((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")),step=20, sample=min(rowSums((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")))), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITS")
 
 dev.off()
+##
 
+tmp <-  read.table(paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+# Open file-handle to get ready to make the barplot:
+  png(filename=paste(rarefyPath, "ITS", ".rarecurve.png", sep = ""), res ="1000", units = "px",
+      width = 1200, height = 1000)
+rarecurve((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")),step=20, sample=min(rowSums((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")))), col="blue", cex=0.6, xlab="Number of sequences", ylab="Number of OTUs", main="ITSFungi")
+#barplot(log(abITS), las=1, xlab = "Abundance in Matrix", ylab = "log (frequency)", ylim = c(0, max(log(abITS))+2))
+
+# Close the png graph file handle:
+  dev.off() 
+  
+##
 #calculate species accumulation curves for subsets of the community and environmental data sets
 library(BiodiversityR)
 
@@ -1460,59 +1514,199 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 
 ```
 GPS stuff
+you must remove samples with no gsp coordinates, example: mocks
+
 
 ```{r}
 
-geoDir <- paste(dataAnPath, "geographics", sep ="")
-dir.create(geoDir,
-           showWarnings = TRUE,
-           recursive    = FALSE)
 
-geoDirsamsize <- paste(dataAnPath, "geographics/samplingsize/", sep ="")
-dir.create(geoDirsamsize,
+# make new directory:
+dir.create(paste(dataAnPath, "geographics/", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
+# Capture the path of the new directory:
+geoDir <- paste(pathDataAn, "geographics/", sep = "")
+
 
 
 #ITS
 
-tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
-#tabletemp$row.names <- NULL if not using tXfilled tables you need it
- 
-metatemp <-  read.table(paste(dataAnPath, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(dataAnPath, "ITS.meta.nomock.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
 metatemp$row.names <- NULL
 
-rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+#Sample geographics
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".geo.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", maptype="terrain")
+
+# Close the png graph file handle:
+  dev.off()
+  
+  
+
+#Om
+
+metatemp <-  read.table(paste(dataAnPath, "Om.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
 
 
 #Sample geographics
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(geoDir, "Om", ".geo.png", sep = ""),
-      width = 1200, height = 400, units = "px")
+      width = 1200, height = 1000, units = "px")
 
-sample.locations(tabletemp, otu2 = NULL, meta = metatemp, zoom=3, source = "google", lat.col = "Latitude", long.col = "Longitude", labels = "Description")
+sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", maptype="terrain")
 
 # Close the png graph file handle:
   dev.off()
-###
+  
+ 
+#Phy
+
+
+metatemp <-  read.table(paste(dataAnPath, "Phy.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
 
 #Sample geographics
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(geoDir, "ITS", ".geo.png", sep = ""),
-      width = 1200, height = 400, units = "px")
+  png(filename=paste(geoDir, "Phy", ".geo.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
 
-sample.sites(meta = metatemp, siteID = "City",  zoom=3, lat = "Latitude", lon = "Longitude")
+sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", maptype="terrain")
 
 # Close the png graph file handle:
-  dev.off()
+  dev.off() 
+ 
+```  
+  
+PCOA  
+  
+```{r}
 
+#does not work
+pcoaDir <- paste(dataAnPath, "PCOA/", sep ="")
+dir.create(pcoaDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+tabletemp <- read.table(paste(taxabunDir, "ITS.taxab.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(pcoaDir, "ITS", "pcoa.family.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+pcoa.plot(data = tabletemp, meta = metatemp, rank = NULL, stand.method = "standardize", dist.method = "bray", top = 15, main = "PCOA of fungi at the family level", factors = "TrapType", ggplot2 =TRUE, is.OTU =FALSE)
+
+# Close the png graph file handle:
+  dev.off() 
 
 ```
+
+Tax abund tables generated at each taxonomic rank
+```{r}
+
+taxabunDir <- paste(dataAnPath, "taxAbund/", sep ="")
+dir.create(taxabunDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+#ITS
+
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+tmp <- tax.abund(tabletemp, otu2 = NULL, rank = NULL, drop.unclassified =TRUE, top = NULL, mode = "percent")
+write.table(tmp, file=paste(taxabunDir, "ITS.taxab.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+                               
+#Om
+
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+tmp <- tax.abund(tabletemp, otu2 = NULL, rank = NULL, drop.unclassified =TRUE, top = NULL, mode = "percent")
+write.table(tmp, file=paste(taxabunDir, "Om.taxab.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)      
+                               
+                               
+#Phy
+
+tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+tmp <- tax.abund(tabletemp, otu2 = NULL, rank = NULL, drop.unclassified =TRUE, top = NULL, mode = "percent")
+write.table(tmp, file=paste(taxabunDir, "Phy.taxab.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)           
+
+```
+Top groups box plotting
+
+```{r}
+
 
