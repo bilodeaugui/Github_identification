@@ -531,7 +531,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -542,7 +542,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "ITS", ".Simpson.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -553,7 +553,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "ITS", ".Shannon.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -564,7 +564,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "ITS", ".Simpson.inv.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -576,7 +576,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "ITS", ".Species.nb.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -635,7 +635,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -646,7 +646,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Om", ".Simpson.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -657,7 +657,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Om", ".Shannon.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -668,7 +668,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Om", ".Simpson.inv.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -680,7 +680,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Om", ".Species.nb.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -741,7 +741,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Phy", ".Shannon.True.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -752,7 +752,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Phy", ".Simpson.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -763,7 +763,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Phy", ".Shannon.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -774,7 +774,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Phy", ".Simpson.inv.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -786,7 +786,7 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
   png(filename=paste(DivPlotPath, "Phy", ".Species.nb.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1038,6 +1038,10 @@ write.table(tmp2, file=paste(TransposedOTUTables, "Phy.trans.table.tsv", sep = "
 
 #########nope
 
+
+
+
+
 #do a barplot of frequency of abundance ranks
 
 # Open file-handle to get ready to make the barplot:
@@ -1054,13 +1058,16 @@ barplot(log(abITS), las=1, xlab = "Abundance in Matrix", ylab = "log (frequency)
 abITS
 x11(width = 12, height = 4)
 # do a barplot of frequency of abundance ranks
-barplot(log(abITS), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(abITS))+2))
+barplot(log(tmp), las=1, xlab = "Abundand in matrix", ylab = "log (frequency)", ylim = c(0, max(log(tmp))+2))
 
   
 ######
+tmp <-  read.table(paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
   
   
-abITS<-table(unlist(paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")))
+abITS<-table(unlist(tmp))
 abOm<-table(unlist(paste(TransposedOTUTables, "Om.trans.table.tsv", sep = "")))
 abPhy<-table(unlist(paste(TransposedOTUTables, "Phy.trans.table.tsv", sep = "")))
 
@@ -1072,11 +1079,6 @@ sum(ITS1.t == 0)
 sum(ITS2.t == 0)
 sum(ITS1.t == 0)/(nrow(ITS1.t)*ncol(ITS1.t))
 sum(ITS2.t == 0)/(nrow(ITS2.t)*ncol(ITS2.t))
-
-
-
-
-
 
 
 
