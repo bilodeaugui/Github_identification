@@ -486,11 +486,6 @@ metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
-#define the indices to be used
-
-evenness <- c("sim_even", "shan_even")
-trueDiv <- c("sim_trudiv", "shan_trudiv")
-Divandspecnb <- c("sim", "invsim", "shan", "spec")
 
 #Simpson Evenness
 
@@ -936,27 +931,27 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
 metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
+coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "TrapType", percent = 0.80)
+
+taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
+taxaSpore  <- c(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa)
+taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod, ta))
+
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_kingdom.png", sep = ""),
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.png", sep = ""),
       width = 1500, height = 1000, units = "px")
 
-taxa <- group.abund.Taxa(data = list(data = tabletemp),
+group.abund.Taxa(data = list(data = tabletemp),
                     is.OTU = TRUE,
-                    rank = "k",    # Pay attention to the rank you want to work on
+                    rank = "s",    # Pay attention to the rank you want to work on
                     drop.unclassified = TRUE,
                     meta = metatemp,
                     meta.factor = "TrapType",
                     taxa = taxaInsect)
-                    #percent = 0.7) # Pay attention to the percent, you 
-                                   # will retrieve those taxa that are present 
-                                 # in that fraction at that rank.
-
-taxaInsect <- taxa$data$Insect$taxa
-#taxaInsect <- taxa$data$Insect$summary
-taxaSoil   <- taxa$data$Soil$taxa
-taxaSpore  <- taxa$data$Spore$taxa
-taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore))
-
+                
 # Close the png graph file handle:
   dev.off()
 
@@ -1606,25 +1601,27 @@ dir.create(pcoaDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
-tabletemp <- read.table(paste(taxabunDir, "ITS.taxab.table.tsv", sep = ""),
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
-#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.nona.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
-#metatemp$row.names <- NULL
+metatemp$row.names <- NULL
 
-#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
+my.vec <- c(TrapType = "TrapType")
+names(my.vec)
 
 # Open file-handle to get ready to make the png graph:
 png(filename=paste(pcoaDir, "ITS", "pcoa.family.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, meta = metatemp, rank = NULL, stand.method = "standardize", dist.method = "bray", top = 15, main = "PCOA of fungi at the family level", factors = "TrapType", ggplot2 =TRUE, is.OTU =FALSE)
+pcoa.plot(data = tabletemp, meta = metatemp, rank = "g", top = 15, factors = my.vec, ggplot2 =TRUE, is.OTU =TRUE, main = "PCOA at the genus level by Trap Type", stand.method = "chi.square", dist.method = "bray")
 
 # Close the png graph file handle:
   dev.off() 
