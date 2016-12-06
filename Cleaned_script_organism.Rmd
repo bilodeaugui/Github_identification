@@ -30,7 +30,6 @@ system(cmd)
 
 
 
-
 ###################################################
 #                                                 #
 #       Convert .tsv tables in biom tables        #
@@ -237,7 +236,12 @@ dir.create(paste(otuDataPath, "StatTables/", sep = ""),
 statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 
 
-#ITS WORKS 
+
+##############
+#            #
+#    ITS     #
+#            #
+############## WORKS 
 
   temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -262,8 +266,11 @@ df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
                                row.names = FALSE,
                                quote=FALSE)
 
-
-#Oomycetes works
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
   temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -288,7 +295,11 @@ df2 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
-#Phytophthora works
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -325,7 +336,12 @@ dir.create(paste(pathDataAn, taxFillDir, sep = ""),
            recursive    = FALSE)
 taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
 
-#Runs by organism 
+
+##############
+#            #
+#    ITS     #
+#            #
+############## works
 
 temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
@@ -341,7 +357,11 @@ temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
               row.names = FALSE,
               quote = FALSE)
 
-#OM 
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
@@ -355,7 +375,12 @@ temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
               sep       = "\t",
               row.names = FALSE,
               quote = FALSE)
-#PHY
+  
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
@@ -382,6 +407,12 @@ dir.create(diversityDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
+##############
+#            #
+#    ITS     #
+#            #
+############## works
+
 tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
@@ -403,7 +434,11 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               row.names = FALSE,
               quote=FALSE)
 
-#Omycetes
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
 tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -426,8 +461,11 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               row.names = FALSE,
               quote=FALSE)
 
-
-##Phytophthora
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -470,7 +508,11 @@ dir.create(diversityDir,
 EvenPlotPath <- paste(dataAnPath, "diversityDir/EvennessPlot/", sep ="")
 DivPlotPath <- paste(dataAnPath, "diversityDir/DiversityPlot/", sep ="")
 
-#ITS
+##############
+#            #
+#    ITS     #
+#            #
+############## works
 
 
 tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
@@ -576,8 +618,12 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
 # Close the png graph file handle:
   dev.off()
 
-#OOM######
-
+##############
+#            #
+#    Oom     #
+#            #
+############## works
+  
 tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
@@ -680,10 +726,12 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
 # Close the png graph file handle:
   dev.off()
 
-
-
-### PHY ###
-
+##############
+#            #
+#    Phy     #
+#            #
+############## works
+  
 tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
@@ -799,7 +847,11 @@ dir.create(paste(pathDataAn, "rarefy_R/", sep = ""),
 # Capture path to new directory:
 rarefyPath <- paste(pathDataAn, "rarefy_R/", sep = "")
 
-#ITS works
+##############
+#            #
+#    ITS     #
+#            #
+############## works
 
 temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -814,7 +866,11 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
                                row.names = FALSE,
                                quote=FALSE)
 
-#Oomycetes works
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
 temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -829,7 +885,11 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
                                row.names = FALSE,
                                quote=FALSE)
 
-#Phytophthora works
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 temp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -897,15 +957,9 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 
 ```
 
-# The good one!
-### group.abund.Taxa
-#### top taxa at each rank (all ranks)
-  + Needs more than one site in the OTU table to work properly.
-  + top taxa at each rank (all ranks). In number or percent. Moustache plot.
-  + Needs more than one site in the OTU table to work properly.
-  + default top 10%
 
-# 1. generate the list of taxa desired:
+### group.abund.Taxa
+# 1. generate the list of taxa desired with core taxa, thengenerate the plots with group.abund.Taxa
 ```{r}
 library("RAM")
 
@@ -916,6 +970,12 @@ dir.create(paste(pathDataAn, "groupTaxaBar/", sep = ""),
 # Capture path to new directory:
 groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
 
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
 
 tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -935,13 +995,30 @@ coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, met
 
 taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
 taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
-taxaSpore  <- c(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa)
+taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
 taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
 taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
-taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod, ta))
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect,
+                    main = "12 Species found in 80% of Insect samples and reprensenting 38.16% of total sequences in Insect Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.soil.80pc.png", sep = ""),
       width = 1500, height = 1000, units = "px")
 
 group.abund.Taxa(data = list(data = tabletemp),
@@ -950,40 +1027,91 @@ group.abund.Taxa(data = list(data = tabletemp),
                     drop.unclassified = TRUE,
                     meta = metatemp,
                     meta.factor = "TrapType",
-                    taxa = taxaInsect)
+                    taxa = taxaSoil,
+                    main = "36 species found in 80% of Soil samples and representing 86.81% of total sequences in Soil samples")
                 
 # Close the png graph file handle:
   dev.off()
 
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.spore.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
 
-```
-Group taxa bar
-```{r}
-
-
-# The following is an alternative to group.taxa.bar:
-
-group.abund.Taxa(data = list(data = tabletemp), 
-                 is.OTU = TRUE,
-                 # taxa = tabletemp,
-                 taxa = taxaAll,
-                 drop.unclassified = TRUE,
-                 bar.width = NULL,
-                 meta = metatemp,
-                 meta.factor = "TrapType",
-                 RAM.theme = NULL,
-                 col.pal = NULL,
-                 main = "",
-                 file = NULL,
-                 ext = NULL,
-                 height = 50,
-                 width = 16)
-
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaSpore,
+                    main = "15 species found in 80% of Spore samples and representing 61.47% of total sequences in Spore Traps")
+                
 # Close the png graph file handle:
   dev.off()
+  
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.rotorod.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
 
-}
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxarotorod,
+                     main = "27 species found in 80% of Rotorod samples and representing 85.60% of total sequences in Rotorod samples")
+                 
+# Close the png graph file handle:
+  dev.off()
+ 
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.mock.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxamock,
+                     main = "9 species found in 80% of MOCK samples and representing 62.78% of total sequences in MOCK samples")
+                
+# Close the png graph file handle:
+  dev.off()
+      
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.all.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaAll,
+                    main = "7 species found in 80% of samples in all Trap Types and representing 48.76% of total sequences")
+                
+# Close the png graph file handle:
+  dev.off()
+           
+##############
+#            #
+#    Oom     #
+#            #
+############## works
+  
+##############
+#            #
+#    Phy     #
+#            #
+############## works  
+  
 ```
+
 
 # Produce the rarefaction curve for each sample (copied from Wen)
 
@@ -995,7 +1123,12 @@ dir.create(paste(dataAnPath, TransposedOTUTables, sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 TransposedOTUTables <- paste(dataAnPath, TransposedOTUTables, sep = "")
-#ITS
+
+##############
+#            #
+#    ITS     #
+#            #
+############## works
 
 tmp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1008,7 +1141,12 @@ write.table(tmp2, file=paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "
                                row.names = FALSE,
                                quote=FALSE)
 
-#OM
+##############
+#            #
+#    Oom     #
+#            #
+############## works
+
 tmp <-  read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
@@ -1019,7 +1157,12 @@ write.table(tmp2, file=paste(TransposedOTUTables, "Om.trans.table.tsv", sep = ""
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
-#PHY
+##############
+#            #
+#    Phy     #
+#            #
+############## works
+
 tmp <-  read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
@@ -1032,10 +1175,6 @@ write.table(tmp2, file=paste(TransposedOTUTables, "Phy.trans.table.tsv", sep = "
                                quote=FALSE)
 
 #########nope
-
-
-
-
 
 #do a barplot of frequency of abundance ranks
 
@@ -1093,6 +1232,8 @@ sum((paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "")) == 0)/(nrow((p
 # plot rarecurve for each sample
 
 ```{r}
+
+#does not work
 library("vegan")
 #tiff(compression="lzw", file=paste(basename, sep="", "ITS.rarecurve.tiff"), res=1000, units="in", width=16, height=8)
 
@@ -1133,26 +1274,6 @@ dev.off()
 
 
 
-########
-i <- 1
-for(i in 1:nrow(metadataMasterTax)){
-  temp <-  read.table(paste(metadataMaster$DataAnFilePath[i], metadataMasterTax$table[i], sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character"))
-  temp$row.names <- NULL 
-  temp <- as.data.frame(temp)
-  
-  # Capture the data also in a dataframe:
-  temp <- transpose.OTU(data = list(temp))
-  temp <- transpose.OTU(metadataMasterTax$table[i])
-  # Write out the dataframe:
-  write.table(temp, file=paste(TransposedOTUTables, metadataMasterTax$ShortName[i], ".transposed.tsv", sep = ""),
-                               append    = FALSE,
-                               sep       = "\t",
-                               row.names = FALSE,
-                               quote=FALSE)
-}
-
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(dataAnPath/trans, metadataMasterTax$ShortName[i], ".otuRecap.png", sep = ""),
@@ -1189,7 +1310,7 @@ sum(ITS2.t == 0)/(nrow(ITS2.t)*ncol(ITS2.t))
 
 ```
 
-# plot rarecurve for each sample
+# plot rarecurve for each sample DOES NT WORK
 
 ```{r}
 library("vegan")
@@ -1216,7 +1337,8 @@ dev.off()
 ```
 
 ```
-Get Rank
+#Get Rank
+
 ```{r}
 
 dir.create(paste(dataAnPath, "Ranks", sep = ""),
@@ -1239,7 +1361,12 @@ metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
-#ITS
+##############
+#            #
+#    ITS     #
+#            #
+############## works
+
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.lure.png", sep = ""),
@@ -1318,7 +1445,11 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-###Om
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
 tabletemp <-  read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1413,8 +1544,11 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-##Phy
-
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 tabletemp <-  read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1510,9 +1644,8 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
   dev.off()
 
 ```
-GPS stuff
-you must remove samples with no gsp coordinates, example: mocks
-
+#GPS stuff
+#you must remove samples with no gsp coordinates, example: mocks
 
 ```{r}
 
@@ -1526,7 +1659,11 @@ geoDir <- paste(pathDataAn, "geographics/", sep = "")
 
 
 
-#ITS
+##############
+#            #
+#    ITS     #
+#            #
+############## works with no Na in table
 
 metatemp <-  read.table(paste(dataAnPath, "ITS.meta.nomock.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1534,7 +1671,6 @@ metatemp <-  read.table(paste(dataAnPath, "ITS.meta.nomock.tsv", sep = ""),
 
 metatemp$row.names <- NULL
 
-#Sample geographics
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(geoDir, "ITS", ".geo.png", sep = ""),
@@ -1545,9 +1681,11 @@ sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", mapt
 # Close the png graph file handle:
   dev.off()
   
-  
-
-#Om
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
 metatemp <-  read.table(paste(dataAnPath, "Om.meta.nomock.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1555,8 +1693,6 @@ metatemp <-  read.table(paste(dataAnPath, "Om.meta.nomock.tsv", sep = ""),
 
 metatemp$row.names <- NULL
 
-
-#Sample geographics
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(geoDir, "Om", ".geo.png", sep = ""),
@@ -1567,9 +1703,11 @@ sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", mapt
 # Close the png graph file handle:
   dev.off()
   
- 
-#Phy
-
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 metatemp <-  read.table(paste(dataAnPath, "Phy.meta.nomock.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1577,8 +1715,6 @@ metatemp <-  read.table(paste(dataAnPath, "Phy.meta.nomock.tsv", sep = ""),
 
 metatemp$row.names <- NULL
 
-
-#Sample geographics
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(geoDir, "Phy", ".geo.png", sep = ""),
@@ -1628,7 +1764,7 @@ pcoa.plot(data = tabletemp, meta = metatemp, rank = "g", top = 15, factors = my.
 
 ```
 
-Tax abund tables generated at each taxonomic rank
+#Tax abund tables generated at each taxonomic rank
 ```{r}
 
 taxabunDir <- paste(dataAnPath, "taxAbund/", sep ="")
@@ -1636,7 +1772,11 @@ dir.create(taxabunDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
-#ITS
+##############
+#            #
+#    ITS     #
+#            #
+############## works
 
 tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1658,7 +1798,11 @@ write.table(tmp, file=paste(taxabunDir, "ITS.taxab.table.tsv", sep = ""),
                                row.names = FALSE,
                                quote=FALSE)
                                
-#Om
+##############
+#            #
+#    Oom     #
+#            #
+############## works
 
 tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1681,7 +1825,11 @@ write.table(tmp, file=paste(taxabunDir, "Om.taxab.table.tsv", sep = ""),
                                quote=FALSE)      
                                
                                
-#Phy
+##############
+#            #
+#    Phy     #
+#            #
+############## works
 
 tabletemp <- read.table(paste(taxFillPath, "Phy.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
