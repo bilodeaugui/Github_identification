@@ -1104,12 +1104,257 @@ group.abund.Taxa(data = list(data = tabletemp),
 #            #
 ############## works
   
+tabletemp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "TrapType", percent = 0.80)
+
+taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.Insect.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect,
+                    main = "12 Species found in 80% of Insect samples and reprensenting 38.16% of total sequences in Insect Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.soil.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaSoil,
+                    main = "36 species found in 80% of Soil samples and representing 86.81% of total sequences in Soil samples")
+                
+# Close the png graph file handle:
+  dev.off()
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.spore.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaSpore,
+                    main = "15 species found in 80% of Spore samples and representing 61.47% of total sequences in Spore Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+  
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.rotorod.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxarotorod,
+                     main = "27 species found in 80% of Rotorod samples and representing 85.60% of total sequences in Rotorod samples")
+                 
+# Close the png graph file handle:
+  dev.off()
+ 
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.mock.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxamock,
+                     main = "9 species found in 80% of MOCK samples and representing 62.78% of total sequences in MOCK samples")
+                
+# Close the png graph file handle:
+  dev.off()
+      
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.all.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaAll,
+                    main = "7 species found in 80% of samples in all Trap Types and representing 48.76% of total sequences")
+                
+# Close the png graph file handle:
+  dev.off()
+           
+  
 ##############
 #            #
 #    Phy     #
 #            #
 ############## works  
   
+tabletemp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0.80)
+
+taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.Insect.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect,
+                    main = "12 Species found in 80% of Insect samples and reprensenting 38.16% of total sequences in Insect Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.soil.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaSoil,
+                    main = "36 species found in 80% of Soil samples and representing 86.81% of total sequences in Soil samples")
+                
+# Close the png graph file handle:
+  dev.off()
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.spore.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaSpore,
+                    main = "15 species found in 80% of Spore samples and representing 61.47% of total sequences in Spore Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+  
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.rotorod.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxarotorod,
+                     main = "27 species found in 80% of Rotorod samples and representing 85.60% of total sequences in Rotorod samples")
+                 
+# Close the png graph file handle:
+  dev.off()
+ 
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.mock.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxamock,
+                     main = "9 species found in 80% of MOCK samples and representing 62.78% of total sequences in MOCK samples")
+                
+# Close the png graph file handle:
+  dev.off()
+      
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.all.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaAll,
+                    main = "7 species found in 80% of samples in all Trap Types and representing 48.76% of total sequences")
+                
+# Close the png graph file handle:
+  dev.off()
+           
+  
+
 ```
 
 
