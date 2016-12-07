@@ -1250,13 +1250,13 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
 metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
-coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "TrapType", percent = 0.80)
+coreTaxaOmTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "TrapType", percent = 0.80)
 
-taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
-taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
-taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
-taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
-taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaInsect <- coreTaxaOmTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaOmTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaOmTrapsp$data$Spore$taxa, coreTaxaOmTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaOmTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaOmTrapsp$data$MOC$taxa
 taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
 
 # Open file-handle to get ready to make the png graph:
@@ -1357,13 +1357,121 @@ group.abund.Taxa(data = list(data = tabletemp),
 # Close the png graph file handle:
   dev.off()
            
+   ##########
+  #        #  
+  #  Lures #
+  #        #
+  ##########
+  
+tabletemp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work    
+  
+coreTaxaOmlureInssp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "Lure", percent = 0.80)
+
+coreTaxaOmlureInssp
+  
+taxaAlphaPin <- coreTaxaOmlureInssp$data$alpha_pinene$taxa
+taxaC6C8   <- coreTaxaOmlureInssp$data$C6C8$taxa
+taxaGenLongHorn <- coreTaxaOmlureInssp$data$General_Longhorn$taxa
+taxaMonochamus <- coreTaxaOmlureInssp$data$Monochamus$taxa
+taxaunknown <- coreTaxaOmlureInssp$data$unknown$taxa
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.AlphaPin.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaAlphaPin,
+                    main = "3 Species found in 80% of Insect samples with Alpha-Pinene Lure")
+                
+# Close the png graph file handle:
+  dev.off()
+  
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.C6C8.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaC6C8,
+                    main = "18 Species found in 80% of Insect samples with C6C8")
+                
+# Close the png graph file handle:
+  dev.off()  
+    
  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.monochamus.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaMonochamus,
+                    main = "26 Species found in 80% of Insect samples with monochamus")
+                
+# Close the png graph file handle:
+  dev.off()   
   
   
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.GenLongH.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaGenLongHorn,
+                    main = "1 Species found in 80% of Insect samples with General Longhorn")
+                
+# Close the png graph file handle:
+  dev.off()  
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Om", ".species.abund.unknown.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaunknown,
+                    main = "21 Species found in 80% of Insect samples with unknown lure")
+                
+# Close the png graph file handle:
+  dev.off()    
   
   
-  
-   
 ##############
 #            #
 #    Phy     #
@@ -1384,13 +1492,13 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
 metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
-coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0.80)
+coreTaxaPhyTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0.80)
 
-taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
-taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
-taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
-taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
-taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaInsect <- coreTaxaPhyTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaPhyTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaPhyTrapsp$data$Spore$taxa, coreTaxaPhyTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaPhyTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaPhyTrapsp$data$MOC$taxa
 taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
 
 # Open file-handle to get ready to make the png graph:
@@ -1491,6 +1599,87 @@ group.abund.Taxa(data = list(data = tabletemp),
 # Close the png graph file handle:
   dev.off()
            
+   ##########
+  #        #  
+  #  Lures #
+  #        #
+  ##########
+  
+tabletemp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work    
+  
+coreTaxaPhylureInssp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "Lure", percent = 0.80)
+
+coreTaxaPhylureInssp
+  
+taxaAlphaPin <- coreTaxaPhylureInssp$data$alpha_pinene$taxa
+taxaC6C8   <- coreTaxaPhylureInssp$data$C6C8$taxa
+taxaEthylGly  <- coreTaxaPhylureInssp$data$Ethylene_glycol$taxa
+taxaGenLongHorn <- coreTaxaPhylureInssp$data$General_Longhorn$taxa
+taxaMonochamus <- coreTaxaPhylureInssp$data$Monochamus$taxa
+taxaunknown <- coreTaxaPhylureInssp$data$unknown$taxa
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.AlphaPin.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaAlphaPin,
+                    main = "10 Species found in 80% of Insect samples with Alpha-Pinene Lure")
+                
+# Close the png graph file handle:
+  dev.off()
+  
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.C6C8.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaC6C8,
+                    main = "3 Species found in 80% of Insect samples with C6C8")
+                
+# Close the png graph file handle:
+  dev.off()  
+    
+ 
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.monochamus.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+group.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaMonochamus,
+                    main = "11 Species found in 80% of Insect samples with Monochamus")
+                
+# Close the png graph file handle:
+  dev.off()   
+ 
   
 
 ```
