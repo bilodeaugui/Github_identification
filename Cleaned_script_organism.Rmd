@@ -554,10 +554,11 @@ group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Simpson.True.Div.png", sep = ""),
-      width = 1200, height = 400, units = "px")
 
-group.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+  png(filename=paste(DivPlotPath, "ITS", ".Simpson.True.Div.png", sep = ""),
+      width = 1800, height = 600, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1908,8 +1909,7 @@ dev.off()
 #dev.off()
 ```
 
-```
-#Get Rank
+# Get Rank
 
 ```{r}
 
@@ -2216,7 +2216,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
   dev.off()
 
 ```
-#GPS stuff
+# GPS stuff
 #you must remove samples with no gsp coordinates, example: mocks
 
 ```{r}
@@ -2424,8 +2424,35 @@ write.table(tmp, file=paste(taxabunDir, "Phy.taxab.table.tsv", sep = ""),
                                quote=FALSE)           
 
 ```
-Top groups box plotting
+#word search for species and genus
 
 ```{r}
 
 
+WordMatchDir <- paste(dataAnPath, "WordMatch/", sep ="")
+dir.create(WordMatchDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+GenusToMatch <- c("Ceratocystis", "Chrysomyxa", "Geosmithia", "Gremmeniella", "Gymnosporangium", "Heterobasidion", "Melampsora", "Ophiostoma", "Phytophthora")
+
+SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae" ,"Heterobasidion annosum", "Melampsora pinitorqua", "Ophiostoma novo-ulmi", "Ophiostoma ulmi", "Phytophthora alni", "Phytophthora kernoviae", "Phytophthora ramorum")
+
+GenusmatchesITS <- unique (grep(paste(GenusToMatch,collapse="|"), 
+                        tabletemp$taxonomy, value=TRUE))
+
+write(GenusmatchesITS, file=paste(WordMatchDir, "ITS.GENUSwordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")      
+                               
+SpeciesmatchesITS <- unique (grep(paste(SpeciesToMatch,collapse="|"), 
+                        tabletemp$taxonomy, value=TRUE))                               
+
+write(SpeciesmatchesITS, file=paste(WordMatchDir, "ITS.Specieswordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")  
