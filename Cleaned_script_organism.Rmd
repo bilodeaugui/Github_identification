@@ -1017,7 +1017,25 @@ myGroup.abund.Taxa(data = list(data = tabletemp),
 # Close the png graph file handle:
   dev.off()
 
+coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0.80)
   
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.keep.unclassified.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect,
+                    main = "12 Species found in 80% of Insect samples and reprensenting 38.16% of total sequences in Insect Traps")
+                
+# Close the png graph file handle:
+  dev.off()
+
+    
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(taxabunDir, "ITS", ".species.abund.soil.80pc.png", sep = ""),
       width = 1500, height = 1000, units = "px")
@@ -2309,12 +2327,12 @@ dir.create(pcoaDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
-tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <- read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 tabletemp$row.names <- NULL #if not using tXfilled tables you need it
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.nona.tsv", sep = ""),
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.nona.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
@@ -2322,14 +2340,14 @@ metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
-my.vec <- c(TrapType = "TrapType")
-names(my.vec)
+myvec <- c(TrapType = "TrapType")
+names(myvec)
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "ITS", "pcoa.family.png", sep = ""),
+png(filename=paste(pcoaDir, "Om", ".pcoa.family.disteucstandnorm.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, meta = metatemp, rank = "g", top = 15, factors = my.vec, ggplot2 =TRUE, is.OTU =TRUE, main = "PCOA at the genus level by Trap Type", stand.method = "chi.square", dist.method = "bray")
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = FALSE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
