@@ -2327,6 +2327,44 @@ dir.create(pcoaDir,
            showWarnings = TRUE,
            recursive    = FALSE)
 
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.nona.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+myvec <- c(TrapType = "TrapType")
+names(myvec)
+
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(pcoaDir, "ITS", ".PCOA.distbray.standHell.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "hellinger", dist.method = "bray", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = FALSE, bw = FALSE)
+
+# Close the png graph file handle:
+  dev.off() 
+
+##############
+#            #
+#    Oom     #
+#            #
+############## works
+
 tabletemp <- read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
@@ -2344,13 +2382,45 @@ myvec <- c(TrapType = "TrapType")
 names(myvec)
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "Om", ".pcoa.family.disteucstandnorm.png", sep = ""),
+png(filename=paste(pcoaDir, "Om", "PCOA.distbray.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "hellinger", dist.method = "bray", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = FALSE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
+  
+##############
+#            #
+#    Phy     #
+#            #
+############## 
+
+tabletemp <- read.table(paste(dataAnPath, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.nona.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+myvec <- c(TrapType = "TrapType")
+names(myvec)
+
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(pcoaDir, "Phy", "PCOA.distbray.standHell.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "hellinger", dist.method = "bray", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = FALSE, bw = FALSE)
+
+# Close the png graph file handle:
+  dev.off() 
+  
 
 ```
 
