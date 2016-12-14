@@ -867,6 +867,24 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
                                row.names = FALSE,
                                quote=FALSE)
 
+  
+temp2 <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+  #temp$row.names <- NULL 
+
+ 
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(rarefyPath, "ITS", ".RAREFplot.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+rrfPLOT <- rarecurve(temp2, step =10, xlab = "Sequence nb per sample", ylab = "Species OTUs") 
+
+# Close the png graph file handle:
+  dev.off()
+  
 ##############
 #            #
 #    Oom     #
@@ -1732,6 +1750,8 @@ write.table(tmp2, file=paste(TransposedOTUTables, "ITS.trans.table.tsv", sep = "
                                row.names = FALSE,
                                quote=FALSE)
 
+
+
 ##############
 #            #
 #    Oom     #
@@ -2530,7 +2550,8 @@ tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
 
 GenusToMatch <- c("Ceratocystis", "Chrysomyxa", "Geosmithia", "Gremmeniella", "Gymnosporangium", "Heterobasidion", "Melampsora", "Ophiostoma", "Phytophthora")
 
-SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae" ,"Heterobasidion annosum", "Melampsora pinitorqua", "Ophiostoma novo-ulmi", "Ophiostoma ulmi", "Phytophthora alni", "Phytophthora kernoviae", "Phytophthora ramorum")
+SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae" hora kernoviae", "Phytophthora ramorum")
+
 
 GenusmatchesITS <- unique (grep(paste(GenusToMatch,collapse="|"), 
                         tabletemp$taxonomy, value=TRUE))
@@ -2539,9 +2560,31 @@ write(GenusmatchesITS, file=paste(WordMatchDir, "ITS.GENUSwordmatch.tsv", sep = 
                                ncolumns = 1,
                                sep       = "\t")      
                                
+                            
+                               
+                               
 SpeciesmatchesITS <- unique (grep(paste(SpeciesToMatch,collapse="|"), 
                         tabletemp$taxonomy, value=TRUE))                               
 
 write(SpeciesmatchesITS, file=paste(WordMatchDir, "ITS.Specieswordmatch.tsv", sep = ""),
                                ncolumns = 1,
                                sep       = "\t")  
+                               
+Specieslepto <- c("Leptographium")
+
+leptomatch <- (grep(paste(Specieslepto,collapse="|"), 
+                        tabletemp$taxonomy, value=TRUE))
+write(leptomatch, file=paste(WordMatchDir, "leptowordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")   
+                               
+Speciesiberica <- c("Dothiorella iberica", "Botryosphaeria iberica")
+
+ibericamatch <- unique(grep(paste(Speciesiberica,collapse="|"), 
+                        tabletemp$taxonomy, value=TRUE))
+write(ibericamatch, file=paste(WordMatchDir, "ibericawordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")                               
+                               
+Dothiorella iberica Botryosphaeria iberica                               
+                               
