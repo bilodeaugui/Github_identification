@@ -2586,5 +2586,48 @@ write(ibericamatch, file=paste(WordMatchDir, "ibericawordmatch.tsv", sep = ""),
                                ncolumns = 1,
                                sep       = "\t")                               
                                
-Dothiorella iberica Botryosphaeria iberica                               
-                               
+Dothiorella iberica Botryosphaeria iberica         
+```
+
+```{r}
+
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+wantedtaxo <- tabletemp[grep(paste(GenusToMatch,collapse="|"), tabletemp$taxonomy),]
+
+# make sure data is numeric (and not factor)
+
+#transpose table
+test = as.data.frame(t(wantedtaxo))
+
+#change rownames to fist column
+library(data.table)
+setDT(test, keep.rownames = TRUE)[]
+#test = tibble::rownames_to_column(as.data.frame(test))
+
+#Remove fist row (row.names befor transposing)
+test = as.data.frame(test[-1,])
+
+#convert taxo line to header
+colnames(test) = test[nrow(test),]  #assign last row as header DO NOT WORK. WHY?
+test2 = test[1:nrow(test)-1,]  #remove last row, because no need since infor in header now
+
+#merge columns with identical header. Make sure you add the values when merging
+library("reshape2")
+dcast(data=test2,formula=row.name ~ variable,fun.aggregate=sum)
+
+
+write.table(test2, file=paste(dataAnPath, "test2015-12-15.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               col.names = TRUE,
+                               quote=FALSE)
+
+#use sample ID from test2 to get the desired values from metatemp.
+#TODO
+
+
+ ```                              
