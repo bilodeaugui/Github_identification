@@ -1980,27 +1980,27 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.lure.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.lure.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.lure.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2008,10 +2008,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ph.lure.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2019,27 +2019,27 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.trap.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.trap.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.trap.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2047,10 +2047,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ph.trap.png", sep = ""),
-      width = 30000, height = 800, units = "px")
+      width = 30000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2079,27 +2079,27 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.sp.lure.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ge.lure.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ki.lure.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2107,10 +2107,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ph.lure.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2118,27 +2118,27 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.sp.trap.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ge.trap.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ki.trap.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2146,10 +2146,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ph.trap.png", sep = ""),
-      width = 8000, height = 800, units = "px")
+      width = 8000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2178,27 +2178,27 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.sp.lure.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ge.lure.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ki.lure.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2206,10 +2206,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ph.lure.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Lure", meta = metatemp, meta.factor = c("Lure"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2217,27 +2217,27 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.sp.trap.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ge.trap.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the genus level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ki.trap.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the kingdom level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2245,10 +2245,10 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
 
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ph.trap.png", sep = ""),
-      width = 1000, height = 800, units = "px")
+      width = 1000, height = 800, units = "px", pointsize = 10)
 
 
-group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 8, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
 
 # Close the png graph file handle:
   dev.off()
@@ -2552,30 +2552,6 @@ GenusToMatch <- c("Ceratocystis", "Chrysomyxa", "Geosmithia", "Gremmeniella", "G
 
 SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae")
 
-SpeciesList <- list(SpeciesToMatch)
-tabletemp$row.names <- NULL
-OTUlist_ <- list(tabletemp)
-
-for(i in 1:5) {
- for(j in 1:5) {
-  SpeciesList[[j]] <- i*j
- }
-OTUlist_[[i]] <- Specieslist
-}
- 
-# return values from first part of list
-laply(mylist_[[1]], identity)
-[1] 1 2 3 4 5
- 
-# return all values
-laply(mylist_, function(x) laply(x, identity))
-     1  2  3  4  5
-[1,] 1  2  3  4  5
-[2,] 2  4  6  8 10
-[3,] 3  6  9 12 15
-[4,] 4  8 12 16 20
-[5,] 5 10 15 20 25
-
 
 GenusmatchesITS <- unique (grep(paste(GenusToMatch,collapse="|"), 
                         tabletemp$taxonomy, value=TRUE))
@@ -2584,15 +2560,38 @@ write(GenusmatchesITS, file=paste(WordMatchDir, "ITS.GENUSwordmatch.tsv", sep = 
                                ncolumns = 1,
                                sep       = "\t")      
                                
-                            
-                               
-                               
 SpeciesmatchesITS <- unique (grep(paste(SpeciesToMatch,collapse="|"), 
                         tabletemp$taxonomy, value=TRUE))                               
 
 write(SpeciesmatchesITS, file=paste(WordMatchDir, "ITS.Specieswordmatch.tsv", sep = ""),
                                ncolumns = 1,
                                sep       = "\t")  
+                               
+UNITEDir <- "/home/CFIA-ACIA/tremblaye/UNITE/"                               
+                               
+UNITEtemp <- read.table(paste(UNITEDir, "sh_taxonomy_qiime_ver7_dynamic_s_31.01.2016.txt", sep = ""),
+                      sep = "\t", header = FALSE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+                      
+names(UNITEtemp) <- c("ID", "taxonomy")  
+
+SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae")
+
+GenusToMatch <- c("Ceratocystis", "Chrysomyxa", "Geosmithia", "Gremmeniella", "Gymnosporangium", "Heterobasidion", "Melampsora", "Ophiostoma")
+
+SpeciesmatchesUNITE <- unique (grep(paste(SpeciesToMatch,collapse="|"), 
+                        UNITEtemp$taxonomy, value=TRUE))
+                        
+
+write(SpeciesmatchesUNITE, file=paste(WordMatchDir, "UNITE.Specieswordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")                                 
+                               
+GenusmatchesUNITE <- unique (grep(paste(GenusToMatch,collapse="|"), 
+                        UNITEtemp$taxonomy, value=TRUE))                                     
+write(GenusmatchesUNITE, file=paste(WordMatchDir, "UNITE.genuswordmatch.tsv", sep = ""),
+                               ncolumns = 1,
+                               sep       = "\t")                                               
                                
 Specieslepto <- c("Leptographium")
 
