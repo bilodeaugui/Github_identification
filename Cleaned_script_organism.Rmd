@@ -2550,7 +2550,31 @@ tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
 
 GenusToMatch <- c("Ceratocystis", "Chrysomyxa", "Geosmithia", "Gremmeniella", "Gymnosporangium", "Heterobasidion", "Melampsora", "Ophiostoma", "Phytophthora")
 
-SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae" hora kernoviae", "Phytophthora ramorum")
+SpeciesToMatch <- c("Ceratocystis fagacearum", "Ceratocystis fimbriata", "Ceratocystis laricicola", "Ceratocystis polonica", "Chrysomyxa abietis", "Geosmithia morbida", "Gremmeniella abietina", "Gymnosporangium fuscum", "Gymnosporangium yamadae")
+
+SpeciesList <- list(SpeciesToMatch)
+tabletemp$row.names <- NULL
+OTUlist_ <- list(tabletemp)
+
+for(i in 1:5) {
+ for(j in 1:5) {
+  SpeciesList[[j]] <- i*j
+ }
+OTUlist_[[i]] <- Specieslist
+}
+ 
+# return values from first part of list
+laply(mylist_[[1]], identity)
+[1] 1 2 3 4 5
+ 
+# return all values
+laply(mylist_, function(x) laply(x, identity))
+     1  2  3  4  5
+[1,] 1  2  3  4  5
+[2,] 2  4  6  8 10
+[3,] 3  6  9 12 15
+[4,] 4  8 12 16 20
+[5,] 5 10 15 20 25
 
 
 GenusmatchesITS <- unique (grep(paste(GenusToMatch,collapse="|"), 
