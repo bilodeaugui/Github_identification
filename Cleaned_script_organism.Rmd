@@ -978,7 +978,7 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 
 
 ### group.abund.Taxa
-# 1. generate the list of taxa desired with core taxa, thengenerate the plots with group.abund.Taxa
+# 1. generate the list of taxa desired with core taxa, then generate the plots with group.abund.Taxa
 ```{r}
 library("RAM")
 
@@ -1987,6 +1987,8 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
+tmp <- group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 5, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))  
+   
 # Open file-handle to get ready to make the raref curve:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.lure.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
