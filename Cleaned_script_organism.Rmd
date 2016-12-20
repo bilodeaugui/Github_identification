@@ -20,6 +20,7 @@ Phy_merged_tsv="/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/merge_O
 qiimePathbiomformat="/isilon/biodiversity/pipelines/qiime-1.7.0/biom-format-1.1.2-release/bin/"
 activateQiime <- "/isilon/biodiversity/pipelines/qiime-1.7.0/activate.sh"
 qiimePath <- "/isilon/biodiversity/pipelines/qiime-1.7.0/qiime-1.7.0-release/bin"
+ScriptsPath <- "/home/CFIA-ACIA/tremblaye/scripts/"
 
 sourceWaitQiime <- paste(" source ", activateQiime, " && ", sep = "")
 assignTaxQiime <- paste(qiimePath, "/assign_taxonomy.py", sep = "")
@@ -1978,7 +1979,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 ############## works
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.lure.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -1989,7 +1990,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 
 tmp <- group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 5, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))  
    
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.lure.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -1998,7 +1999,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.lure.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2008,7 +2009,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ph.lure.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2019,7 +2020,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
   dev.off()
 ##############
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.trap.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2028,7 +2029,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.trap.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2037,7 +2038,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ki.trap.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2047,7 +2048,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ph.trap.png", sep = ""),
       width = 30000, height = 800, units = "px", pointsize = 10)
 
@@ -2079,7 +2080,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.sp.lure.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2088,7 +2089,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ge.lure.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2097,7 +2098,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ki.lure.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2107,7 +2108,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ph.lure.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2118,7 +2119,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
   dev.off()
 ##############
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.sp.trap.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2127,7 +2128,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ge.trap.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2136,7 +2137,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ki.trap.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2146,7 +2147,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Om", ".gr.abund.ph.trap.png", sep = ""),
       width = 8000, height = 800, units = "px", pointsize = 10)
 
@@ -2178,7 +2179,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.sp.lure.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2187,7 +2188,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ge.lure.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2196,7 +2197,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ki.lure.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2206,7 +2207,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ph.lure.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2217,7 +2218,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
   dev.off()
 ##############
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.sp.trap.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2226,7 +2227,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ge.trap.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2235,7 +2236,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ki.trap.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2245,7 +2246,7 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="k", top = 25, count =  F
   dev.off()
 
 
-# Open file-handle to get ready to make the raref curve:
+# Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "Phy", ".gr.abund.ph.trap.png", sep = ""),
       width = 1000, height = 800, units = "px", pointsize = 10)
 
@@ -2355,7 +2356,7 @@ dir.create(pcoaDir,
 #    ITS     #
 #            #
 ##############
-
+#either euclidean and normalize or hellinger and bray or jaccard (pick the one that represent more % of your data)
 tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
@@ -2413,6 +2414,8 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), r
 # Close the png graph file handle:
   dev.off() 
 ```  
+```{r}
+
 ##############
 #            #
 #    Phy     #
@@ -2444,7 +2447,6 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), r
 # Close the png graph file handle:
   dev.off() 
   
-
 ```
 
 #Tax abund tables generated at each taxonomic rank
@@ -2611,7 +2613,35 @@ write(ibericamatch, file=paste(WordMatchDir, "ibericawordmatch.tsv", sep = ""),
                                ncolumns = 1,
                                sep       = "\t")                               
                                
-Dothiorella iberica Botryosphaeria iberica         
+Dothiorella iberica Botryosphaeria iberica  
+```
+Word search in Perl find species and sequence and other meta info
+```{r}
+
+##############
+#            #
+#    ITS     #
+#            #
+##############
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "speciesQuery.txt", sep = "")
+otu_in <- paste(pathDataAn, "ITS.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "ITS.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "rep_set_ITS.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "ITS_species_query_by_taxon", sep = "")
+table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample", sep = "")
+
+cmd <- paste(ScriptsPath, "metaResultExtractor.pl", sep = "")
+system(cmd)
+
+write.table(ITS_species_query_by_taxon, file=paste(WordMatchDir, "ITS_species_query_by_taxon.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)           
+
+
 ```
 
 ```{r}
