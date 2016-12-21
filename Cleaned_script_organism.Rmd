@@ -2635,6 +2635,13 @@ table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample", sep = "")
 cmd <- paste(ScriptsPath, "metaResultExtractor.pl", sep = "")
 system(cmd)
 
+
+system("perl home/CFIA-ACIA/tremblaye/scripts/metaResultExtractor.pl")
+
+cmd <- paste("perl", "SFDRv166.pl", arg1, arg2, arg3)
+system(cmd)
+
+
 write.table(ITS_species_query_by_taxon, file=paste(WordMatchDir, "ITS_species_query_by_taxon.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
