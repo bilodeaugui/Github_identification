@@ -2629,8 +2629,8 @@ query_in <- paste(WordMatchDir, "speciesQuery.txt", sep = "")
 otu_in <- paste(pathDataAn, "ITS.table.tsv", sep = "")
 meta_in <- paste(pathDataAn, "ITS.meta.tsv", sep = "")
 fasta_in <- paste(pathDataAn, "rep_set_ITS.fna", sep = "")
-table_taxon_out <- paste(WordMatchDir, "ITS_species_query_by_taxon", sep = "")
-table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample", sep = "")
+table_taxon_out <- paste(WordMatchDir, "ITS_species_query_by_taxon.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample.tsv", sep = "")
 
 cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractor.pl", sep = ""),
              query_in,
