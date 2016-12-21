@@ -2632,7 +2632,14 @@ fasta_in <- paste(pathDataAn, "rep_set_ITS.fna", sep = "")
 table_taxon_out <- paste(WordMatchDir, "ITS_species_query_by_taxon", sep = "")
 table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample", sep = "")
 
-cmd <- paste(ScriptsPath, "metaResultExtractor.pl", sep = "")
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractor.pl", sep = "")
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             sep = " ")
 system(cmd)
 
 
@@ -2640,6 +2647,8 @@ system("perl home/CFIA-ACIA/tremblaye/scripts/metaResultExtractor.pl")
 
 cmd <- paste("perl", "SFDRv166.pl", arg1, arg2, arg3)
 system(cmd)
+
+
 
 
 write.table(ITS_species_query_by_taxon, file=paste(WordMatchDir, "ITS_species_query_by_taxon.tsv", sep = ""),
