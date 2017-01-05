@@ -2751,13 +2751,37 @@ temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
 temp$taxonomy <- NULL 
 temp$row.names <- NULL  
 
+tempSPEC <-  read.table(paste(diversityPath, "ITS.meta.div.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(rarefyPath, "ITS", "rarecurve.png", sep = ""),
+png(filename=paste(rarefyPath, "ITS", "rarecurve2.png", sep = ""),
       width = 1200, height = 1000, units = "px")
-rarecurve(temp, step = 10000, xlab = "Sample Size", ylab = "Species", label = TRUE)  
+rarecurve(temp, step = 250000, xlab = "Sample Size", ylab = "Species", label = TRUE)  
   
 # Close the png graph file handle:
   dev.off() 
+  
+  
+  # Open file-handle to get ready to make the png graph:
+png(filename=paste(rarefyPath, "ITS", "rarecurve3.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+rarecurve(temp, step = 10, xlab = "Sample Size", ylab = "Species", label = TRUE)  
+  
+# Close the png graph file handle:
+  dev.off() 
+  
+  
+  # Open file-handle to get ready to make the png graph:
+png(filename=paste(rarefyPath, "ITS", "rarecurve4.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+rarecurve(temp, step = 1, xlab = "Sample Size", ylab = "Species", label = TRUE)  
+  
+# Close the png graph file handle:
+  dev.off()   
 
 ##############
 #            #
