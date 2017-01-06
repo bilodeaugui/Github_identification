@@ -977,7 +977,7 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 
 ```
 
-
+##TaxAbund
 ### group.abund.Taxa
 # 1. generate the list of taxa desired with core taxa, then generate the plots with group.abund.Taxa
 ```{r}
@@ -1019,6 +1019,7 @@ taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data
 taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
 taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
 taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
+taxaAllbutsoil    <- unique(c(taxaInsect, taxaSpore, taxarotorod))
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.png", sep = ""),
@@ -1131,12 +1132,28 @@ myGroup.abund.Taxa(data = list(data = tabletemp),
                     meta = metatemp,
                     meta.factor = "TrapType",
                     taxa = taxaAll,
-                    main = "7 species found in 80% of samples in all Trap Types and representing 48.76% of total sequences")
+                    main = "52 species found in 80% of samples in all Trap Types")
                 
 # Close the png graph file handle:
   dev.off()
   
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.allbutsoil.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaAllbutsoil,
+                    main = "29 species found in 80% of samples in all Trap Types excluding soil samples")
+                
+# Close the png graph file handle:
+  dev.off() 
   
+   
   ##########
   #        #  
   #  Lures #
@@ -1167,6 +1184,7 @@ taxaEthylGly  <- coreTaxaITSlureInssp$data$Ethylene_glycol$taxa
 taxaGenLongHorn <- coreTaxaITSlureInssp$data$General_Longhorn$taxa
 taxaMonochamus <- coreTaxaITSlureInssp$data$Monochamus$taxa
 taxaunknown <- coreTaxaITSlureInssp$data$unknown$taxa
+taxaAll <- unique(c(taxaAlphaPin, taxaC6C8, taxaEthylGly, taxaGenLongHorn, taxaMonochamus, taxaunknown))
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(taxabunDir, "ITS", ".species.abund.AlphaPin.80pc.png", sep = ""),
@@ -1948,15 +1966,15 @@ dev.off()
 #dev.off()
 ```
 
-# Get Rank
+# GroupTaxabar
 
 ```{r}
 
-dir.create(paste(dataAnPath, "Ranks", sep = ""),
+#dir.create(paste(dataAnPath, "Ranks", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 
-RanksPath <- paste(dataAnPath, "Ranks", sep = "")
+#RanksPath <- paste(dataAnPath, "Ranks", sep = "")
 
 tabletemp <-  read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -1988,7 +2006,8 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
-tmp <- group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 5, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the species level by Lure", meta = metatemp, meta.factor = c("Lure"))  
+tmp <- group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 5, count =  FALSE, drop.unclassified = TRUE, meta = metatemp, meta.factor = c("Lure"))  
+
    
 # Open file-handle to get ready to make the plot:
   png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.lure.png", sep = ""),
@@ -2058,6 +2077,9 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 # Close the png graph file handle:
   dev.off()
 
+tmp <-   group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
+  
+  
 ##############
 #            #
 #    Oom     #
@@ -2905,4 +2927,60 @@ cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractor.pl", sep = ""),
              sep = " ")
 system(cmd)
 
+```
+# get.rank
+
+```{r}
+
+dir.create(paste(dataAnPath, "Ranks", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+RanksPath <- paste(dataAnPath, "Ranks", sep = "")
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+
+
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+##############
+#            #
+#    ITS     #
+#            #
+############## 
+
+
+
+ITS_phylRank <-get.rank(tabletemp, rank="p")
+
+test1 <- group.abundance(list(data=tabletemp), rank="p")
+dim(tabletemp)
+otuIDs <- row.names(tabletemp)
+
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(RanksPath, "ITS", "test.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+  
+  
+group.OTU(tabletemp, rank = "p", otuIDs ="otuIDs", meta = metatemp, meta.factor="TrapType", boxplot = False)
+# Close the png graph file handle:
+  dev.off() 
+  
+test3 <- shared.OTU(list(data=tabletemp)) 
+test4 <- shared.Taxa(list(data=tabletemp))   
+
+test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = "20", count = FALSE, mode = "percent")
+  
+  
 ```
