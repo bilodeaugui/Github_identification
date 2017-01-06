@@ -2980,7 +2980,8 @@ group.OTU(tabletemp, rank = "p", otuIDs ="otuIDs", meta = metatemp, meta.factor=
 test3 <- shared.OTU(list(data=tabletemp)) 
 test4 <- shared.Taxa(list(data=tabletemp))   
 
-test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = "20", count = FALSE, mode = "percent")
+YESSS
+test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = 20, count = FALSE, mode = "percent")
   
   
 ```
