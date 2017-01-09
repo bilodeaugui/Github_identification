@@ -2936,7 +2936,15 @@ dir.create(paste(dataAnPath, "Ranks", sep = ""),
            showWarnings = TRUE,
            recursive    = FALSE)
 
-RanksPath <- paste(dataAnPath, "Ranks", sep = "")
+RanksPath <- paste(dataAnPath, "Ranks/", sep = "")
+
+dir.create(paste(dataAnPath, "abundTables", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+abundTablesPath <- paste(dataAnPath, "abundTables/", sep = "")
+
+
 
 tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -2981,21 +2989,38 @@ group.OTU(tabletemp, rank = "p", otuIDs ="otuIDs", meta = metatemp, meta.factor=
 #test4 <- shared.Taxa(list(data=tabletemp))   
 
 YESSS
-test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = 20, count = FALSE, mode = "percent")
 
-#ITSsubInscets <- subset(metatemp, "TrapType" == Insect)
+
+#Subset OTU tables and meta tables
 
 insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
 
-write.table(insectITSsubset$data, file=paste(RanksPath, "ITS.insectAbund.table.tsv", sep = ""),
+write.table(insectITSsubset$data, file=paste(abundTablesPath, "ITS.insectAbund.table.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(insectITSsubset$meta, file=paste(RanksPath, "ITS.insectAbund.table.tsv", sep = ""),
+write.table(insectITSsubset$meta, file=paste(abundTablesPath, "ITS.insectAbund.meta.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
-                               quote=FALSE)  
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = 20, count = FALSE, mode = "percent")
+
 ```
