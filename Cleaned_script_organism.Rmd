@@ -2977,11 +2977,25 @@ group.OTU(tabletemp, rank = "p", otuIDs ="otuIDs", meta = metatemp, meta.factor=
 # Close the png graph file handle:
   dev.off() 
   
-test3 <- shared.OTU(list(data=tabletemp)) 
-test4 <- shared.Taxa(list(data=tabletemp))   
+#test3 <- shared.OTU(list(data=tabletemp)) 
+#test4 <- shared.Taxa(list(data=tabletemp))   
 
 YESSS
 test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = 20, count = FALSE, mode = "percent")
+
+#ITSsubInscets <- subset(metatemp, "TrapType" == Insect)
+
+insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
+
+write.table(insectITSsubset$data, file=paste(RanksPath, "ITS.insectAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
   
-  
+write.table(insectITSsubset$meta, file=paste(RanksPath, "ITS.insectAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)  
 ```
