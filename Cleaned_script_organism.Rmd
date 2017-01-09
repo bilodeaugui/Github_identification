@@ -2928,15 +2928,10 @@ cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractor.pl", sep = ""),
 system(cmd)
 
 ```
-# get.rank
+# subset and create abundance tables
 
 ```{r}
 
-dir.create(paste(dataAnPath, "Ranks", sep = ""),
-           showWarnings = TRUE,
-           recursive    = FALSE)
-
-RanksPath <- paste(dataAnPath, "Ranks/", sep = "")
 
 dir.create(paste(dataAnPath, "abundTables", sep = ""),
            showWarnings = TRUE,
@@ -2945,23 +2940,6 @@ dir.create(paste(dataAnPath, "abundTables", sep = ""),
 abundTablesPath <- paste(dataAnPath, "abundTables/", sep = "")
 
 
-
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
-
-tabletemp$row.names <- NULL 
- 
-
-
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
-                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
-
-
-metatemp$row.names <- NULL 
-rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
-
 ##############
 #            #
 #    ITS     #
@@ -2969,29 +2947,27 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 ############## 
 
 
-
-ITS_phylRank <-get.rank(tabletemp, rank="p")
-
-test1 <- group.abundance(list(data=tabletemp), rank="p")
-dim(tabletemp)
-otuIDs <- row.names(tabletemp)
-
-# Open file-handle to get ready to make the png graph:
-png(filename=paste(RanksPath, "ITS", "test.png", sep = ""),
-      width = 1200, height = 1000, units = "px")
-  
-  
-group.OTU(tabletemp, rank = "p", otuIDs ="otuIDs", meta = metatemp, meta.factor="TrapType", boxplot = False)
-# Close the png graph file handle:
-  dev.off() 
-  
-#test3 <- shared.OTU(list(data=tabletemp)) 
-#test4 <- shared.Taxa(list(data=tabletemp))   
-
-YESSS
-
-
 #Subset OTU tables and meta tables
+
+##############
+#            #
+#  insects   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
 
@@ -3017,10 +2993,126 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.meta.tsv", se
                       as.is = TRUE, check.names = FALSE)
 
 
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+InsectITSmean <- colMeans(test5)
+InsectITSmean
+
+##############
+#            #
+#  Rotorod   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
 metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
+RotorodITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Rotorod"), and = FALSE)
+
+write.table(RotorodITSsubset$data, file=paste(abundTablesPath, "ITS.RotorodAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(RotorodITSsubset$meta, file=paste(abundTablesPath, "ITS.RotorodAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = 20, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+RotorodITSmean <- colMeans(test5)
+RotorodITSmean
+
+##############
+#            #
+#    Spore   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
+
+write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporeITSmean <- colMeans(test5)
+SporeITSmean
+
 
 ```
