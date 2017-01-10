@@ -570,7 +570,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", xlab = "Shannon True Diversity by Trap Type and their respective Lure",ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
 
 # Close the png graph file handle:
   dev.off()
@@ -3228,7 +3228,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.meta.tsv", sep
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 
 #calculate mean of columns
 
@@ -3338,7 +3338,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.SporeAbund.meta.tsv", sep 
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 
 #calculate mean of columns
 
@@ -3393,7 +3393,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.meta.tsv", sep =
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 
 #calculate mean of columns
 
@@ -3459,7 +3459,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Phy.insectAbund.meta.tsv", se
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 
 #calculate mean of columns
 
@@ -3630,5 +3630,107 @@ test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE
 
 SoilPhymean <- colMeans(test5)
 SoilPhymean
+
+```
+
+#percent classified
+
+```{r}
+
+dir.create(paste(dataAnPath, "percentClass", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+PercentClassPath <- paste(dataAnPath, "percentClass/", sep = "")
+
+
+##############
+#            #
+#    ITS     #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+
+ITS.percent.classified <- percent.classified(data = list(data = tabletemp), ranks = ranks)
+
+write(unlist(ITS.percent.classified), file=paste(PercentClassPath, "ITS.percent.class.ranks.txt", sep = ""))
+
+
+ 
+##############
+#            #
+#    Oom     #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+
+Om.percent.classified <- percent.classified(data = list(data = tabletemp), ranks = ranks)
+
+write(unlist(Om.percent.classified), file=paste(PercentClassPath, "Om.percent.class.ranks.txt", sep = ""))     
+      
+ 
+##############
+#            #
+#    Phy     #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+
+Phy.percent.classified <- percent.classified(data = list(data = tabletemp), ranks = ranks)
+
+write(unlist(Phy.percent.classified), file=paste(PercentClassPath, "Phy.percent.class.ranks.txt", sep = ""))     
+      
+
+```
+#top.group.plot
+
+```{r}
+dir.create(paste(dataAnPath, "TopGroupPlot", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+TopGroupPath <- paste(dataAnPath, "TopGroupPlot/", sep = "")
+
+##############
+#            #
+#    ITS     #
+#            #
+############## 
+
+#INSECTS
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(TopGroupPath, "ITS", ".top.10.all.ranks.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+ITS.top.10 <- group.top.number(list(data=tabletemp), top = 10, ranks = "s", drop.unclassified = FALSE, cex.x = 10, main = "Top 10 at each taxonomic rank in Insect traps")
+                 
+# Close the png graph file handle:
+  dev.off()
 
 ```
