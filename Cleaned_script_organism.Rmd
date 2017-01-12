@@ -2379,7 +2379,7 @@ dir.create(pcoaDir,
 
 tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
 tabletemp$row.names <- NULL #if not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
@@ -2390,18 +2390,19 @@ metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
-myvec <- c(TrapType = "TrapType", Lure = "Lure")
-names(myvec)
+myvec <- c("TrapType")
+
+names(myvec) <- "TrapType"
 
 #either euclidean and normalize or hellinger and bray or jaccard (pick the one that represent more % of your data)
 #stand.method	One of "total", "max", "freq", "normalize", "range", "standardize", "pa", "chi.square", "hellinger" or "log"
 #dist.method	one of "manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard", "gower", "altGower","morisita", "horn", "mountford", "raup", "binomial", "chao", or "cao"
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.png", sep = ""),
+png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = TRUE, bw = TRUE)
 
 # Close the png graph file handle:
   dev.off() 
@@ -2468,21 +2469,21 @@ tabletemp$row.names <- NULL #if not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, row.names = 1)
+                      as.is = TRUE, row.names =1)
 
 metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
-myvec <- c("Province")
+myvec <- c("TrapType")
 
-names(myvec) <- "Province"
+names(myvec) <- "TrapType"
 
  # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "Om", "PCOA.disteuc.standNorm.png", sep = ""),
+png(filename=paste(pcoaDir, "Om", "PCOA.disteuc.standNorm.TrapType.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "Province", rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 5, ellipse = 1, main = "PCOA by Trap Type for Oomycetes", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = myvec, rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = TRUE)
 
 # Close the png graph file handle:
   dev.off()
@@ -2491,7 +2492,7 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "Province"
 png(filename=paste(pcoaDir, "Om", "PCOA.distbray.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType", rank = NULL, stand.method = "hellinger", dist.method = "bray", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType", rank = NULL, stand.method = "hellinger", dist.method = "bray", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
@@ -2500,7 +2501,7 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType"
 png(filename=paste(pcoaDir, "Om", "PCOA.distJaccard.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType", rank = NULL, stand.method = "hellinger", dist.method = "jaccard", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType", rank = NULL, stand.method = "hellinger", dist.method = "jaccard", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
@@ -2516,7 +2517,7 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType"
 
 tabletemp <- read.table(paste(dataAnPath, "Phy.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
 tabletemp$row.names <- NULL #if not using tXfilled tables you need it
  
 metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
@@ -2528,7 +2529,7 @@ metatemp$row.names <- NULL
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 myvec <- c(TrapType = "TrapType")
-names(myvec) <- "Type of Trap"
+names(myvec) <- "TrapType"
 
 # Open file-handle to get ready to make the png graph:
 png(filename=paste(pcoaDir, "Phy", "PCOA.distbray.standHell.png", sep = ""),
@@ -2544,16 +2545,16 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), r
 png(filename=paste(pcoaDir, "Phy", "PCOA.distJaccard.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "hellinger", dist.method = "jaccard", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "hellinger", dist.method = "jaccard", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = FALSE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off()   
   
  # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "Phy", "PCOA.distEuc.standNorm.png", sep = ""),
+png(filename=paste(pcoaDir, "Phy", "PCOA.distEuc.standNorm.TrapType.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 5, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = TRUE, bw = TRUE)
 
 # Close the png graph file handle:
   dev.off()    
@@ -3258,6 +3259,175 @@ test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALS
 
 SoilITSmean <- colMeans(test5)
 SoilITSmean
+
+
+#Subset OTU tables and meta tables
+
+##############
+#            #
+#  Lures     #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+"alpha_pinene", "C6C8", "General_Longhorn", "Monochamus", "unknown"
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+alphaPinITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("alpha_pinene"), and = FALSE)
+
+write.table(alphaPinITSsubset$data, file=paste(abundTablesPath, "ITS.alphaPinAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(alphaPinITSsubset$meta, file=paste(abundTablesPath, "ITS.alphaPinAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.alphaPinAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.alphaPinAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+alphaPinITSmean <- colMeans(test5)
+alphaPinITSmean
+
+
+
+C6C8ITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("C6C8"), and = FALSE)
+
+write.table(C6C8ITSsubset$data, file=paste(abundTablesPath, "ITS.C6C8Abund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(C6C8ITSsubset$meta, file=paste(abundTablesPath, "ITS.C6C8Abund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.C6C8Abund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.C6C8Abund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+C6C8ITSmean <- colMeans(test5)
+C6C8ITSmean
+
+
+
+General_LonghornITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("General_Longhorn"), and = FALSE)
+
+write.table(General_LonghornITSsubset$data, file=paste(abundTablesPath, "ITS.General_LonghornAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(General_LonghornITSsubset$meta, file=paste(abundTablesPath, "ITS.General_LonghornAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.General_LonghornAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.General_LonghornAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+General_LonghornITSmean <- colMeans(test5)
+General_LonghornITSmean
+
+
+MonochamusITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("Monochamus"), and = FALSE)
+
+write.table(MonochamusITSsubset$data, file=paste(abundTablesPath, "ITS.MonochamusAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(MonochamusITSsubset$meta, file=paste(abundTablesPath, "ITS.MonochamusAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.MonochamusAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.MonochamusAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+MonochamusITSmean <- colMeans(test5)
+MonochamusITSmean
 
 
 
