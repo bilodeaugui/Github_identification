@@ -2483,7 +2483,7 @@ names(myvec) <- "TrapType"
 png(filename=paste(pcoaDir, "Om", "PCOA.disteuc.standNorm.TrapType.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = myvec, rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = TRUE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = myvec, rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = 1, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off()
@@ -2496,7 +2496,9 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = "TrapType"
 
 # Close the png graph file handle:
   dev.off() 
+ 
   
+   
   # Open file-handle to get ready to make the png graph:
 png(filename=paste(pcoaDir, "Om", "PCOA.distJaccard.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
@@ -4225,5 +4227,61 @@ ITS.top.10 <- group.top.number(list(data=tabletemp), top = 10, ranks = "s", drop
                  
 # Close the png graph file handle:
   dev.off()
+
+```
+
+#plot Venn
+
+
+```{r}
+dir.create(paste(dataAnPath, "VennPlot", sep = ""),
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+VennPath <- paste(dataAnPath, "VennPlot/", sep = "")
+
+##############
+#            #
+#    ITS     #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+coreTaxaITSTraps <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 1)
+
+taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaITSTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaITSTrapsp$data$Spore$taxa, coreTaxaITSTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaITSTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaITSTrapsp$data$MOC$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
+taxaAllbutsoil    <- unique(c(taxaInsect, taxaSpore, taxarotorod))
+
+taxVector <- list(Insect=taxaInsect, Soil=taxaSoil, Spore=taxaSpore, Rotorod=taxarotorod)
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(VennPath, "ITS", ".VennPlot.traps.png", sep = ""),
+      width = 1800, height = 1000, units = "px")
+
+group.venn(vectors = taxVector, cat.cex =8, cex = 8, label = FALSE, lab.cex = 8, fill = TRUE)
+                 
+# Close the png graph file handle:
+  dev.off()
+
+
 
 ```
