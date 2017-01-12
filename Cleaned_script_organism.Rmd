@@ -3696,6 +3696,204 @@ SoilOmmean <- colMeans(test5)
 SoilOmmean
 
 
+#########
+# LURES #
+#########
+
+
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+#"alpha_pinene", "C6C8", "General_Longhorn", "Monochamus", "unknown"
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+alphaPinOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("alpha_pinene"), and = FALSE)
+
+write.table(alphaPinOmsubset$data, file=paste(abundTablesPath, "Om.alphaPinAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(alphaPinOmsubset$meta, file=paste(abundTablesPath, "Om.alphaPinAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.alphaPinAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.alphaPinAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+alphaPinOmmean <- colMeans(test5)
+alphaPinOmmean
+
+
+C6C8Omsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("C6C8"), and = FALSE)
+
+write.table(C6C8Omsubset$data, file=paste(abundTablesPath, "Om.C6C8Abund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(C6C8Omsubset$meta, file=paste(abundTablesPath, "Om.C6C8Abund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.C6C8Abund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.C6C8Abund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+C6C8Ommean <- colMeans(test5)
+C6C8Ommean
+
+General_LonghornOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("General_Longhorn"), and = FALSE)
+
+write.table(General_LonghornOmsubset$data, file=paste(abundTablesPath, "Om.General_LonghornAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(General_LonghornOmsubset$meta, file=paste(abundTablesPath, "Om.General_LonghornAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.General_LonghornAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.General_LonghornAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+General_LonghornOmmean <- colMeans(test5)
+General_LonghornOmmean
+
+
+MonochamusOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("Monochamus"), and = FALSE)
+
+write.table(MonochamusOmsubset$data, file=paste(abundTablesPath, "Om.MonochamusAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(MonochamusOmsubset$meta, file=paste(abundTablesPath, "Om.MonochamusAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.MonochamusAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.MonochamusAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+MonochamusOmmean <- colMeans(test5)
+MonochamusOmmean
+
+
+unknownOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("unknown"), and = FALSE)
+
+write.table(unknownOmsubset$data, file=paste(abundTablesPath, "Om.unknownAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(unknownOmsubset$meta, file=paste(abundTablesPath, "Om.unknownAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.unknownAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.unknownAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+unknownOmmean <- colMeans(test5)
+unknownOmmean
+
 
 ##############
 #            #
