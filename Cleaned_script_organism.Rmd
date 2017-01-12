@@ -3431,6 +3431,41 @@ MonochamusITSmean
 
 
 
+unknownITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("unknown"), and = FALSE)
+
+write.table(unknownITSsubset$data, file=paste(abundTablesPath, "ITS.unknownAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(unknownITSsubset$meta, file=paste(abundTablesPath, "ITS.unknownAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.unknownAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.unknownAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+unknownITSmean <- colMeans(test5)
+unknownITSmean
+
 ##############
 #            #
 #   Oom      #
