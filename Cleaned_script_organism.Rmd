@@ -4337,7 +4337,6 @@ group.venn(vectors = taxVector, cat.cex =2.25, cex = 3, label = FALSE, lab.cex =
   dev.off()
   
   
-  
   ###
   
   coreTaxaITSLure <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "Lure", percent = 0)

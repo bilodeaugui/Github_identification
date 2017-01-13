@@ -1,0 +1,383 @@
+                    Sample             Lure                 Taxon           RA Region
+data.1        EM13S01.ITS2     alpha_pinene      Epicoccum_nigrum 5.382856e-04   data
+data.2        EM13S02.ITS2             C6C8      Epicoccum_nigrum 1.383126e-03   data
+data.3       EM13S03.ITS1F     alpha_pinene      Epicoccum_nigrum 2.488181e-04   data
+data.4        EM13S03.ITS2     alpha_pinene      Epicoccum_nigrum 1.829994e-04   data
+data.5        EM13S04.ITS2             C6C8      Epicoccum_nigrum 2.746310e-03   data
+data.6       EM13S05.ITS1F     alpha_pinene      Epicoccum_nigrum 1.453488e-04   data
+data.7        EM13S05.ITS2     alpha_pinene      Epicoccum_nigrum 2.741775e-03   data
+data.8       EM13S06.ITS1F             C6C8      Epicoccum_nigrum 3.831649e-04   data
+data.9        EM13S06.ITS2             C6C8      Epicoccum_nigrum 5.260697e-04   data
+data.10      EM13S07.ITS1F             C6C8      Epicoccum_nigrum 1.816141e-02   data
+data.11       EM13S07.ITS2             C6C8      Epicoccum_nigrum 4.023996e-02   data
+data.12       EM13S09.ITS2             C6C8      Epicoccum_nigrum 1.958625e-02   data
+data.13      EM13S10.ITS1F     alpha_pinene      Epicoccum_nigrum 9.332376e-03   data
+data.14       EM13S10.ITS2     alpha_pinene      Epicoccum_nigrum 2.423790e-03   data
+data.15      EM13S11.ITS1F             Rain      Epicoccum_nigrum 7.643141e-02   data
+data.16       EM13S11.ITS2             Rain      Epicoccum_nigrum 1.016490e-01   data
+data.17      EM13S12.ITS1F     alpha_pinene      Epicoccum_nigrum 3.870207e-02   data
+data.18       EM13S12.ITS2     alpha_pinene      Epicoccum_nigrum 3.698158e-02   data
+data.19      EM13S13.ITS1F             C6C8      Epicoccum_nigrum 1.555644e-02   data
+data.20       EM13S13.ITS2             C6C8      Epicoccum_nigrum 2.848445e-02   data
+data.21      EM13S14.ITS1F             C6C8      Epicoccum_nigrum 6.410256e-03   data
+data.22      EM13S15.ITS1F     alpha_pinene      Epicoccum_nigrum 6.414368e-03   data
+data.23       EM13S15.ITS2     alpha_pinene      Epicoccum_nigrum 3.102806e-03   data
+data.24      EM13S16.ITS1F             Rain      Epicoccum_nigrum 2.694566e-02   data
+data.25       EM13S16.ITS2             Rain      Epicoccum_nigrum 4.582895e-02   data
+data.26       EM13S17.ITS2             C6C8      Epicoccum_nigrum 1.873975e-03   data
+data.27      EM13S18.ITS1F     alpha_pinene      Epicoccum_nigrum 2.977260e-03   data
+data.28       EM13S18.ITS2     alpha_pinene      Epicoccum_nigrum 1.936858e-03   data
+data.29      EM13S19.ITS1F             C6C8      Epicoccum_nigrum 7.992478e-03   data
+data.30       EM13S19.ITS2             C6C8      Epicoccum_nigrum 2.192465e-03   data
+data.31      EM13S20.ITS1F     alpha_pinene      Epicoccum_nigrum 1.034891e-03   data
+data.32      EM13S21.ITS1F             C6C8      Epicoccum_nigrum 8.646505e-03   data
+data.33       EM13S21.ITS2             C6C8      Epicoccum_nigrum 3.385889e-02   data
+data.34      EM13S22.ITS1F     alpha_pinene      Epicoccum_nigrum 5.525146e-03   data
+data.35       EM13S22.ITS2     alpha_pinene      Epicoccum_nigrum 7.414810e-03   data
+data.36      EM13S23.ITS1F             Rain      Epicoccum_nigrum 7.859734e-03   data
+data.37       EM13S23.ITS2             Rain      Epicoccum_nigrum 4.102672e-03   data
+data.38      EM13S24.ITS1F     alpha_pinene      Epicoccum_nigrum 2.857143e-02   data
+data.39       EM13S24.ITS2     alpha_pinene      Epicoccum_nigrum 3.761198e-03   data
+data.40      EM13S25.ITS1F             C6C8      Epicoccum_nigrum 8.523490e-03   data
+data.41       EM13S25.ITS2             C6C8      Epicoccum_nigrum 1.161597e-02   data
+data.42      EM13S26.ITS1F             Rain      Epicoccum_nigrum 1.885099e-02   data
+data.43       EM13S26.ITS2             Rain      Epicoccum_nigrum 7.004418e-02   data
+data.44      EM13S27.ITS1F             Rain      Epicoccum_nigrum 7.133758e-03   data
+data.45       EM13S27.ITS2             Rain      Epicoccum_nigrum 5.917889e-03   data
+data.46      EM13S28.ITS1F     alpha_pinene      Epicoccum_nigrum 2.824994e-02   data
+data.47       EM13S28.ITS2     alpha_pinene      Epicoccum_nigrum 2.455009e-02   data
+data.48      EM13S29.ITS1F             C6C8      Epicoccum_nigrum 3.330361e-03   data
+data.49       EM13S29.ITS2             C6C8      Epicoccum_nigrum 5.954484e-03   data
+data.50      EM13S30.ITS1F             Rain      Epicoccum_nigrum 1.631383e-01   data
+data.51       EM13S30.ITS2             Rain      Epicoccum_nigrum 2.535276e-01   data
+data.52       EM13S31.ITS2             Rain      Epicoccum_nigrum 5.428287e-02   data
+data.53      EM13S32.ITS1F             Rain      Epicoccum_nigrum 1.789037e-03   data
+data.54       EM13S32.ITS2             Rain      Epicoccum_nigrum 1.287889e-03   data
+data.55      EM13S33.ITS1F             Rain      Epicoccum_nigrum 1.587079e-01   data
+data.56       EM13S33.ITS2             Rain      Epicoccum_nigrum 2.147410e-01   data
+data.57      EM13S34.ITS1F             Rain      Epicoccum_nigrum 3.507495e-01   data
+data.58       EM13S34.ITS2             Rain      Epicoccum_nigrum 4.084737e-01   data
+data.59      EM13S37.ITS1F             C6C8      Epicoccum_nigrum 5.092593e-02   data
+data.60       EM13S37.ITS2             C6C8      Epicoccum_nigrum 9.480858e-02   data
+data.61      EM13S38.ITS1F     alpha_pinene      Epicoccum_nigrum 4.501318e-02   data
+data.62       EM13S38.ITS2     alpha_pinene      Epicoccum_nigrum 4.133723e-02   data
+data.63      EM13S39.ITS1F             Rain      Epicoccum_nigrum 4.542505e-03   data
+data.64       EM13S39.ITS2             Rain      Epicoccum_nigrum 1.644013e-03   data
+data.65      EM13S40.ITS1F             Rain      Epicoccum_nigrum 4.373975e-03   data
+data.66       EM13S40.ITS2             Rain      Epicoccum_nigrum 2.460956e-03   data
+data.67      EM13S41.ITS1F             Rain      Epicoccum_nigrum 3.582624e-03   data
+data.68       EM13S41.ITS2             Rain      Epicoccum_nigrum 1.024380e-03   data
+data.69      EM13S42.ITS1F             Rain      Epicoccum_nigrum 1.695993e-03   data
+data.70       EM13S42.ITS2             Rain      Epicoccum_nigrum 4.024685e-04   data
+data.71      EM13S43.ITS1F             Rain      Epicoccum_nigrum 5.563986e-03   data
+data.72       EM13S43.ITS2             Rain      Epicoccum_nigrum 1.320008e-03   data
+data.73      EM13S44.ITS1F             Rain      Epicoccum_nigrum 3.679525e-03   data
+data.74       EM13S44.ITS2             Rain      Epicoccum_nigrum 5.340552e-03   data
+data.75      EM13S45.ITS1F             Rain      Epicoccum_nigrum 6.164716e-03   data
+data.76       EM13S45.ITS2             Rain      Epicoccum_nigrum 1.621862e-04   data
+data.77      EM13S46.ITS1F             Rain      Epicoccum_nigrum 1.039160e-02   data
+data.78      EM14S46.ITS1F     alpha_pinene      Epicoccum_nigrum 0.000000e+00   data
+data.79       EM14S46.ITS2     alpha_pinene      Epicoccum_nigrum 0.000000e+00   data
+data.80      EM14S47.ITS1F             C6C8      Epicoccum_nigrum 7.317073e-02   data
+data.81       EM14S47.ITS2             C6C8      Epicoccum_nigrum 1.646362e-03   data
+data.82      EM14S48.ITS1F             Rain      Epicoccum_nigrum 1.625709e-01   data
+data.83       EM14S48.ITS2             Rain      Epicoccum_nigrum 0.000000e+00   data
+data.84      EM14S49.ITS1F             Rain      Epicoccum_nigrum 3.738318e-02   data
+data.85       EM14S49.ITS2             Rain      Epicoccum_nigrum 3.828198e-02   data
+data.86       EM14S50.ITS2             Rain      Epicoccum_nigrum 1.028481e-02   data
+data.87      EM14S51.ITS1F             C6C8      Epicoccum_nigrum 1.577761e-02   data
+data.88       EM14S51.ITS2             C6C8      Epicoccum_nigrum 7.094295e-03   data
+data.89      EM14S52.ITS1F     alpha_pinene      Epicoccum_nigrum 2.852486e-02   data
+data.90       EM14S52.ITS2     alpha_pinene      Epicoccum_nigrum 5.698883e-02   data
+data.91      EM14S53.ITS1F             C6C8      Epicoccum_nigrum 1.469606e-02   data
+data.92       EM14S53.ITS2             C6C8      Epicoccum_nigrum 0.000000e+00   data
+data.93      EM14S54.ITS1F     alpha_pinene      Epicoccum_nigrum 1.864641e-02   data
+data.94       EM14S54.ITS2     alpha_pinene      Epicoccum_nigrum 9.911573e-03   data
+data.95      EM14S55.ITS1F             Rain      Epicoccum_nigrum 1.452055e-01   data
+data.96       EM14S55.ITS2             Rain      Epicoccum_nigrum 4.951561e-02   data
+data.97      EM14S56.ITS1F             Rain      Epicoccum_nigrum 2.430769e-01   data
+data.98       EM14S56.ITS2             Rain      Epicoccum_nigrum 1.587838e-01   data
+data.99      EM14S57.ITS1F             Rain      Epicoccum_nigrum 6.030151e-02   data
+data.100      EM14S57.ITS2             Rain      Epicoccum_nigrum 4.460432e-02   data
+data.101     EM14S58.ITS1F             Rain      Epicoccum_nigrum 1.736641e-01   data
+data.102      EM14S58.ITS2             Rain      Epicoccum_nigrum 1.195260e-01   data
+data.103     EM14S59.ITS1F             Rain      Epicoccum_nigrum 2.539683e-01   data
+data.104      EM14S59.ITS2             Rain      Epicoccum_nigrum 1.461538e-01   data
+data.105     EM14S60.ITS1F             Rain      Epicoccum_nigrum 4.153605e-01   data
+data.106      EM14S60.ITS2             Rain      Epicoccum_nigrum 4.997193e-02   data
+data.107     EM14S61.ITS1F             Rain      Epicoccum_nigrum 5.316456e-02   data
+data.108      EM14S61.ITS2             Rain      Epicoccum_nigrum 3.202782e-02   data
+data.109     EM14S62.ITS1F             Rain      Epicoccum_nigrum 8.022923e-02   data
+data.110      EM14S62.ITS2             Rain      Epicoccum_nigrum 6.233669e-02   data
+data.111     EM14S63.ITS1F     alpha_pinene      Epicoccum_nigrum 3.779070e-02   data
+data.112      EM14S63.ITS2     alpha_pinene      Epicoccum_nigrum 4.205318e-02   data
+data.113     EM14S64.ITS1F             C6C8      Epicoccum_nigrum 3.484995e-02   data
+data.114      EM14S64.ITS2             C6C8      Epicoccum_nigrum 1.574803e-02   data
+data.115     EM14S65.ITS1F  Ethylene_glycol      Epicoccum_nigrum 0.000000e+00   data
+data.116      EM14S65.ITS2  Ethylene_glycol      Epicoccum_nigrum 0.000000e+00   data
+data.117     EM14S66.ITS1F  Ethylene_glycol      Epicoccum_nigrum 0.000000e+00   data
+data.118      EM14S66.ITS2  Ethylene_glycol      Epicoccum_nigrum 0.000000e+00   data
+data.119     EM14S67.ITS1F             Rain      Epicoccum_nigrum 9.217877e-02   data
+data.120      EM14S67.ITS2             Rain      Epicoccum_nigrum 9.086607e-02   data
+data.121     EM14S68.ITS1F             Rain      Epicoccum_nigrum 5.792164e-02   data
+data.122      EM14S68.ITS2             Rain      Epicoccum_nigrum 2.559456e-02   data
+data.123     EM14S69.ITS1F             Rain      Epicoccum_nigrum 1.132530e-01   data
+data.124      EM14S69.ITS2             Rain      Epicoccum_nigrum 6.085377e-02   data
+data.125     EM14S70.ITS1F             C6C8      Epicoccum_nigrum 3.846154e-02   data
+data.126      EM14S70.ITS2     alpha_pinene      Epicoccum_nigrum 2.016499e-02   data
+data.127     EM14S71.ITS1F             C6C8      Epicoccum_nigrum 1.621622e-02   data
+data.128      EM14S71.ITS2             C6C8      Epicoccum_nigrum 2.771619e-03   data
+data.129     EM14S72.ITS1F     alpha_pinene      Epicoccum_nigrum 1.519757e-03   data
+data.130      EM14S72.ITS2     alpha_pinene      Epicoccum_nigrum 2.030869e-03   data
+data.131     EM14S73.ITS1F             Rain      Epicoccum_nigrum 5.422886e-01   data
+data.132      EM14S73.ITS2             Rain      Epicoccum_nigrum 5.039894e-01   data
+data.133     EM14S74.ITS1F             Rain      Epicoccum_nigrum 1.844660e-01   data
+data.134      EM14S74.ITS2             Rain      Epicoccum_nigrum 2.200886e-01   data
+data.135     EM14S75.ITS1F     alpha_pinene      Epicoccum_nigrum 5.063291e-02   data
+data.136      EM14S75.ITS2     alpha_pinene      Epicoccum_nigrum 2.702703e-02   data
+data.137     EM14S76.ITS1F             C6C8      Epicoccum_nigrum 7.119741e-02   data
+data.138      EM14S76.ITS2             C6C8      Epicoccum_nigrum 5.029940e-02   data
+data.139     EM14S77.ITS1F     alpha_pinene      Epicoccum_nigrum 0.000000e+00   data
+data.140      EM14S77.ITS2     alpha_pinene      Epicoccum_nigrum 6.399707e-03   data
+data.141     EM14S78.ITS1F             C6C8      Epicoccum_nigrum 2.537669e-02   data
+data.142      EM14S78.ITS2             C6C8      Epicoccum_nigrum 3.783319e-02   data
+data.143     EM14S79.ITS1F     alpha_pinene      Epicoccum_nigrum 2.681992e-02   data
+data.144      EM14S79.ITS2     alpha_pinene      Epicoccum_nigrum 9.398330e-03   data
+data.145     EM14S80.ITS1F             C6C8      Epicoccum_nigrum 1.295800e-01   data
+data.146      EM14S80.ITS2             C6C8      Epicoccum_nigrum 1.000000e+00   data
+data.147     EM14S81.ITS1F     alpha_pinene      Epicoccum_nigrum 4.961148e-02   data
+data.148      EM14S81.ITS2     alpha_pinene      Epicoccum_nigrum 1.179245e-02   data
+data.149     EM14S82.ITS1F             C6C8      Epicoccum_nigrum 1.592920e-02   data
+data.150      EM14S82.ITS2             C6C8      Epicoccum_nigrum 7.392473e-03   data
+data.151     EM14S83.ITS1F     alpha_pinene      Epicoccum_nigrum 1.338084e-01   data
+data.152      EM14S83.ITS2     alpha_pinene      Epicoccum_nigrum 1.038324e-01   data
+data.153     EM14S84.ITS1F             C6C8      Epicoccum_nigrum 1.069132e-01   data
+data.154      EM14S84.ITS2             C6C8      Epicoccum_nigrum 1.340626e-02   data
+data.155     EM14S85.ITS1F     alpha_pinene      Epicoccum_nigrum 9.761905e-02   data
+data.156      EM14S85.ITS2     alpha_pinene      Epicoccum_nigrum 1.627907e-02   data
+data.157     EM14S86.ITS1F             C6C8      Epicoccum_nigrum 6.293706e-02   data
+data.158      EM14S86.ITS2             C6C8      Epicoccum_nigrum 1.123596e-02   data
+data.159     EM14S87.ITS1F             C6C8      Epicoccum_nigrum 1.382824e-01   data
+data.160      EM14S87.ITS2             C6C8      Epicoccum_nigrum 1.422623e-01   data
+data.161     EM14S88.ITS1F     alpha_pinene      Epicoccum_nigrum 5.882353e-02   data
+data.162      EM14S88.ITS2     alpha_pinene      Epicoccum_nigrum 4.941860e-02   data
+data.163     EM14S89.ITS1F             C6C8      Epicoccum_nigrum 6.976744e-02   data
+data.164      EM14S89.ITS2             C6C8      Epicoccum_nigrum 1.093181e-02   data
+data.165     EM14S90.ITS1F     alpha_pinene      Epicoccum_nigrum 5.773672e-02   data
+data.166      EM14S90.ITS2     alpha_pinene      Epicoccum_nigrum 2.781290e-02   data
+data.167      EM14S94.ITS2             Rain      Epicoccum_nigrum 3.218332e-01   data
+data.168     EM14S95.ITS1F             Rain      Epicoccum_nigrum 1.990895e-01   data
+data.169      EM14S95.ITS2             Rain      Epicoccum_nigrum 1.825454e-01   data
+data.170    EM15rS32.ITS1F General_Longhorn      Epicoccum_nigrum 2.596850e-02   data
+data.171     EM15rS32.ITS2 General_Longhorn      Epicoccum_nigrum 7.000000e-01   data
+data.172    EM15rS46.ITS1F General_Longhorn      Epicoccum_nigrum 1.216412e-02   data
+data.173     EM15rS46.ITS2 General_Longhorn      Epicoccum_nigrum 1.126972e-02   data
+data.174    EM15rS47.ITS1F       Monochamus      Epicoccum_nigrum 1.033507e-03   data
+data.175     EM15rS47.ITS2       Monochamus      Epicoccum_nigrum 4.567537e-04   data
+data.176    EM15rS49.ITS1F General_Longhorn      Epicoccum_nigrum 1.698632e-02   data
+data.177     EM15rS49.ITS2 General_Longhorn      Epicoccum_nigrum 2.498796e-02   data
+data.178    EM15rS50.ITS1F       Monochamus      Epicoccum_nigrum 5.469200e-02   data
+data.179     EM15rS50.ITS2       Monochamus      Epicoccum_nigrum 5.240611e-02   data
+data.180    EM15rS51.ITS1F             Rain      Epicoccum_nigrum 7.099238e-02   data
+data.181     EM15rS51.ITS2             Rain      Epicoccum_nigrum 6.986875e-02   data
+data.182    EM15rS52.ITS1F             Rain      Epicoccum_nigrum 6.888699e-02   data
+data.183     EM15rS52.ITS2             Rain      Epicoccum_nigrum 4.449013e-02   data
+data.184    EM15rS53.ITS1F             Rain      Epicoccum_nigrum 6.163994e-02   data
+data.185     EM15rS53.ITS2             Rain      Epicoccum_nigrum 7.614145e-02   data
+data.186    EM15rS54.ITS1F             Rain      Epicoccum_nigrum 1.607375e-01   data
+data.187     EM15rS54.ITS2             Rain      Epicoccum_nigrum 7.018529e-03   data
+data.188    EM15rS55.ITS1F       Monochamus      Epicoccum_nigrum 2.835792e-02   data
+data.189     EM15rS55.ITS2       Monochamus      Epicoccum_nigrum 2.519540e-02   data
+data.190    EM15rS56.ITS1F General_Longhorn      Epicoccum_nigrum 1.185278e-02   data
+data.191     EM15rS56.ITS2 General_Longhorn      Epicoccum_nigrum 1.871199e-02   data
+data.192    EM15rS57.ITS1F             Rain      Epicoccum_nigrum 2.842640e-02   data
+data.193     EM15rS57.ITS2             Rain      Epicoccum_nigrum 5.213026e-02   data
+data.194    EM15rS58.ITS1F             Rain      Epicoccum_nigrum 4.920914e-02   data
+data.195     EM15rS58.ITS2             Rain      Epicoccum_nigrum 3.232223e-02   data
+data.196    EM15rS59.ITS1F             Rain      Epicoccum_nigrum 7.282051e-02   data
+data.197     EM15rS59.ITS2             Rain      Epicoccum_nigrum 5.866244e-02   data
+data.198    EM15rS60.ITS1F             Rain      Epicoccum_nigrum 7.485030e-03   data
+data.199     EM15rS60.ITS2             Rain      Epicoccum_nigrum 1.177240e-02   data
+data.200    EM15rS61.ITS1F       Monochamus      Epicoccum_nigrum 1.753236e-02   data
+ [ reached getOption("max.print") -- omitted 3340 rows ]
+[[1]]
+geom_bar: width = NULL, na.rm = FALSE
+stat_identity: na.rm = FALSE
+position_stack 
+
+<ggproto object: Class ScalesList>
+    add: function
+    clone: function
+    find: function
+    get_scales: function
+    has_scale: function
+    input: function
+    n: function
+    non_position_scales: function
+    scales: list
+    super:  <ggproto object: Class ScalesList>
+* fill -> Taxon
+* x    -> Sample
+* y    -> RA
+List of 3
+ $ axis.text.x       :List of 11
+  ..$ family       : NULL
+  ..$ face         : NULL
+  ..$ colour       : NULL
+  ..$ size         : NULL
+  ..$ hjust        : num 1
+  ..$ vjust        : num 1
+  ..$ angle        : num 45
+  ..$ lineheight   : NULL
+  ..$ margin       :Classes 'margin', 'unit'  atomic [1:4] 2.2 0 0 0
+  .. .. ..- attr(*, "unit")= chr "pt"
+  .. .. ..- attr(*, "valid.unit")= int 8
+  ..$ debug        : NULL
+  ..$ inherit.blank: logi FALSE
+  ..- attr(*, "class")= chr [1:2] "element_text" "element"
+ $ legend.position   : chr "bottom"
+ $ panel.grid.major.x: list()
+  ..- attr(*, "class")= chr [1:2] "element_blank" "element"
+ - attr(*, "class")= chr [1:2] "theme" "gg"
+ - attr(*, "complete")= logi FALSE
+ - attr(*, "validate")= logi FALSE
+<ggproto object: Class CoordCartesian, Coord>
+    aspect: function
+    distance: function
+    expand: TRUE
+    is_linear: function
+    labels: function
+    limits: list
+    range: function
+    render_axis_h: function
+    render_axis_v: function
+    render_bg: function
+    render_fg: function
+    train: function
+    transform: function
+    super:  <ggproto object: Class CoordCartesian, Coord>
+<ggproto object: Class FacetGrid, Facet>
+    compute_layout: function
+    draw_back: function
+    draw_front: function
+    draw_labels: function
+    draw_panels: function
+    finish_data: function
+    init_scales: function
+    map: function
+    map_data: function
+    params: list
+    render_back: function
+    render_front: function
+    render_panels: function
+    setup_data: function
+    setup_params: function
+    shrink: TRUE
+    train: function
+    train_positions: function
+    train_scales: function
+    super:  <ggproto object: Class FacetGrid, Facet>
+<environment: 0xd782228>
+$y
+[1] "Relative Abundance"
+
+$title
+[1] "Relative Abundance of Taxonomic Groups at Species Level"
+
+$subtitle
+NULL
+
+$x
+[1] "Samples"
+
+$fill
+[1] "Taxon"
+
+$data
+
+$layers
+$layers[[1]]
+geom_bar: width = NULL, na.rm = FALSE
+stat_identity: na.rm = FALSE
+position_stack 
+
+
+$scales
+<ggproto object: Class ScalesList>
+    add: function
+    clone: function
+    find: function
+    get_scales: function
+    has_scale: function
+    input: function
+    n: function
+    non_position_scales: function
+    scales: list
+    super:  <ggproto object: Class ScalesList>
+
+$mapping
+NULL
+
+$theme
+NULL
+
+$coordinates
+<ggproto object: Class CoordCartesian, Coord>
+    aspect: function
+    distance: function
+    expand: TRUE
+    is_linear: function
+    labels: function
+    limits: list
+    range: function
+    render_axis_h: function
+    render_axis_v: function
+    render_bg: function
+    render_fg: function
+    train: function
+    transform: function
+    super:  <ggproto object: Class CoordCartesian, Coord>
+
+$facet
+<ggproto object: Class FacetGrid, Facet>
+    compute_layout: function
+    draw_back: function
+    draw_front: function
+    draw_labels: function
+    draw_panels: function
+    finish_data: function
+    init_scales: function
+    map: function
+    map_data: function
+    params: list
+    render_back: function
+    render_front: function
+    render_panels: function
+    setup_data: function
+    setup_params: function
+    shrink: TRUE
+    train: function
+    train_positions: function
+    train_scales: function
+    super:  <ggproto object: Class FacetGrid, Facet>
+
+$plot_env
+<environment: 0xd782228>
+
+$labels
+$labels$y
+[1] "Relative Abundance"
+
+$labels$title
+[1] "Relative Abundance of Taxonomic Groups at Species Level"
+
+$labels$subtitle
+NULL
+
+$labels$x
+[1] "Samples"
+
+$labels$fill
+[1] "Taxon"
+
+
