@@ -325,6 +325,37 @@ df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
+  
+##############
+#            #
+#   Phy-nsp  #
+#            #
+############## works
+
+temp <-  read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(plotPath, "Phy.nsp", ".otuRecap.png", sep = ""),
+      width = 600, height = 500, units = "px")
+
+# Put this data into the png graph for the open filehandle:
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Close the png graph file handle:
+  dev.off()
+
+df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+
+# Write out the dataframe:
+  write.table(df3, file=paste(statOTURecapPath, "Phy.nsp.otuRecap.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
 ```
 tax.fill to remove uncertae sedis, unclassified...
 
@@ -397,6 +428,27 @@ temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
               row.names = FALSE,
               quote = FALSE)
 
+##############
+#            #
+#  Phy.nsp   #
+#            #
+############## works
+
+temp <- read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Phy.nsp", ".table.taxFill.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
+  
+  
 ```
 
 Create diversity directory and path. List your datasets for diversity indexes. Adds a bunch of columns in a new diversity metadata file.
@@ -490,6 +542,33 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
               quote=FALSE)
 
 
+##############
+#            #
+# Phy.nsp    #
+#            #
+############## works
+
+tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+#metatemp$row.names <- NULL 
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
+
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Phy.nsp", ".meta.div.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote=FALSE)  
+  
 ```
 
 Whiskers plots (diversity)
@@ -836,6 +915,113 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+##############
+#            #
+#  Phy.nsp   #
+#            #
+############## works
+  
+tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+#Simpson Evenness
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Simpson.Evenness.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Shannon Evenness
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Simpson True Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.True.Div.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Shannon True Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Simpson Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.Div.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Shannon Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.Div.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+#Simpson inverted Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.inv.Div.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+
+#Species number
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.png", sep = ""),
+      width = 1200, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
 
 
 ```
@@ -924,7 +1110,24 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
                                row.names = FALSE,
                                quote=FALSE)
 
+##############
+#            #
+#  Phy-nsp   #
+#            #
+############## works
 
+temp <-  read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  temp$row.names <- NULL 
+
+rrf <- OTU.rarefy(list(data=temp), sample=NULL)
+# Write out the dataframe:
+  write.table(rrf, file=paste(rarefyPath, "Phy.nsp.rarefy.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
 
 ```
 
@@ -1737,7 +1940,214 @@ myGroup.abund.Taxa(data = list(data = tabletemp),
   dev.off()   
  
   
+##############
+#            #
+# Phy-nsp    #
+#            #
+############## works  
+  
+tabletemp <-  read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
 
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+coreTaxaPhynspTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0.80)
+
+taxaInsect <- coreTaxaPhynspTrapsp$data$Insect$taxa
+taxaSoil   <- coreTaxaPhynspTrapsp$data$Soil$taxa
+taxaSpore  <- c(unique(coreTaxaPhynspTrapsp$data$Spore$taxa, coreTaxaPhynspTrapsp$data$Spore_mini$taxa))
+taxarotorod <- coreTaxaPhynspTrapsp$data$Rotorod$taxa
+taxamock <- coreTaxaPhynspTrapsp$data$MOC$taxa
+taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.Insect.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaInsect,
+                    main = "Species found in 80% of Insect samples")
+                
+# Close the png graph file handle:
+  dev.off()
+
+  
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.soil.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                  is.OTU = TRUE,
+                   rank = "s",    # Pay attention to the rank you want to work on
+                  drop.unclassified = TRUE,
+                  meta = metatemp,
+                  meta.factor = "TrapType",
+                  taxa = taxaSoil,
+                  main = "species found in 80% of Soil samples")
+
+# # Close the png graph file handle:
+dev.off()
+
+# Open file-handle to get ready to make the png graph:
+png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.spore.80pc.png", sep = ""),
+ width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                  is.OTU = TRUE,
+                   rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                   meta = metatemp,
+                   meta.factor = "TrapType",
+                   taxa = taxaSpore,
+                    main = "species found in 80% of Spore samples")
+
+# # Close the png graph file handle:
+dev.off()
+  
+ # Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.rotorod.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxarotorod,
+                     main = "species found in 80% of Rotorod samples")
+                 
+# Close the png graph file handle:
+  dev.off()
+ 
+  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.mock.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxamock,
+                     main = "species found in 80% of MOCK samples")
+                
+# Close the png graph file handle:
+  dev.off()
+      
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy.nsp", ".species.abund.all.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    # Pay attention to the rank you want to work on
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "TrapType",
+                    taxa = taxaAll,
+                    main = "species found in 80% of samples")
+                
+# Close the png graph file handle:
+  dev.off()
+           
+   ##########
+  #        #  
+  #  Lures #
+  #        #
+  ##########
+  
+tabletemp <-  read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
+  
+tabletemp$row.names <- NULL 
+  
+metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work    
+  
+coreTaxaPhylureInssp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = TRUE, meta.factor = "Lure", percent = 0.80)
+
+coreTaxaPhylureInssp
+  
+taxaAlphaPin <- coreTaxaPhylureInssp$data$alpha_pinene$taxa
+taxaC6C8   <- coreTaxaPhylureInssp$data$C6C8$taxa
+taxaEthylGly  <- coreTaxaPhylureInssp$data$Ethylene_glycol$taxa
+taxaGenLongHorn <- coreTaxaPhylureInssp$data$General_Longhorn$taxa
+taxaMonochamus <- coreTaxaPhylureInssp$data$Monochamus$taxa
+taxaunknown <- coreTaxaPhylureInssp$data$unknown$taxa
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.AlphaPin.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaAlphaPin,
+                    main = "10 Species found in 80% of Insect samples with Alpha-Pinene Lure")
+                
+# Close the png graph file handle:
+  dev.off()
+  
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.C6C8.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaC6C8,
+                    main = "3 Species found in 80% of Insect samples with C6C8")
+                
+# Close the png graph file handle:
+  dev.off()  
+    
+ 
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(taxabunDir, "Phy", ".species.abund.monochamus.80pc.png", sep = ""),
+      width = 1500, height = 1000, units = "px")
+
+myGroup.abund.Taxa(data = list(data = tabletemp),
+                    is.OTU = TRUE,
+                    rank = "s",    
+                    drop.unclassified = TRUE,
+                    meta = metatemp,
+                    meta.factor = "Lure",
+                    taxa = taxaMonochamus,
+                    main = "11 Species found in 80% of Insect samples with Monochamus")
+                
+# Close the png graph file handle:
+  dev.off()   
+ 
+  
 ```
 
 
@@ -3160,13 +3570,13 @@ RotorodITSmean
 
 tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names =1)
 
 tabletemp$row.names <- NULL 
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
 
 
 metatemp$row.names <- NULL 
@@ -3177,7 +3587,7 @@ SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c(
 write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeAbund.table.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
                                quote=FALSE)
   
 write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeAbund.meta.tsv", sep = ""),
