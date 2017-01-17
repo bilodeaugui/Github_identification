@@ -3431,6 +3431,149 @@ cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractor.pl", sep = ""),
 system(cmd)
 
 ```
+#Worsearch and FASTA improved
+```{r}
+
+#########################
+#                       #
+#    ITS by species     #
+#                       #
+#########################
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "speciesQuery.txt", sep = "")
+otu_in <- paste(pathDataAn, "ITS.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "ITS.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_ITS.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "ITS_species_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "ITS_species_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/ITS_species_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+
+#########################
+#                       #
+#    ITS by genuses     #
+#                       #
+#########################
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "genusQuery.txt", sep = "")
+otu_in <- paste(pathDataAn, "ITS.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "ITS.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_ITS.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "ITS_genus_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "ITS_genus_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/ITS_genus_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+###############
+#             #
+#    Oom      #
+#             #
+###############
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "genusOm.txt", sep = "")
+otu_in <- paste(pathDataAn, "Om.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "Om.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_Om.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Om_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Om_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/om_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+
+##############
+#            #
+#    PHY     #
+#            #
+##############
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "genusOm.txt", sep = "")
+otu_in <- paste(pathDataAn, "Phy.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "Phy.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_Phy.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Phy_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Phy_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/Phy_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+##############
+#            #
+# PHY-nsp    #
+#            #
+##############
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "genusOm.txt", sep = "")
+otu_in <- paste(pathDataAn, "Phy.nsp.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "Phy.nsp.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_Phynsp.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Phynsp_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Phynsp_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/Phy_nsp_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+
+```
+
 # subset and create abundance tables
 
 ```{r}
