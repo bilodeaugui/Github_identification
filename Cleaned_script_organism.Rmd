@@ -3573,7 +3573,30 @@ system(cmd)
 
 
 ```
+#cluster data from fasta info from word Search
+```{r}
 
+
+#########################
+#                       #
+#    ITS by genuses     #
+#                       #
+#########################
+
+#Define your 2 arguments to run the perl script
+analysisFolder <- paste(WordMatchDir, "/FastaOut/ITS_genus_query", sep = "")
+blastDBfastaPath <- "/home/CFIA-ACIA/tremblaye/fasta_target/fasta_sequences"
+
+
+cmd <- paste("bash", paste(ScriptsPath, "ClusterDataFromTaxon2.sh", sep = ""),
+             analysisFolder,
+             blastDBfastaPath,
+             sep = " ")
+system(cmd)
+
+
+
+```
 # subset and create abundance tables
 
 ```{r}
