@@ -3584,16 +3584,25 @@ system(cmd)
 #########################
 
 #Define your 2 arguments to run the perl script
-analysisFolder <- paste(WordMatchDir, "/FastaOut/ITS_genus_query", sep = "")
+args = c("/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/WordMatch/FastaOut/ITS_genus_query", "/home/CFIA-ACIA/tremblaye/fasta_target/fasta_sequences")
+analysisFolder <- paste(WordMatchDir, "FastaOut/ITS_genus_query", sep = "")
 blastDBfastaPath <- "/home/CFIA-ACIA/tremblaye/fasta_target/fasta_sequences"
 
 
-cmd <- paste("bash", paste(ScriptsPath, "ClusterDataFromTaxon2.sh", sep = ""),
-             analysisFolder,
-             blastDBfastaPath,
+cmd <- ("/home/CFIA-ACIA/tremblaye/scripts/ClusterDataFromTaxon3.sh")
+
+system2("/home/CFIA-ACIA/tremblaye/scripts/ClusterDataFromTaxon3.sh", args = args)
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
              sep = " ")
 system(cmd)
-
 
 
 ```
