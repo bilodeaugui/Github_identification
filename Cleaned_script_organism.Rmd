@@ -631,6 +631,16 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+#without lures
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -654,6 +664,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+#no lure  
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", xlab = "Shannon True Diversity by Trap Type",ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
+
+# Close the png graph file handle:
+  dev.off()
+  
+  
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -699,6 +720,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+  #Species number no lure
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "ITS", ".Species.nb.2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 ##############
 #            #
 #    Oom     #
@@ -739,6 +771,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 
 # Close the png graph file handle:
   dev.off()
+  
+#without lures
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
 
 #Simpson True Diversity
 
@@ -761,7 +804,16 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 
 # Close the png graph file handle:
   dev.off()
+#without lures
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div2.png", sep = ""),
+      width = 500, height = 400, units = "px")
 
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -807,6 +859,18 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+  #Species number no lure
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Om", ".Species.nb.2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+  
 ##############
 #            #
 #    Phy     #
@@ -848,6 +912,16 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+#without thel ures
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Phy", ".Shannon.Evenness2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -870,6 +944,16 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+  #no lures
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy", ".Shannon.True.Div2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -915,6 +999,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+  #Species number no lures
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy", ".Species.nb.2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
 ##############
 #            #
 #  Phy.nsp   #
@@ -955,7 +1050,18 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 
 # Close the png graph file handle:
   dev.off()
+  
+#nolure
+  # Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness2.png", sep = ""),
+      width = 500, height = 400, units = "px")
 
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
+  
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -978,6 +1084,19 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+  #no lure
+  #Shannon True Diversity
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+
+  
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
@@ -1023,7 +1142,18 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
 
+#Species number no lure
 
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.2.png", sep = ""),
+      width = 500, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
+  
 ```
 
 Rarefy your tables
