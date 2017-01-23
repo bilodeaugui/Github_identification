@@ -3702,6 +3702,41 @@ system(cmd)
 
 
 
+###############################
+#                             #
+#  ITS Diplodia corticola     #
+#                             #
+###############################
+
+diplodiaDir <- paste(WordMatchDir, "Diplodia/", sep ="")
+dir.create(diplodiaDir,
+           showWarnings = TRUE,
+           recursive    = FALSE)
+
+#####
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(diplodiaDir, "diplodia_query.txt", sep = "")
+otu_in <- paste(pathDataAn, "ITS.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "ITS.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new_refseqs_ITS.fna", sep = "")
+table_taxon_out <- paste(diplodiaDir, "ITS_diplodia_query_by_taxon.tsv", sep = "")
+table_sample_out <- paste(diplodiaDir, "ITS_diplodia_query_by_sample.tsv", sep = "")
+fasta_out_folder <- paste(diplodiaDir, "/FastaOut/", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+
 ```
 #cluster data from fasta info from word Search
 ```{r}
