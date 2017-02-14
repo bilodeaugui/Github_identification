@@ -2926,6 +2926,18 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
+#no mock
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
+
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
+ 
+
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
 metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
@@ -2939,7 +2951,7 @@ names(myvec) <- "TrapType"
 #dist.method	one of "manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard", "gower", "altGower","morisita", "horn", "mountford", "raup", "binomial", "chao", or "cao"
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.png", sep = ""),
+png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.nomock.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
 pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = TRUE, bw = TRUE)
@@ -3019,8 +3031,27 @@ myvec <- c("TrapType")
 
 names(myvec) <- "TrapType"
 
+#no mock
+
+tabletemp <- read.table(paste(dataAnPath, "Om.table.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, row.names =1)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+myvec <- c("TrapType")
+
+names(myvec) <- "TrapType"
+
  # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "Om", "PCOA.disteuc.standNorm.TrapType.png", sep = ""),
+png(filename=paste(pcoaDir, "Om", "PCOA.disteuc.standNorm.TrapType.nomock.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
 pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = myvec, rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = 1, main = "PCOA by Trap Type for Oomycetes", ggplot2 = TRUE, bw = FALSE)
@@ -3073,6 +3104,26 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 myvec <- c(TrapType = "TrapType")
 names(myvec) <- "TrapType"
 
+
+#no mock sp
+
+tabletemp <- read.table(paste(dataAnPath, "Phy.nsp.table.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
+tabletemp$row.names <- NULL #if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+myvec <- c(TrapType = "TrapType")
+names(myvec) <- "TrapType"
+
+
 # Open file-handle to get ready to make the png graph:
 png(filename=paste(pcoaDir, "Phy", "PCOA.distbray.standHell.png", sep = ""),
       width = 1200, height = 1000, units = "px")
@@ -3093,7 +3144,7 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), r
   dev.off()   
   
  # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "Phy", "PCOA.distEuc.standNorm.TrapType.png", sep = ""),
+png(filename=paste(pcoaDir, "Phy", "PCOA.distEuc.standNorm.TrapType.nomock.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
 pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Phytophthora", ggplot2 = TRUE, bw = TRUE)
