@@ -5176,6 +5176,350 @@ test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE
 SoilPhymean <- colMeans(test5)
 SoilPhymean
 
+
+##############
+#            #
+#   Phy-nsp  #
+#            #
+############## 
+
+
+#Subset OTU tables and meta tables
+
+##############
+#            #
+#  insects   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+insectPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
+
+write.table(insectPhysubset$data, file=paste(abundTablesPath, "Phy.nsp.insectAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(insectPhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.insectAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.insectAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.insectAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+InsectPhymean <- colMeans(test5)
+InsectPhymean
+
+##############
+#            #
+#  Rotorod   #
+#            #
+############## 
+# 
+# tabletemp <-  read.table(paste(dataAnPath, "Phy.table.tsv", sep = ""),
+#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+#                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+# 
+# tabletemp$row.names <- NULL 
+#  
+# metatemp <-  read.table(paste(pathDataAn, "Phy.meta.tsv", sep = ""),
+#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+#                       as.is = TRUE, check.names = FALSE)
+# 
+# 
+# metatemp$row.names <- NULL 
+# rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+# 
+# RotorodPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Rotorod"), and = FALSE)
+# 
+# write.table(RotorodPhysubset$data, file=paste(abundTablesPath, "Phy.RotorodAbund.table.tsv", sep = ""),
+#                                append    = FALSE,
+#                                sep       = "\t",
+#                                row.names = FALSE,
+#                                quote=FALSE)
+#   
+# write.table(RotorodPhysubset$meta, file=paste(abundTablesPath, "Phy.RotorodAbund.meta.tsv", sep = ""),
+#                                append    = FALSE,
+#                                sep       = "\t",
+#                                row.names = FALSE,
+#                                quote=FALSE)
+# 
+# #read tables
+# tabletempsub <-  read.table(paste(abundTablesPath, "Phy.RotorodAbund.table.tsv", sep = ""),
+#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+#                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+# 
+# metatempsub <-  read.table(paste(abundTablesPath, "Phy.RotorodAbund.meta.tsv", sep = ""),
+#                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+#                       as.is = TRUE, check.names = FALSE)
+# 
+# 
+# #metatemp$row.names <- NULL 
+# #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+# 
+# #Get abundance for subseted tables
+# test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+# 
+# #calculate mean of columns
+# 
+# RotorodPhymean <- colMeans(test5)
+# RotorodPhymean
+
+##############
+#            #
+#Spore-all   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
+
+write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.allSporeAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.allSporeAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.allSporeAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.allSporeAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporePhymean <- colMeans(test5)
+SporePhymean
+
+##############
+#            #
+#Spore-big   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
+
+write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.bigSporeAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.bigSporeAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.bigSporeAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.bigSporeAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporePhymean <- colMeans(test5)
+SporePhymean
+
+##############
+#            #
+#Spore-mini  #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
+
+write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporePhymean <- colMeans(test5)
+SporePhymean
+
+
+
+##############
+#            #
+#    Soil   #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SoilPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
+
+write.table(SoilPhysubset$data, file=paste(abundTablesPath, "Phy.nsp.SoilAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SoilPhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.SoilAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.SoilAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.SoilAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = TRUE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SoilPhymean <- colMeans(test5)
+SoilPhymean
+
+
+
 ```
 
 #percent classified
