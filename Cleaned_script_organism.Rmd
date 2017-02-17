@@ -3876,7 +3876,7 @@ abundTablesPath <- paste(dataAnPath, "abundTables/", sep = "")
 
 tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -3885,7 +3885,7 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
@@ -3893,13 +3893,15 @@ insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c
 write.table(insectITSsubset$data, file=paste(abundTablesPath, "ITS.insectAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(insectITSsubset$meta, file=paste(abundTablesPath, "ITS.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names= TRUE,
                                quote=FALSE)
 
 #read tables
@@ -3931,7 +3933,7 @@ InsectITSmean
 
 tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -3940,7 +3942,7 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 RotorodITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Rotorod"), and = FALSE)
@@ -3948,13 +3950,15 @@ RotorodITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = 
 write.table(RotorodITSsubset$data, file=paste(abundTablesPath, "ITS.RotorodAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(RotorodITSsubset$meta, file=paste(abundTablesPath, "ITS.RotorodAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names=TRUE,
                                quote=FALSE)
 
 #read tables
@@ -3992,10 +3996,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, row.names = 1)
+                      as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
@@ -4004,12 +4008,14 @@ write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeAbund.tab
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4047,10 +4053,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, row.names = 1)
+                      as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
@@ -4059,14 +4065,15 @@ write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporebigAbund.
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporebigAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names = TRUE,
                                quote=FALSE)
-
 #read tables
 tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporebigAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
@@ -4102,10 +4109,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, row.names = 1)
+                      as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
@@ -4114,12 +4121,14 @@ write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeminiAbund
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeminiAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                                col.names= TRUE,  
                                quote=FALSE)
 
 #read tables
@@ -4144,8 +4153,6 @@ SporeITSmean <- colMeans(test5)
 SporeITSmean
 
 
-
-
 ##############
 #            #
 #    Soil   #
@@ -4154,7 +4161,7 @@ SporeITSmean
 
 tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4163,7 +4170,7 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SoilITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
@@ -4171,13 +4178,15 @@ SoilITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("
 write.table(SoilITSsubset$data, file=paste(abundTablesPath, "ITS.SoilAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
-  
+
 write.table(SoilITSsubset$meta, file=paste(abundTablesPath, "ITS.SoilAbund.meta.new.tsv", sep = ""),
-                               append    = FALSE,
+                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                                col.names= TRUE,  
                                quote=FALSE)
 
 #read tables
@@ -4424,7 +4433,7 @@ unknownITSmean
 
 tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4433,7 +4442,7 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 insectOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
@@ -4441,13 +4450,15 @@ insectOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c(
 write.table(insectOmsubset$data, file=paste(abundTablesPath, "Om.insectAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.names = NA,
                                quote=FALSE)
   
 write.table(insectOmsubset$meta, file=paste(abundTablesPath, "Om.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4534,7 +4545,7 @@ InsectOmmean
 
 tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4543,7 +4554,7 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
@@ -4551,13 +4562,15 @@ SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("
 write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.allSporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                                col.names = NA,
                                quote=FALSE)
   
 write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.allSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4589,7 +4602,7 @@ SporeOmmean
 
 tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4598,7 +4611,7 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
@@ -4606,13 +4619,15 @@ SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("
 write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.bigSporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.name = NA,
                                quote=FALSE)
   
 write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.bigSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4644,7 +4659,7 @@ SporeOmmean
 
 tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4653,7 +4668,7 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
@@ -4661,13 +4676,15 @@ SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("
 write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.miniSporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                              col.names = NA,
                                quote=FALSE)
   
 write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.miniSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4694,13 +4711,13 @@ SporeOmmean
 
 ##############
 #            #
-#    Soil   #
+#    Soil    #
 #            #
 ############## 
 
 tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -4709,7 +4726,7 @@ metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SoilOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
@@ -4717,13 +4734,15 @@ SoilOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("T
 write.table(SoilOmsubset$data, file=paste(abundTablesPath, "Om.SoilAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                                col.names = NA,
                                quote=FALSE)
   
 write.table(SoilOmsubset$meta, file=paste(abundTablesPath, "Om.SoilAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -5194,7 +5213,7 @@ SoilPhymean
 
 tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
 tabletemp$row.names <- NULL 
  
@@ -5203,7 +5222,7 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 insectPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
@@ -5211,13 +5230,15 @@ insectPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c
 write.table(insectPhysubset$data, file=paste(abundTablesPath, "Phy.nsp.insectAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                               col.names=NA,
                                quote=FALSE)
   
 write.table(insectPhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                               col.names = TRUE,      
                                quote=FALSE)
 
 #read tables
@@ -5304,7 +5325,7 @@ InsectPhymean
 
 tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names = 1)
 
 tabletemp$row.names <- NULL 
  
@@ -5313,7 +5334,7 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
@@ -5321,13 +5342,15 @@ SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c(
 write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.allSporeAbund.table.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                                col.names = NA,
                                quote=FALSE)
   
 write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.allSporeAbund.meta.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -5359,7 +5382,7 @@ SporePhymean
 
 tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names = 1)
 
 tabletemp$row.names <- NULL 
  
@@ -5368,7 +5391,7 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
@@ -5376,13 +5399,15 @@ SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c(
 write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.bigSporeAbund.table.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                                col.names = NA,
                                quote=FALSE)
   
 write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.bigSporeAbund.meta.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -5414,7 +5439,7 @@ SporePhymean
 
 tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names = 1)
 
 tabletemp$row.names <- NULL 
  
@@ -5423,7 +5448,7 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
@@ -5431,13 +5456,15 @@ SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c(
 write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                              col.names = NA,
                                quote=FALSE)
   
 write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -5471,7 +5498,7 @@ SporePhymean
 
 tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names = 1)
 
 tabletemp$row.names <- NULL 
  
@@ -5480,7 +5507,7 @@ metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
                       as.is = TRUE, check.names = FALSE)
 
 
-metatemp$row.names <- NULL 
+#metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SoilPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
@@ -5488,13 +5515,15 @@ SoilPhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("
 write.table(SoilPhysubset$data, file=paste(abundTablesPath, "Phy.nsp.SoilAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
-                               row.names = FALSE,
+                               row.names = TRUE,
+                              col.names = NA,
                                quote=FALSE)
   
 write.table(SoilPhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.SoilAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
+                                col.names = TRUE,
                                quote=FALSE)
 
 #read tables
