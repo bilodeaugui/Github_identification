@@ -244,13 +244,13 @@ statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 #            #
 ############## WORKS 
 
-  temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+  temp <-  read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(plotPath, "ITS", ".otuRecap.png", sep = ""),
+  png(filename=paste(plotPath, "ITS", ".otuRecap.new.png", sep = ""),
       width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
@@ -261,7 +261,7 @@ statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
 
 df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
 # Write out the dataframe:
-  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.tsv", sep = ""),
+  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
@@ -273,13 +273,13 @@ df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
 #            #
 ############## works
 
-  temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+  temp <-  read.table(paste(pathDataAn, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(plotPath, "Om", ".otuRecap.png", sep = ""),
+  png(filename=paste(plotPath, "Om", ".otuRecap.new.png", sep = ""),
       width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
@@ -291,7 +291,7 @@ df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
 df2 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
 
 # Write out the dataframe:
-  write.table(df2, file=paste(statOTURecapPath, "Om.otuRecap.tsv", sep = ""),
+  write.table(df2, file=paste(statOTURecapPath, "Om.otuRecap.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
@@ -332,13 +332,13 @@ df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
 #            #
 ############## works
 
-temp <-  read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+temp <-  read.table(paste(pathDataAn, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(plotPath, "Phy.nsp", ".otuRecap.png", sep = ""),
+  png(filename=paste(plotPath, "Phy.nsp", ".otuRecap.new.png", sep = ""),
       width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
@@ -350,7 +350,7 @@ temp <-  read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
 df3 <-OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
 
 # Write out the dataframe:
-  write.table(df3, file=paste(statOTURecapPath, "Phy.nsp.otuRecap.tsv", sep = ""),
+  write.table(df3, file=paste(statOTURecapPath, "Phy.nsp.otuRecap.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
@@ -375,7 +375,7 @@ taxFillPath <- paste(pathDataAn, taxFillDir, sep = "")
 #            #
 ############## works
 
-temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+temp <- read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
                       quote = "", stringsAsFactors = TRUE,
@@ -383,7 +383,7 @@ temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
 
   temp$row.names <- NULL
   temp <- tax.fill(temp, downstream=TRUE)
-  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "ITS", ".table.taxFill.tsv", sep = ""),
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "ITS", ".table.taxFill.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -394,7 +394,7 @@ temp <- read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
 #    Oom     #
 #            #
 ############## works
-temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+temp <- read.table(paste(pathDataAn, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
                       quote = "", stringsAsFactors = TRUE,
@@ -402,7 +402,7 @@ temp <- read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
 
   temp$row.names <- NULL
   temp <- tax.fill(temp, downstream=TRUE)
-  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Om", ".table.taxFill.tsv", sep = ""),
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Om", ".table.taxFill.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -434,7 +434,7 @@ temp <- read.table(paste(pathDataAn, "Phy.table.tsv", sep = ""),
 #            #
 ############## works
 
-temp <- read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
+temp <- read.table(paste(pathDataAn, "Phy.nsp.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
                       quote = "", stringsAsFactors = TRUE,
@@ -442,7 +442,7 @@ temp <- read.table(paste(pathDataAn, "Phy.nsp.table.tsv", sep = ""),
 
   temp$row.names <- NULL
   temp <- tax.fill(temp, downstream=TRUE)
-  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Phy.nsp", ".table.taxFill.tsv", sep = ""),
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "Phy.nsp", ".table.taxFill.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -466,7 +466,7 @@ dir.create(diversityDir,
 #            #
 ############## works
 
-tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
@@ -481,7 +481,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.tsv", sep = ""),
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "ITS", ".meta.div.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -493,7 +493,7 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 #            #
 ############## works
 
-tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
@@ -508,7 +508,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.tsv", sep = ""),
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Om", ".meta.div.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -548,7 +548,7 @@ temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 #            #
 ############## works
 
-tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
@@ -563,7 +563,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 temp2 <- OTU.diversity(list(data=tabletemp), metatemp)
 
-  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Phy.nsp", ".meta.div.tsv", sep = ""),
+  write.table(temp2, file=paste(dataAnPath, "diversityDir/", "Phy.nsp", ".meta.div.new.tsv", sep = ""),
               append    = FALSE,
               sep       = "\t",
               row.names = FALSE,
@@ -595,12 +595,12 @@ DivPlotPath <- paste(dataAnPath, "diversityDir/DiversityPlot/", sep ="")
 ############## works
 
 
-tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
  
-metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
@@ -612,7 +612,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 #Simpson Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "ITS", ".Simpson.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "ITS", ".Simpson.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -623,7 +623,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -633,7 +633,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 
 #without lures
   # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness2.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -645,7 +645,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 
 # Open file-handle to get ready to make the png graph:
 
-  png(filename=paste(DivPlotPath, "ITS", ".Simpson.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Simpson.True.Div.new.png", sep = ""),
       width = 1200, height = 600, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -656,17 +656,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", xlab = "Shannon True Diversity by Trap Type and their respective Lure",ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", xlab = "Shannon True Diversity by Trap Type and their respective Lure",ylab="Shannon Ture Div", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
 
 # Close the png graph file handle:
   dev.off()
 
 #no lure  
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div2..new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", xlab = "Shannon True Diversity by Trap Type",ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
@@ -678,7 +678,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Simpson.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Simpson.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -689,7 +689,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Shannon.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Shannon.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -700,7 +700,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson inverted Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Simpson.inv.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Simpson.inv.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -712,7 +712,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Species number
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Species.nb.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Species.nb.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
@@ -723,10 +723,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   #Species number no lure
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "ITS", ".Species.nb.2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "ITS", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="species indice", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -737,7 +737,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #            #
 ############## works
   
-tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Om.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
@@ -753,7 +753,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 #Simpson Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Om", ".Simpson.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Om", ".Simpson.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -764,7 +764,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -774,7 +774,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   
 #without lures
   # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness2.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -786,7 +786,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Simpson.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Simpson.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -797,19 +797,20 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
+  
 #without lures
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -817,7 +818,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Simpson.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Simpson.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -828,7 +829,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Shannon.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Shannon.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -839,7 +840,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson inverted Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Simpson.inv.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Simpson.inv.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -851,10 +852,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Species number
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Species.nb.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Species.nb.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species indice", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -862,10 +863,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   #Species number no lure
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Om", ".Species.nb.2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Om", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species indice", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1016,7 +1017,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #            #
 ############## works
   
-tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.tsv", sep = ""),
+tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
@@ -1032,7 +1033,7 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 #Simpson Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Simpson.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Simpson.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -1043,7 +1044,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Evenness
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -1053,7 +1054,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   
 #nolure
   # Open file-handle to get ready to make the png graph:
-  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness2.png", sep = ""),
+  png(filename=paste(EvenPlotPath, "Phy.nsp", ".Shannon.Evenness2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_even"), diversity.info=TRUE, compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
@@ -1065,7 +1066,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -1076,10 +1077,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1088,10 +1089,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   #Shannon True Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.True.Div2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1100,7 +1101,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -1111,7 +1112,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Shannon Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Shannon.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -1122,7 +1123,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Simpson inverted Diversity
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.inv.Div.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.inv.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("invsim"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson inv Div", facet.x.cex = "10", facet.y.cex = "10")
@@ -1134,10 +1135,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Species number
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species indice", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1145,10 +1146,10 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 #Species number no lure
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.2.png", sep = ""),
+  png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species nb", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", facet.x.cex = "10",  ylab="Species indice", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1171,7 +1172,7 @@ rarefyPath <- paste(pathDataAn, "rarefy_R/", sep = "")
 #            #
 ############## works
 
-temp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+temp <-  read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
@@ -1185,10 +1186,11 @@ rrf <- OTU.rarefy(list(data=temp), sample=NULL)
                                quote=FALSE)
 
   
-temp2 <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+temp2 <-  read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
-  #temp$row.names <- NULL 
+temp2$row.names <- NULL
+temp2$taxonomy <- NULL
 
  
 
@@ -1208,7 +1210,7 @@ rrfPLOT <- rarecurve(temp2, step =10, xlab = "Sequence nb per sample", ylab = "S
 #            #
 ############## works
 
-temp <-  read.table(paste(pathDataAn, "Om.table.tsv", sep = ""),
+temp <-  read.table(paste(pathDataAn, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
@@ -3872,7 +3874,7 @@ abundTablesPath <- paste(dataAnPath, "abundTables/", sep = "")
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -3888,24 +3890,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 insectITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
 
-write.table(insectITSsubset$data, file=paste(abundTablesPath, "ITS.insectAbund.table.tsv", sep = ""),
+write.table(insectITSsubset$data, file=paste(abundTablesPath, "ITS.insectAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(insectITSsubset$meta, file=paste(abundTablesPath, "ITS.insectAbund.meta.tsv", sep = ""),
+write.table(insectITSsubset$meta, file=paste(abundTablesPath, "ITS.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -3927,7 +3929,7 @@ InsectITSmean
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -3943,24 +3945,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 RotorodITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Rotorod"), and = FALSE)
 
-write.table(RotorodITSsubset$data, file=paste(abundTablesPath, "ITS.RotorodAbund.table.tsv", sep = ""),
+write.table(RotorodITSsubset$data, file=paste(abundTablesPath, "ITS.RotorodAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(RotorodITSsubset$meta, file=paste(abundTablesPath, "ITS.RotorodAbund.meta.tsv", sep = ""),
+write.table(RotorodITSsubset$meta, file=paste(abundTablesPath, "ITS.RotorodAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.RotorodAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -3978,11 +3980,11 @@ RotorodITSmean
 
 ##############
 #            #
-#    Spore   #
+# Spore_all  #
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names =1)
 
@@ -3998,24 +4000,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
 
-write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeAbund.table.tsv", sep = ""),
+write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
                                quote=FALSE)
   
-write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeAbund.meta.tsv", sep = ""),
+write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.SporeAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4033,11 +4035,124 @@ SporeITSmean
 
 ##############
 #            #
+# Spore_big  #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names =1)
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
+
+write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporebigAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = TRUE,
+                               quote=FALSE)
+  
+write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporebigAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporebigAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.SporebigAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporeITSmean <- colMeans(test5)
+SporeITSmean
+
+##############
+#            #
+# Spore_mini  #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names =1)
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporeITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
+
+write.table(SporeITSsubset$data, file=paste(abundTablesPath, "ITS.SporeminiAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = TRUE,
+                               quote=FALSE)
+  
+write.table(SporeITSsubset$meta, file=paste(abundTablesPath, "ITS.SporeminiAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SporeminiAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.SporeminiAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporeITSmean <- colMeans(test5)
+SporeITSmean
+
+
+
+
+##############
+#            #
 #    Soil   #
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -4053,24 +4168,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 SoilITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
 
-write.table(SoilITSsubset$data, file=paste(abundTablesPath, "ITS.SoilAbund.table.tsv", sep = ""),
+write.table(SoilITSsubset$data, file=paste(abundTablesPath, "ITS.SoilAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(SoilITSsubset$meta, file=paste(abundTablesPath, "ITS.SoilAbund.meta.tsv", sep = ""),
+write.table(SoilITSsubset$meta, file=paste(abundTablesPath, "ITS.SoilAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SoilAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.SoilAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "ITS.SoilAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.SoilAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4307,7 +4422,7 @@ unknownITSmean
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -4323,24 +4438,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 insectOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
 
-write.table(insectOmsubset$data, file=paste(abundTablesPath, "Om.insectAbund.table.tsv", sep = ""),
+write.table(insectOmsubset$data, file=paste(abundTablesPath, "Om.insectAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(insectOmsubset$meta, file=paste(abundTablesPath, "Om.insectAbund.meta.tsv", sep = ""),
+write.table(insectOmsubset$meta, file=paste(abundTablesPath, "Om.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4417,7 +4532,7 @@ InsectOmmean
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -4433,24 +4548,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
 
-write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.SporeAbund.table.tsv", sep = ""),
+write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.allSporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.SporeAbund.meta.tsv", sep = ""),
+write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.allSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "Om.SporeAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.allSporeAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "Om.SporeAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "Om.allSporeAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4468,11 +4583,122 @@ SporeOmmean
 
 ##############
 #            #
+# Spore_big  #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore"), and = FALSE)
+
+write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.bigSporeAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.bigSporeAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.bigSporeAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.bigSporeAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporeOmmean <- colMeans(test5)
+SporeOmmean
+
+##############
+#            #
+# Spore_mini #
+#            #
+############## 
+
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+tabletemp$row.names <- NULL 
+ 
+metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+metatemp$row.names <- NULL 
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
+
+write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.miniSporeAbund.table.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.miniSporeAbund.meta.new.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.miniSporeAbund.table.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "Om.miniSporeAbund.meta.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+
+#calculate mean of columns
+
+SporeOmmean <- colMeans(test5)
+SporeOmmean
+
+
+##############
+#            #
 #    Soil   #
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "Om.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
@@ -4488,24 +4714,24 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 SoilOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
 
-write.table(SoilOmsubset$data, file=paste(abundTablesPath, "Om.SoilAbund.table.tsv", sep = ""),
+write.table(SoilOmsubset$data, file=paste(abundTablesPath, "Om.SoilAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
   
-write.table(SoilOmsubset$meta, file=paste(abundTablesPath, "Om.SoilAbund.meta.tsv", sep = ""),
+write.table(SoilOmsubset$meta, file=paste(abundTablesPath, "Om.SoilAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4514,7 +4740,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.SoilAbund.meta.tsv", sep =
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 
 #calculate mean of columns
 
