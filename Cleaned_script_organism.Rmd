@@ -3880,7 +3880,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -3937,7 +3937,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -3994,7 +3994,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4051,7 +4051,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4107,7 +4107,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4165,7 +4165,7 @@ tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4437,7 +4437,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4549,7 +4549,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4606,7 +4606,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4663,7 +4663,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -4721,7 +4721,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Om.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5217,7 +5217,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5329,7 +5329,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5386,7 +5386,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5443,7 +5443,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5502,7 +5502,7 @@ tabletemp <-  read.table(paste(dataAnPath, "Phy.nsp.table.new.tsv", sep = ""),
 
 tabletemp$row.names <- NULL 
  
-metatemp <-  read.table(paste(pathDataAn, "Phy.nsp.meta.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
