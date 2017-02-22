@@ -254,7 +254,7 @@ statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
       width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
-  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set2")
 
 # Close the png graph file handle:
   dev.off()
@@ -659,7 +659,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", xlab = "Shannon True Diversity by Trap Type and their respective Lure",ylab="Shannon Ture Div", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", xlab = "Shannon True Diversity by Trap Type and their respective Lure",ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
 
 # Close the png graph file handle:
   dev.off()
@@ -726,7 +726,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "ITS", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="species indice", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="species number", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -789,7 +789,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Om", ".Simpson.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -800,7 +800,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -866,7 +866,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Om", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species indice", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", ylab="Species number", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1022,7 +1022,7 @@ tabletemp <- read.table(paste(taxFillPath, "Phy.nsp.table.taxFill.new.tsv", sep 
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 #tabletemp$row.names <- NULL if not using tXfilled tables you need it
  
-metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.tsv", sep = ""),
+metatemp <-  read.table(paste(diversityPath, "Phy.nsp.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE)
 
@@ -1069,7 +1069,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Phy.nsp", ".Simpson.True.Div.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Simpson True Div", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("sim_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1138,7 +1138,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.new.png", sep = ""),
       width = 1200, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species indice", facet.x.cex = "10", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Species number", facet.x.cex = "10", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1149,7 +1149,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   png(filename=paste(DivPlotPath, "Phy.nsp", ".Species.nb.2.new.png", sep = ""),
       width = 500, height = 400, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", facet.x.cex = "10",  ylab="Species indice", facet.y.cex = "10")
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indices = c("spec"), diversity.info=TRUE, compare="NULL", facet.x.cex = "10",  ylab="Species number", facet.y.cex = "10")
 
 # Close the png graph file handle:
   dev.off()
@@ -1332,7 +1332,7 @@ groupTaxaPath <- paste(pathDataAn, "groupTaxaBar/", sep = "")
 #            #
 ##############
 
-tabletemp <-  read.table(paste(pathDataAn, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   
@@ -1357,7 +1357,7 @@ taxaAll    <- unique(c(taxaInsect, taxaSoil, taxaSpore, taxarotorod))
 taxaAllbutsoil    <- unique(c(taxaInsect, taxaSpore, taxarotorod))
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.png", sep = ""),
+  png(filename=paste(taxabunDir, "ITS", ".species.abund.Insect.80pc.2.png", sep = ""),
       width = 1500, height = 1000, units = "px")
 
 myGroup.abund.Taxa(data = list(data = tabletemp),
@@ -2919,7 +2919,7 @@ dir.create(pcoaDir,
 #            #
 ##############
 
-tabletemp <- read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, row.names = 1)
 tabletemp$row.names <- NULL #if not using tXfilled tables you need it
@@ -2929,7 +2929,7 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
                       as.is = TRUE)
 
 #no mock
-tabletemp <- read.table(paste(dataAnPath, "ITS.table.nomock.tsv", sep = ""),
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.new.nomock.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, row.names = 1)
 
@@ -2953,10 +2953,10 @@ names(myvec) <- "TrapType"
 #dist.method	one of "manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard", "gower", "altGower","morisita", "horn", "mountford", "raup", "binomial", "chao", or "cao"
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.nomock.png", sep = ""),
+png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.nomock.color.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = TRUE, bw = TRUE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = FALSE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
@@ -5453,14 +5453,14 @@ rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
 SporePhysubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore_mini"), and = FALSE)
 
-write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.tsv", sep = ""),
+write.table(SporePhysubset$data, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
                               col.names = NA,
                                quote=FALSE)
   
-write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.tsv", sep = ""),
+write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
@@ -5468,11 +5468,11 @@ write.table(SporePhysubset$meta, file=paste(abundTablesPath, "Phy.nsp.miniSporeA
                                quote=FALSE)
 
 #read tables
-tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.tsv", sep = ""),
+tabletempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
-metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.tsv", sep = ""),
+metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.miniSporeAbund.meta.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE)
 
@@ -5669,7 +5669,7 @@ VennPath <- paste(dataAnPath, "VennPlot/", sep = "")
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "ITS.table.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "ITS.table.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
 
