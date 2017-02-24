@@ -273,7 +273,7 @@ df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), bre
 #            #
 ############## works
 
-  temp <-  read.table(paste(pathDataAn, "Om.table.new.tsv", sep = ""),
+  temp <-  read.table(paste(pathDataAn, "Om.table.new3.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("row.names"="character", "taxonomy"="character"))
   temp$row.names <- NULL 
@@ -394,7 +394,7 @@ temp <- read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
 #    Oom     #
 #            #
 ############## works
-temp <- read.table(paste(pathDataAn, "Om.table.new.tsv", sep = ""),
+temp <- read.table(paste(pathDataAn, "Om.table.new3.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", 
                       comment.char = "", 
                       quote = "", stringsAsFactors = TRUE,
@@ -4431,7 +4431,7 @@ unknownITSmean
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new3.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
@@ -4439,10 +4439,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names = 1)
 
 
-#metatemp$row.names <- NULL 
+metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 insectOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Insect"), and = FALSE)
@@ -4451,14 +4451,12 @@ write.table(insectOmsubset$data, file=paste(abundTablesPath, "Om.insectAbund.tab
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
-                               col.names = NA,
                                quote=FALSE)
   
 write.table(insectOmsubset$meta, file=paste(abundTablesPath, "Om.insectAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
-                               col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4543,7 +4541,7 @@ InsectOmmean
 #            #
 ############## 
 
-tabletemp <-  read.table(paste(dataAnPath, "Om.table.new.tsv", sep = ""),
+tabletemp <-  read.table(paste(dataAnPath, "Om.table.new3.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
                       as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names=1)
 
@@ -4551,10 +4549,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names =1)
 
 
-#metatemp$row.names <- NULL 
+metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SporeOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Spore", "Spore_mini"), and = FALSE)
@@ -4563,14 +4561,12 @@ write.table(SporeOmsubset$data, file=paste(abundTablesPath, "Om.allSporeAbund.ta
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
-                                col.names = NA,
                                quote=FALSE)
   
 write.table(SporeOmsubset$meta, file=paste(abundTablesPath, "Om.allSporeAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
-                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
@@ -4723,10 +4719,10 @@ tabletemp$row.names <- NULL
  
 metatemp <-  read.table(paste(diversityPath, "Om.meta.div.new.tsv", sep = ""),
                       sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
-                      as.is = TRUE, check.names = FALSE)
+                      as.is = TRUE, check.names = FALSE, row.names =1)
 
 
-#$row.names <- NULL 
+metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 SoilOmsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("TrapType"), values = c("Soil"), and = FALSE)
@@ -4735,14 +4731,12 @@ write.table(SoilOmsubset$data, file=paste(abundTablesPath, "Om.SoilAbund.table.n
                                append    = FALSE,
                                sep       = "\t",
                                row.names = TRUE,
-                                col.names = NA,
                                quote=FALSE)
   
 write.table(SoilOmsubset$meta, file=paste(abundTablesPath, "Om.SoilAbund.meta.new.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
-                              col.names = TRUE,
                                quote=FALSE)
 
 #read tables
