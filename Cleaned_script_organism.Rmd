@@ -5688,10 +5688,10 @@ taxVector <- list(Insect=taxaInsect, Soil=taxaSoil, Spore=taxaSpore, Rotorod=tax
 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "ITS", ".VennPlot.traps.png", sep = ""),
-      width = 1800, height = 1000, units = "px")
+  png(filename=paste(VennPath, "ITS", ".VennPlot.traps.bigtext.png", sep = ""),
+      width = 2000, height = 1500, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =8, cex = 8, label = FALSE, lab.cex = 8, fill = TRUE)
+group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, fill = TRUE, lab.col = "black", )
                  
 # Close the png graph file handle:
   dev.off()
@@ -5745,10 +5745,10 @@ taxVector <- list(Sporemini=taxaSporemini, Spore=taxaSpore,Insect=taxaInsect, Ro
 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "ITS", ".VennPlot.traps.with.sporeMini.png", sep = ""),
-      width = 2500, height = 2000, units = "px")
+  png(filename=paste(VennPath, "ITS", ".VennPlot.traps.with.sporeMini.big.png", sep = ""),
+      width = 10000, height = 7500, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =2.25, cex = 3, label = FALSE, lab.cex = 3, fill = TRUE, lab.col = "pink")
+group.venn(vectors = taxVector, cat.cex =12, cex = 10, label = FALSE, lab.cex = 10, fill = c("cornflowerblue", "green", "yellow", "darkorchid1", "pink"), lab.col = "black")
                  
 # Close the png graph file handle:
   dev.off()
@@ -5792,10 +5792,10 @@ taxVector <- list(Alpha_pinene=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=tax
 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "ITS", ".VennPlot.lures.no.unknown.png", sep = ""),
+  png(filename=paste(VennPath, "ITS", ".VennPlot.lures.no.unknown.big.png", sep = ""),
       width = 5000, height = 4000, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =6, cex = 6, label = FALSE, lab.cex = 6, fill = TRUE)
+group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, lab.col ="black", fill = c("cornflowerblue", "green", "pink", "darkorchid1"))
                  
 # Close the png graph file handle:
   dev.off()
