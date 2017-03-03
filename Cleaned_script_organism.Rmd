@@ -254,14 +254,14 @@ statOTURecapPath <- paste(otuDataPath, "StatTables/", sep = "")
       width = 600, height = 500, units = "px")
 
 # Put this data into the png graph for the open filehandle:
-  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Set2")
+  OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g"), brewer.pal="Set2")
 
 # Close the png graph file handle:
   dev.off()
 
-df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g", "s"), brewer.pal="Greys")
+df <- OTU.recap(list(data=temp), ranks=c("k", "p", "c", "o", "f", "g"), brewer.pal="Greys")
 # Write out the dataframe:
-  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.new.tsv", sep = ""),
+  write.table(df, file=paste(statOTURecapPath, "ITS.otuRecap.new2.tsv", sep = ""),
                                append    = FALSE,
                                sep       = "\t",
                                row.names = FALSE,
