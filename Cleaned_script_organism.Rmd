@@ -2953,10 +2953,10 @@ names(myvec) <- "TrapType"
 #dist.method	one of "manhattan", "euclidean", "canberra", "bray", "kulczynski", "jaccard", "gower", "altGower","morisita", "horn", "mountford", "raup", "binomial", "chao", or "cao"
 
 # Open file-handle to get ready to make the png graph:
-png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.nomock.color.png", sep = ""),
+png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.TrapType.nomock.notggplotcolor.png", sep = ""),
       width = 1200, height = 1000, units = "px")
 
-pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = FALSE, bw = FALSE)
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 20, ellipse = FALSE, main = "PCOA by Trap Type for Fungi", ggplot2 = TRUE, bw = FALSE)
 
 # Close the png graph file handle:
   dev.off() 
@@ -5649,7 +5649,6 @@ ITS.top.10 <- group.top.number(list(data=tabletemp), top = 10, ranks = "s", drop
 
 #plot Venn
 
-
 ```{r}
 dir.create(paste(dataAnPath, "VennPlot", sep = ""),
            showWarnings = TRUE,
@@ -5748,7 +5747,7 @@ taxVector <- list(Sporemini=taxaSporemini, Spore=taxaSpore,Insect=taxaInsect, Ro
   png(filename=paste(VennPath, "ITS", ".VennPlot.traps.with.sporeMini.big.png", sep = ""),
       width = 10000, height = 7500, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =12, cex = 10, label = FALSE, lab.cex = 10, fill = c("cornflowerblue", "green", "yellow", "darkorchid1", "pink"), lab.col = "black")
+group.venn(vectors = taxVector, cat.cex =12, cex = 10, label = FALSE, lab.cex = 10, fill = c("cornflowerblue", "green", "yellow", "darkorchid1", "deeppink2"), lab.col = "black")
                  
 # Close the png graph file handle:
   dev.off()
@@ -5795,7 +5794,7 @@ taxVector <- list(Alpha_pinene=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=tax
   png(filename=paste(VennPath, "ITS", ".VennPlot.lures.no.unknown.big.png", sep = ""),
       width = 5000, height = 4000, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, lab.col ="black", fill = c("cornflowerblue", "green", "pink", "darkorchid1"))
+group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, lab.col ="black", fill = c("cornflowerblue", "deeppink2", "green", "darkorchid1"))
                  
 # Close the png graph file handle:
   dev.off()
