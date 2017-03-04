@@ -5747,7 +5747,7 @@ taxVector <- list(Sporemini=taxaSporemini, Spore=taxaSpore,Insect=taxaInsect, Ro
   png(filename=paste(VennPath, "ITS", ".VennPlot.traps.with.sporeMini.big.png", sep = ""),
       width = 10000, height = 7500, units = "px")
 
-group.venn(vectors = taxVector, cat.cex =12, cex = 10, label = FALSE, lab.cex = 10, fill = c("cornflowerblue", "green", "yellow", "darkorchid1", "deeppink2"), lab.col = "black")
+group.venn(vectors = taxVector, cat.cex =12, cex = 10, label = FALSE, lab.cex = 10, fill = c("cornflowerblue", "green", "deeppink2", "yellow", "darkorchid1"), lab.col = "black")
                  
 # Close the png graph file handle:
   dev.off()
