@@ -5647,7 +5647,7 @@ ITS.top.10 <- group.top.number(list(data=tabletemp), top = 10, ranks = "s", drop
 
 ```
 
-#plot Venn
+#plot Venn Venn Plot
 
 ```{r}
 dir.create(paste(dataAnPath, "VennPlot", sep = ""),
@@ -5676,6 +5676,35 @@ metatemp <-  read.table(paste(pathDataAn, "ITS.meta.tsv", sep = ""),
 metatemp$row.names <- NULL 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
+
+#provinces
+coreTaxaITSprovince <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "Province", percent = 0)
+
+taxaQC <- coreTaxaITSprovince$data$Quebec$taxa
+taxaON <- coreTaxaITSprovince$data$Ontario$taxa
+taxaPEI <- coreTaxaITSprovince$data$Prince_Edward_Island$taxa
+taxaBC <- coreTaxaITSprovince$data$British_Columbia$taxa
+taxaNB <- coreTaxaITSprovince$data$New_Brunswick$taxa
+taxaNL <- coreTaxaITSprovince$data$New_Labrador$taxa
+taxaNF <- coreTaxaITSprovince$data$New_Foundland$taxa
+taxamaritime <- c(coreTaxaITSprovince$data$Prince_Edward_Island$taxa, coreTaxaITSprovince$data$New_Brunswick$taxa)
+taxaNLNF <- c(coreTaxaITSprovince$data$New_Labrador$taxa, coreTaxaITSprovince$data$New_Foundland$taxa)
+
+taxProvVector <- list(Quebec=taxaQC, Ontario=taxaON, British_Columbia=taxaBC, New_Labrador_New_Foundland=taxaNLNF, Maritimes=taxamaritime)
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(VennPath, "ITS", ".VennPlot.provinces.bigtext.png", sep = ""),
+      width = 3000, height = 2000, units = "px")
+
+group.venn(vectors = taxProvVector, cat.cex =6, cex = 6, label = FALSE, lab.cex = 6, fill = c("cornflowerblue", "green", "deeppink2", "yellow", "darkorchid1"), lab.col = "black", )
+                 
+# Close the png graph file handle:
+  dev.off()
+
+
+
+#traps
 coreTaxaITSTrapsp <- core.Taxa(data = list(data = tabletemp), is.OTU = TRUE, meta = metatemp, rank = "s", drop.unclassified = FALSE, meta.factor = "TrapType", percent = 0)
 
 taxaInsect <- coreTaxaITSTrapsp$data$Insect$taxa
