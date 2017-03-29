@@ -2857,6 +2857,43 @@ sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", mapt
 
 # Close the png graph file handle:
   dev.off()
+
+#test  
+
+tabletemp <- read.table(paste(dataAnPath, "ITS.table.new.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"), row.names = 1)
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(dataAnPath, "ITS.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, row.names = 1)
+
+#metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+
+ 
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".geo.sampleloc.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+sample.locations(otu1 = tabletemp, meta = metatemp, zoom=21, source = "google", lat.col = "Latitude", long.col = "Longitude")
+
+# Close the png graph file handle:
+  dev.off()  
+  ##############################
+   
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".geo.sampleMAP.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+sample.map(meta = metatemp, maptype= "terrain", zoom=21, lat = "Latitude", lon = "Longitude", siteID = "City")
+
+# Close the png graph file handle:
+  dev.off()    
   
 ##############
 #            #
