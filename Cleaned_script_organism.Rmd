@@ -3956,12 +3956,14 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.insectAbund.meta.new.tsv"
 
 #Get abundance for subseted tables
 test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
-
+ITSabund <- tax.abund(tabletemp, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 #calculate mean of columns
 
 InsectITSmean <- colMeans(test5)
 InsectITSmean
 
+ITSmean <- colMeans(ITSabund)
+ITSmean
 ##############
 #            #
 #  Rotorod   #
@@ -4511,11 +4513,14 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.insectAbund.meta.new.tsv",
 
 #Get abundance for subseted tables
 test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
-
+omAbund <- tax.abund(tabletemp, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 #calculate mean of columns
 
 InsectOmmean <- colMeans(test5)
 InsectOmmean
+
+Ommean <- colMeans(omAbund)
+Ommean
 
 ##############
 #            #
@@ -5287,11 +5292,14 @@ metatempsub <-  read.table(paste(abundTablesPath, "Phy.nsp.insectAbund.meta.new.
 
 #Get abundance for subseted tables
 test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
-
+Phyabund <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALSE, top = NULL, count = FALSE, mode = "percent")
 #calculate mean of columns
 
 InsectPhymean <- colMeans(test5)
-InsectPhymean
+InsectPhymean`
+
+Phymean <- colMeans(Phyabund)
+Phymean
 
 ##############
 #            #
