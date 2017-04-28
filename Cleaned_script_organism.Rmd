@@ -3555,8 +3555,7 @@ rarecurve(temp, step = 1, xlab = "Sample Size", ylab = "Species", label = TRUE)
 Word search in Perl find species and sequence and other meta info
 ```{r}
 
-#########################
-#                       #
+##########################                       #
 #    ITS by species     #
 #                       #
 #########################
@@ -3801,6 +3800,33 @@ fasta_in <- paste(pathDataAn, "new_refseqs_Phynsp.fna", sep = "")
 table_taxon_out <- paste(WordMatchDir, "Phynsp_query_by_taxon2.tsv", sep = "")
 table_sample_out <- paste(WordMatchDir, "Phynsp_query_by_sample2.tsv", sep = "")
 fasta_out_folder <- paste(WordMatchDir, "/FastaOut/Phy_nsp_query", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+####################
+#                  #
+# PHY-nsp-newtax   #
+#                  #
+####################
+
+#Define your 6 arguments to run the perl script
+query_in <- paste(WordMatchDir, "genusOm.txt", sep = "")
+otu_in <- paste(pathDataAn, "Phy.newtax.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "Phy.newtax.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "refseqs_Phy-nsp-newtax.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Phynspnewtax_query_by_taxon2.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Phynspnewtax_query_by_sample2.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/Phy_nsp_newtax_query", sep = "")
 
 cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
              query_in,
