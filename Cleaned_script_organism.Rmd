@@ -3920,6 +3920,61 @@ cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
              sep = " ")
 system(cmd)
 
+#######################
+#                     #
+#    Omup by genus DR    #
+#                     #
+#######################
+
+#Define your 6 arguments to run the perl script
+
+query_in <- paste(WordMatchDir, "genusOmDR.txt", sep = "")
+otu_in <- paste(pathDataAn, "DR.omup.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "DR.omup.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new.refseqs.omup.DR.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Omup_genus_query_by_taxon.DR.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Omup_genus_query_by_sample.DR.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/OmupDR", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
+
+#######################
+#                     #
+#    Omlo by genus DR    #
+#                     #
+#######################
+
+#Define your 6 arguments to run the perl script
+
+query_in <- paste(WordMatchDir, "genusOmDR.txt", sep = "")
+otu_in <- paste(pathDataAn, "DR.omlo.table.tsv", sep = "")
+meta_in <- paste(pathDataAn, "DR.omlo.meta.tsv", sep = "")
+fasta_in <- paste(pathDataAn, "new.refseqs.omlo.DR.fna", sep = "")
+table_taxon_out <- paste(WordMatchDir, "Omlo_genus_query_by_taxon.DR.tsv", sep = "")
+table_sample_out <- paste(WordMatchDir, "Omlo_genus_query_by_sample.DR.tsv", sep = "")
+fasta_out_folder <- paste(WordMatchDir, "/FastaOut/OmloDR", sep = "")
+
+cmd <- paste("perl", paste(ScriptsPath, "metaResultExtractorGOOD.pl", sep = ""),
+             query_in,
+             otu_in,
+             meta_in,
+             fasta_in,
+             table_taxon_out,
+             table_sample_out,
+             fasta_out_folder,
+             sep = " ")
+system(cmd)
+
 
 
 
