@@ -719,7 +719,31 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
 # Close the png graph file handle:
   dev.off()
   
+
+  #insects only
   
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(DivPlotPath, "ITS", ".Shannon.True.Div.insects.new.png", sep = ""),
+      width = 600, height = 400, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices = c("shan_trudiv"), diversity.info=TRUE, x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10", facet.y = TRUE)
+
+# Close the png graph file handle:
+  dev.off()    
+    
 #Simpson Diversity
 
 # Open file-handle to get ready to make the png graph:
