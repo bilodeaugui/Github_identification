@@ -388,6 +388,23 @@ temp <- read.table(paste(pathDataAn, "ITS.table.new.tsv", sep = ""),
               sep       = "\t",
               row.names = FALSE,
               quote = FALSE)
+  
+  
+  #insects only
+  
+  temp <- read.table(paste(pathDataAn, "ITS.table.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", 
+                      comment.char = "", 
+                      quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, colClasses=c("taxonomy"="character"))
+
+  temp$row.names <- NULL
+  temp <- tax.fill(temp, downstream=TRUE)
+  write.table(temp, file=paste(pathDataAn, "taxFillTables/", "ITS", ".table.insects.taxFill.new.tsv", sep = ""),
+              append    = FALSE,
+              sep       = "\t",
+              row.names = FALSE,
+              quote = FALSE)
 
 ##############
 #            #
@@ -634,12 +651,26 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("TrapType"), indic
   ## test for insects
   #Shannon Evenness
 
-# Open file-handle to get ready to make the png graph:
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(diversityPath, "ITS.meta.div.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+  
+  # Open file-handle to get ready to make the png graph:
   png(filename=paste(EvenPlotPath, "ITS", ".Shannon.Evenness.new.insects.png", sep = ""),
-      width = 1200, height = 400, units = "px")
+      width = 600, height = 500, units = "px")
 
-myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices = c("shan_even"), diversity.info=TRUE, x.axis="Lure", compare="Null", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
-
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices = c("shan_even"), diversity.info=TRUE, x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "11", facet.y.cex = "11")
+  
 # Close the png graph file handle:
   dev.off()
 
