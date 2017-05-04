@@ -1401,6 +1401,30 @@ group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank=
 
 }
 
+#insects only
+
+  tabletemp <-  read.table(paste(pathDataAn, "ITS.table.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+  tabletemp$row.names <- NULL 
+  
+   metatemp <-  read.table(paste(pathDataAn, "ITS.meta.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+#metatemp$row.names <- NULL
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)]
+
+     
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(groupTaxaPath, "ITS", ".groupTaxBar_phyla.insects.png", sep = ""),
+      width = 600, height = 400, units = "px")
+
+group.Taxa.bar(data = list(data = tabletemp), is.OTU = TRUE, func = "sum", rank="p", meta = metatemp, meta.factor = "Lure", col.pal = "Set3")
+
+# Close the png graph file handle:
+  dev.off()
+
+
 
 
 ```
@@ -2714,6 +2738,83 @@ group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  F
 
 tmp <-   group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 25, count =  FALSE, drop.unclassified = TRUE, cex.x = 10, main = "OTU abundance at the phylum level by Trap", meta = metatemp, meta.factor = c("TrapType"))
   
+
+#insects only
+
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+#species
+# Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.sp.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="s", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()
+
+  #genus
+#Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ge.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="g", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()
+
+#family
+#Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.fa.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="f", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()
+  
+#order
+#Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.or.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="o", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()  
+  
+#Class
+#Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.cl.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="c", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()  
+  
+#phylmu
+#Open file-handle to get ready to make the plot:
+  png(filename=paste(groupTaxaPath, "ITS", ".gr.abund.ph.lure.Top20.insect.png", sep = ""),
+      width = 2000, height = 800, units = "px", pointsize = 10)
+
+group.abundance.meta(data=(list(data=tabletemp)), rank="p", top = 20, count =  FALSE, drop.unclassified = FALSE, cex.x = 10, meta = metatemp, meta.factor = c("Lure"))
+
+# Close the png graph file handle:
+  dev.off()    
+  
+    
   
 ##############
 #            #
@@ -2988,6 +3089,34 @@ sample.map(meta = metatemp, maptype= "terrain", zoom=21, lat = "Latitude", lon =
 # Close the png graph file handle:
   dev.off()    
   
+  
+#insects only
+  
+
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".geo.insects.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", maptype="terrain")
+
+# Close the png graph file handle:
+  dev.off()
+
+  
 ##############
 #            #
 #    Oom     #
@@ -3139,6 +3268,37 @@ pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = c("TrapTyp
 
 # Close the png graph file handle:
   dev.off()   
+  
+  
+#insects only
+  
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work 
+
+myvec <- c("Lure")
+
+names(myvec) <- "Lure"
+  
+ # Open file-handle to get ready to make the png graph:
+png(filename=paste(pcoaDir, "ITS", ".PCOA.disteuc.standnorm.Lure.insects.png", sep = ""),
+      width = 800, height = 600, units = "px")
+
+pcoa.plot(data = tabletemp, is.OTU = TRUE, meta = metatemp, factors = (myvec), rank = NULL, stand.method = "normalize", dist.method = "euclidean", sample.labels = FALSE, top = 150, ellipse = FALSE, ggplot2 = TRUE, bw = FALSE)
+
+# Close the png graph file handle:
+  dev.off() 
+  
+  
   
 ##############
 #            #
@@ -3320,6 +3480,32 @@ write.table(tmp, file=paste(taxabunDir, "ITS.taxab.table.tsv", sep = ""),
                                sep       = "\t",
                                row.names = FALSE,
                                quote=FALSE)
+
+
+#insects only
+
+tabletemp <- read.table(paste(taxFillPath, "ITS.table.insects.taxFill.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+#tabletemp$row.names <- NULL if not using tXfilled tables you need it
+ 
+metatemp <-  read.table(paste(pathDataAn, "ITS.meta.Insect.new.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
+
+tmp <- tax.abund(tabletemp, otu2 = NULL, rank = NULL, drop.unclassified =TRUE, top = NULL, mode = "percent")
+write.table(tmp, file=paste(taxabunDir, "ITS.taxab.insect.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+
+
                                
 ##############
 #            #
@@ -4710,6 +4896,160 @@ test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "g", drop.unclassified = FALS
 
 unknownITSmean <- colMeans(test5)
 unknownITSmean
+
+#insects only
+"alpha_pinene", "C6C8", "General_Longhorn", "Monochamus"
+
+
+
+alphaPinITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("alpha_pinene"), and = FALSE)
+
+write.table(alphaPinITSsubset$data, file=paste(abundTablesPath, "ITS.alphaPinAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(alphaPinITSsubset$meta, file=paste(abundTablesPath, "ITS.alphaPinAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.alphaPinAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.alphaPinAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number", rank = "p")
+
+#calculate mean of columns
+
+alphaPinITSmean <- colMeans(test5)
+alphaPinITSmean
+
+
+
+C6C8ITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("C6C8"), and = FALSE)
+
+write.table(C6C8ITSsubset$data, file=paste(abundTablesPath, "ITS.C6C8Abund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(C6C8ITSsubset$meta, file=paste(abundTablesPath, "ITS.C6C8Abund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.C6C8Abund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.C6C8Abund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+C6C8ITSmean <- colMeans(test5)
+C6C8ITSmean
+
+
+
+General_LonghornITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("General_Longhorn"), and = FALSE)
+
+write.table(General_LonghornITSsubset$data, file=paste(abundTablesPath, "ITS.General_LonghornAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(General_LonghornITSsubset$meta, file=paste(abundTablesPath, "ITS.General_LonghornAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.General_LonghornAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.General_LonghornAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+General_LonghornITSmean <- colMeans(test5)
+General_LonghornITSmean
+
+
+MonochamusITSsubset <- data.subset(list(data=tabletemp), meta= metatemp, factors = c("Lure"), values = c("Monochamus"), and = FALSE)
+
+write.table(MonochamusITSsubset$data, file=paste(abundTablesPath, "ITS.MonochamusAbund.table.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+  
+write.table(MonochamusITSsubset$meta, file=paste(abundTablesPath, "ITS.MonochamusAbund.meta.tsv", sep = ""),
+                               append    = FALSE,
+                               sep       = "\t",
+                               row.names = FALSE,
+                               quote=FALSE)
+
+#read tables
+tabletempsub <-  read.table(paste(abundTablesPath, "ITS.MonochamusAbund.table.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE, colClasses=c("taxonomy"="character"))
+
+metatempsub <-  read.table(paste(abundTablesPath, "ITS.MonochamusAbund.meta.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE, check.names = FALSE)
+
+
+#metatemp$row.names <- NULL 
+#rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
+
+#Get abundance for subseted tables
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "f", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+
+#calculate mean of columns
+
+MonochamusITSmean <- colMeans(test5)
+MonochamusITSmean
+
+
+
+
 
 ##############
 #            #
@@ -6139,7 +6479,7 @@ taxaMonochamus <- coreTaxaITSLure$data$Monochamus$taxa
 #taxaunknown <- coreTaxaITSLure$data$unknown$taxa
 #taxaEthyGlyc <- coreTaxaITSLure$data$Ethylene_glycol$taxa
 
-taxVector <- list(Alpha_pinene=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=taxaGenLong, Monochamus=taxaMonochamus)
+taxVector <- list(UHR_E_AP=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=taxaGenLong, Pine_Sawyer=taxaMonochamus)
 
 
 # Open file-handle to get ready to make the png graph:
