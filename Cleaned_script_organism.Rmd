@@ -3052,6 +3052,24 @@ sample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", mapt
 # Close the png graph file handle:
   dev.off()
 
+  #modified function
+  
+metatemp <-  read.table(paste(dataAnPath, "ITS.meta.nomock.tsv", sep = ""),
+                      sep = "\t", header = TRUE, dec = ".", comment.char = "", quote = "", stringsAsFactors = TRUE,
+                      as.is = TRUE)
+
+metatemp$row.names <- NULL
+
+
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(geoDir, "ITS", ".markers.geo.png", sep = ""),
+      width = 1200, height = 1000, units = "px")
+
+Mysample.sites(meta = metatemp, zoom=21, lat = "Latitude", lon = "Longitude", maptype="terrain")
+
+# Close the png graph file handle:
+  dev.off()  
+  
 #test  
 
 tabletemp <- read.table(paste(dataAnPath, "ITS.table.new.nomock.tsv", sep = ""),
