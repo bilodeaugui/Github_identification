@@ -6588,7 +6588,7 @@ taxVector <- list(Alpha_pinene=OmtaxaAlphapin, C6C8=OmtaxaC6C8, Pine_Sawyer=Omta
 
 
 # Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "Om", ".VennPlot.lures.no.Genlong.png", sep = ""),
+  png(filename=paste(VennPath, "Om", ".VennPlot.lures.png", sep = ""),
       width = 1000, height = 600, units = "px")
 
 group.venn(vectors = taxVector, cat.cex =2, cex = 2, label = FALSE, lab.cex = 6, fill = c("grey20", "grey30", "grey40", "darkgrey"))
@@ -6598,47 +6598,6 @@ group.venn(vectors = taxVector, cat.cex =2, cex = 2, label = FALSE, lab.cex = 6,
 
 ###
   
-#no unknown
  
-taxaAlphapin <- coreTaxaITSLure$data$alpha_pinene$taxa
-taxaC6C8   <- coreTaxaITSLure$data$C6C8$taxa
-taxaGenLong  <- coreTaxaITSLure$data$General_Longhorn$taxa
-taxaMonochamus <- coreTaxaITSLure$data$Monochamus$taxa
-#taxaunknown <- coreTaxaITSLure$data$unknown$taxa
-#taxaEthyGlyc <- coreTaxaITSLure$data$Ethylene_glycol$taxa
-
-taxVector <- list(Alpha_pinene=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=taxaGenLong, Monochamus=taxaMonochamus)
-
-
-# Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "ITS", ".VennPlot.lures.no.unknown.big.png", sep = ""),
-      width = 5000, height = 4000, units = "px")
-
-group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, lab.col ="black", fill = c("cornflowerblue", "deeppink2", "green", "darkorchid1"))
-                 
-# Close the png graph file handle:
-  dev.off()
- 
-  
-#no unknown black and white
- 
-taxaAlphapin <- coreTaxaITSLure$data$alpha_pinene$taxa
-taxaC6C8   <- coreTaxaITSLure$data$C6C8$taxa
-taxaGenLong  <- coreTaxaITSLure$data$General_Longhorn$taxa
-taxaMonochamus <- coreTaxaITSLure$data$Monochamus$taxa
-#taxaunknown <- coreTaxaITSLure$data$unknown$taxa
-#taxaEthyGlyc <- coreTaxaITSLure$data$Ethylene_glycol$taxa
-
-taxVector <- list(UHR_E_AP=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=taxaGenLong, Pine_Sawyer=taxaMonochamus)
-
-
-# Open file-handle to get ready to make the png graph:
-  png(filename=paste(VennPath, "ITS", ".VennPlot.lures.no.unknown.big.BW.png", sep = ""),
-      width = 5000, height = 4000, units = "px")
-
-group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 10, lab.col ="black", fill = c("grey20", "grey30", "grey40", "darkgrey"))
-                 
-# Close the png graph file handle:
-  dev.off()  
   
 ```
