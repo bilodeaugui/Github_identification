@@ -1006,6 +1006,7 @@ metatemp$row.names <- NULL
 
 rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work
 
+#species number
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(DivPlotPath, "Om", ".Species.nb.insects.new.png", sep = ""),
       width = 400, height = 300, units = "px")
@@ -1019,7 +1020,7 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices =
   
   # Open file-handle to get ready to make the png graph:
   png(filename=paste(DivPlotPath, "Om", ".Shannon.True.Div.insects.new.png", sep = ""),
-      width = 1200, height = 400, units = "px")
+      width = 400, height = 300, units = "px")
 
 myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices = c("shan_trudiv"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Units of number of species", facet.x.cex = "10", facet.y.cex = "10")
 
@@ -1027,7 +1028,17 @@ myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices =
   dev.off()
   
 
+#Shannon Evenness
 
+# Open file-handle to get ready to make the png graph:
+  png(filename=paste(EvenPlotPath, "Om", ".Shannon.Evenness.insects.new.png", sep = ""),
+      width = 400, height = 300, units = "px")
+
+myGroup.diversity(list(data=tabletemp), metatemp, factors = c("Lure"), indices = c("shan_even"), diversity.info=TRUE, facet="TrapType", x.axis="Lure", compare="NULL", ylab="Shannon Evenness", facet.x.cex = "10", facet.y.cex = "10")
+
+# Close the png graph file handle:
+  dev.off()
+  
    
 ##############
 #            #
