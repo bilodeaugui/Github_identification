@@ -5044,7 +5044,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.alphaPinAbund.meta.tsv", 
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number", rank = "p")
+test5 <- tax.abund(tabletempsub, otu2=NULL, drop.unclassified = FALSE, top = 1000, count = FALSE, mode = "number", rank = "s")
 
 #calculate mean of columns
 
@@ -5081,7 +5081,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.C6C8Abund.meta.tsv", sep 
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 1000, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
@@ -5118,7 +5118,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.General_LonghornAbund.met
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 1000, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
@@ -5154,7 +5154,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "ITS.MonochamusAbund.meta.tsv"
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "f", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 1000, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
@@ -5273,7 +5273,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.alphaPinAbund.meta.tsv", s
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
@@ -5310,12 +5310,12 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.C6C8Abund.meta.tsv", sep =
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
-C6C8ITSmean <- colMeans(test5)
-C6C8ITSmean
+C6C8Ommean <- colMeans(test5)
+C6C8Ommean
 
 
 
@@ -5348,7 +5348,7 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.General_LonghornAbund.meta
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 100, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
@@ -5384,12 +5384,12 @@ metatempsub <-  read.table(paste(abundTablesPath, "Om.MonochamusAbund.meta.tsv",
 #rownames(metatemp) <- colnames(tabletemp)[-ncol(tabletemp)] #seems to work  
 
 #Get abundance for subseted tables
-test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "p", drop.unclassified = FALSE, top = 10, count = FALSE, mode = "number")
+test5 <- tax.abund(tabletempsub, otu2=NULL, rank = "s", drop.unclassified = FALSE, top = 100, count = FALSE, mode = "number")
 
 #calculate mean of columns
 
-MonochamusITSmean <- colMeans(test5)
-MonochamusITSmean
+MonochamusOmmean <- colMeans(test5)
+MonochamusOmmean
 
 
 
@@ -6746,7 +6746,7 @@ group.venn(vectors = taxVector, cat.cex =10, cex = 10, label = FALSE, lab.cex = 
 # Close the png graph file handle:
   dev.off()
  
-  
+ ###overlap <- calculate.overlap(xx.1) 
 #no unknown black and white
  
 taxaAlphapin <- coreTaxaITSLure$data$alpha_pinene$taxa
@@ -6757,6 +6757,26 @@ taxaMonochamus <- coreTaxaITSLure$data$Monochamus$taxa
 #taxaEthyGlyc <- coreTaxaITSLure$data$Ethylene_glycol$taxa
 
 taxVector <- list(UHR_E_AP=taxaAlphapin, C6C8=taxaC6C8, General_Longhorn=taxaGenLong, Pine_Sawyer=taxaMonochamus)
+overlap <- calculate.overlap(taxVector)
+
+writebubbless <- function(bubble, overlap) {
+    if (missing(overlap)) {
+        conn <- stdout()
+    } else {
+        conn <- file(overlap, open="w")
+        on.exit( close(conn) )
+    }
+
+    for (name in names(bubble)) {
+        writeLines(paste(">", name), conn)
+        writeLines(paste(bubble[[name]], collapse=" "), conn)
+    }
+}
+
+
+overlap.df <- do.call("rbind", lapply(overlap, as.data.frame)) 
+
+writebubbless(overlap, "/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/VennPlot/ITS.venn.data.insect.lures.tsv")
 
 
 # Open file-handle to get ready to make the png graph:
@@ -6823,7 +6843,25 @@ OmtaxaMonochamus <- coreTaxaOmLure$data$Monochamus$taxa
 #taxaEthyGlyc <- coreTaxaITSLure$data$Ethylene_glycol$taxa
 
 taxVector <- list(UHR_E_AP=OmtaxaAlphapin, C6C8=OmtaxaC6C8, Pine_Sawyer=OmtaxaMonochamus, General_Longhorn=OmtaxaSGenLong)
+overlapOM <- calculate.overlap(taxVector)
 
+writebubbless <- function(bubble, overlapOM) {
+    if (missing(overlapOM)) {
+        conn <- stdout()
+    } else {
+        conn <- file(overlapOM, open="w")
+        on.exit( close(conn) )
+    }
+
+    for (name in names(bubble)) {
+        writeLines(paste(">", name), conn)
+        writeLines(paste(bubble[[name]], collapse=" "), conn)
+    }
+}
+
+writebubbless(overlapOM, "/home/CFIA-ACIA/tremblaye/NGS_for_Fungi_Detection/dataAn/VennPlot/OM.venn.data.insect.lures.tsv")
+#
+ItemsList <- venn(overlapOM, show.plot=FALSE)
 
 # Open file-handle to get ready to make the png graph:
   png(filename=paste(VennPath, "Om", ".VennPlot.lures.png", sep = ""),
